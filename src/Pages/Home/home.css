@@ -1,0 +1,431 @@
+.textCenter h2 {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.line {
+    border-bottom: none;
+    flex-direction: column;
+    align-items: normal;
+}
+
+.BredsSlide {
+    margin-top: 35px;
+    width: 100%;
+}
+
+.textCenter {
+    margin-top: 35px;
+    color: var(--color-TitleText);
+}
+
+.BrandCircle {
+    display: flex !important;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    border-radius: 100%;
+    width: 89.17px !important;
+    height: 89.17px !important;
+    border: 2px solid #E2E8F0;
+}
+
+.BrandImg {
+    width: 90%;
+    height: 70%;
+    object-fit: contain;
+}
+
+.BrendImgCenter {
+    width: 100%;
+    height: 323px !important;
+    margin-top: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.CenterImg {
+    width: 49.5%;
+    height: 100%;
+}
+
+.CenterImg img {
+    width: 100%;
+    height: 100%;
+}
+
+
+
+
+
+.ShopingCartsCenterMain {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 132.28346457px;
+    /* border: 1px solid red; */
+}
+
+.ShopingTextAndIcon h2 {
+    color: var(--color-TitleText);
+}
+
+.ShopingTextAndIcon {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.ShopingCartCenter {
+    width: 100%;
+    /* height: 100vh; */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* border: 1px solid blue; */
+    margin-top: 37.795275591px;
+    /* flex-direction: column; */
+    flex-wrap: wrap;
+    
+}
+
+
+
+.CartCenterMain {
+    width: 314px;
+    height: 320px;
+    margin-top: 30px;
+    border: 2px solid #E2E8F0;
+    border-radius: 8px;
+    position: relative;
+}
+
+.ImgTitleMain {
+    width: 100%;
+    height: 143.62204721px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-bottom: 2px solid #E2E8F0;
+}
+
+.ImgBrendingTitle {
+    width: 95%;
+    height: 81px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 15.118110236px;
+    /* border: 2px solid rgb(16, 227, 65); */
+
+}
+
+.OemTextCenter {
+    width: 88%;
+
+    margin-top: 10px;
+
+}
+
+.Oem {
+    display: flex;
+    font-weight: 300;
+}
+
+.OemNo {
+    font-weight: 600;
+    margin-left: 4px;
+}
+
+
+.ImgFocus {
+    width: 30%;
+    height: 100%;
+    /* border: 1px solid black; */
+}
+
+.ImgFocus img {
+    /* border-radius: 10px; */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.TitleCenter {
+    width: 65%;
+    height: 75.5%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    /* border: 1px solid blue; */
+}
+
+.Tag {
+    display: flex;
+}
+
+.Tag img {
+    margin-right: 7px;
+}
+
+.TagTwo {
+    display: flex;
+    align-items: center;
+}
+
+.ImgCenters {
+    width: 19px;
+    height: 19px;
+}
+
+.ImgCenters {
+    width: 20px;
+    height: 20px;
+}
+
+.ImgCenters img {
+    width: 100%;
+    height: 100%;
+}
+
+.TagTwo p {
+    margin-left: 12px;
+}
+
+
+.OemNo {
+    font-weight: 600;
+    margin-left: 4px;
+}
+
+.brendNo {
+    font-size: 12px;
+}
+
+
+.LocationBrendNameCenter {
+    width: 100%;
+    height: 37.795275591px;
+    border-bottom: 2px solid #E2E8F0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.LocationBrend {
+    width: 300px;
+    height: 23px;
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+    /* border: 1px solid black; */
+}
+
+.Location {
+    width: 59px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    background-color: #F5F5F5;
+}
+
+
+.LocationName {
+    font-size: 10px;
+    color: #072638;
+    font-weight: 600;
+}
+
+.Returun {
+    width: 100.52px;
+    height: 70%;
+    display: flex;
+    border: 1px solid #E53E3E;
+    border-radius: 5px;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+}
+
+.ReturunTitle {
+    color: #E53E3E;
+
+    margin-left: 5px;
+}
+
+.Brend {
+    margin-left: 10px;
+    height: 15.62px;
+    display: flex;
+    align-items: center;
+    /* border: 1px solid black; */
+}
+
+
+.BrendTitle {
+    font-size: 10px;
+}
+
+a {
+    display: inline-flex;
+}
+
+
+.BrendingDetailTitle {
+    width: 100%;
+    height: 37.795275591px;
+    border-bottom: 2px solid #E2E8F0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.BrandingName {
+    width: 90%;
+    /* border: 1px solid black; */
+    display: flex;
+    color: #444444;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.BrendTitleCenter {
+    text-align: start;
+    display: flex;
+    margin-left: 20px;
+    /* align-items: center; */
+}
+
+.BrandingNameTwo {
+    display: contents;
+    font-weight: 400;
+    color: #797979 !important;
+}
+
+.PriceCounter {
+    width: 100%;
+    height: 55.692913386px;
+    border-bottom: 2px solid #E2E8F0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.prices {
+    width: 20%;
+    height: 80%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    margin-left: 20px;
+}
+
+.DelPrice {
+    display: flex;
+}
+
+.DelPrice del {
+    font-size: 12px;
+    color: #797979;
+    font-weight: 600;
+}
+
+.DelPrice p {
+    font-size: 12px;
+    margin-left: 2px;
+    color: #797979;
+    font-weight: 600;
+}
+
+
+.Price {
+    font-size: 14px;
+    font-weight: 700;
+    color: #444444;
+}
+
+.counterCenter {
+    width: 86px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 30px;
+}
+
+.del {
+    width: 17px;
+    height: 17px;
+    border: none;
+    background-color: rgba(24, 35, 144, 0.2);
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    color: #182390;
+}
+
+.counter {
+    width: 23px;
+    height: 24px;
+    border: 1.5px solid #E2E8F0;
+    text-align: center;
+    font-size: 12px;
+    border-radius: 2px;
+}
+
+.counter:focus {
+    outline: none;
+}
+
+.plus {
+    background-color: #182390;
+    color: white;
+    cursor: pointer;
+
+    width: 17px;
+    height: 17px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 700;
+}
+.BasketLikeCenter{
+    width: 100%;
+    height: 40.795275591px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.Basket {
+    width: 236px;
+    height: 23px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    background-color: #182390;
+}
+
+.BasketTitle{
+    margin-left: 4px;
+    font-size: 12px;
+    color: white;
+}
+
+.Heart{
+    cursor: pointer;
+    width: 23.85px;
+    height: 23.43px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    margin-left: 20px;
+    background-color: rgba(242, 242, 242, 0.5);
+}

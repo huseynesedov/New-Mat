@@ -1,0 +1,25 @@
+.top{
+    margin-top: 30px;
+}
+
+.icon-div{
+    display: ruby-text;
+    align-items: end;
+}
+.icon{
+    align-items: center;
+    display: flex;
+}
+.icons{
+    font-size: 20px;
+    margin-right: 5px;
+}
+.footer p {
+    margin-top: 10px !important;
+    margin-bottom: 0px !important;
+}
+.contents{
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+}

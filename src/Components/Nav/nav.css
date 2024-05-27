@@ -1,0 +1,251 @@
+/* -------- Fonts -------- */
+
+/* Roboto */
+
+@import url('https://fonts.googleapis.com/css2?family=Anta&family=Ramabhadra&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Ubuntu&display=swap');
+
+/* Roboto */
+
+/* -------- Fonts -------- */
+
+/* Vars */
+
+:root {
+    --color-dark: #000000;
+    --color-light: #fff;
+    --color-line: #E0E0E0;
+    --color-h3: #969696;
+    --color-TitleText:#444444;
+    --color-btnbg: #182390;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Roboto", sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: none;
+}
+
+.Container {
+    width: 100%;
+    height: 115.97px;
+    display: flex;
+    justify-content: center;
+    /* border: 1px solid black; */
+}
+
+.row {
+    width: 92%;
+    height: 100%;
+    border-bottom: 2px solid var(--color-line);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo_SearchBar {
+    width: 650px;
+    height: 90%;
+    /* border: 1px solid rgb(11, 162, 39); */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.search {
+    width: 500px;
+    display: flex;
+    border: 1.5px solid var(--color-line);
+    justify-content: space-between;
+    height: 40px;
+    border-radius: 20px;
+}
+
+.VoiceGlas {
+    width: auto;
+    display: flex;
+    align-items: center;
+    margin-right: 3px;
+    justify-content: space-between;
+}
+
+.searchTextBar {
+    width: 300px;
+    height: 37px;
+    margin-left: 10px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border: none;
+    align-items: start;
+}
+
+
+.searchTextBar:focus {
+    outline: none;
+  }
+.Voice {
+    margin-right: 5px;
+}
+
+.glasBar {
+    width: 100px;
+    height: 33px;
+    border-radius: 20px;
+    display: flex;
+    color: var(--color-light);
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: var(--color-btnbg);
+}
+
+
+.HiClipboardList {
+    width: 23.3%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.ClipBoard {
+    width: 59px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 47px;
+}
+
+.ClipBoard h3 {
+    font-size: 12px;
+    color: var(--color-h3);
+}
+
+.imgUser {
+    width: 38px;
+    height: 38px;
+    border-radius: 4px;
+}
+
+.imgUser img {
+    width: 100%;
+    height: 100%;
+}
+
+.BiChevronDown {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    justify-content: center;
+}
+
+.UserCart {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    border-bottom: 1px solid var(--color-line);
+}
+
+.colum {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+}
+
+.NameSurname {
+    font-weight: 700;
+    font-size: 13px;
+}
+
+.mail {
+    margin-top: 5px;
+    font-size: 11px;
+}
+
+/* Dropdown Button */
+.dropbtn {
+    margin-left: 7px;
+    border: none;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    height: 80px;
+    background-color: #ffffff;
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    right: 5px;
+    top: 80px;
+    position: absolute;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    min-width: 264px;
+    z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: flex;
+}
+
+/* Show the dropdown menu on hover */
+.BiChevronDown:hover .dropdown-content {
+    display: block;
+}
+
+
+
+
+.DownText {
+    margin-left: 16px;
+}
+
+.Blue {
+    color: #016dd0;
+}
+
+.ChangeLan {
+    width: 75px;
+    height: 27px;
+    border-radius: 22px;
+    margin-left: 26px;
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+}
+
+.LanText {
+    display: flex;
+    margin-left: 10px;
+
+}
+
+.LanFlag{
+    width: 22px;
+    height: 16px;
+    margin-left: 10px;
+    background-color: red;
+}
+
+.upLine{
+    margin-top: 15px;
+    width: 100%;
+    border-top: 1px solid var(--color-line);
+}
+
+.up{
+    margin-top: 15px;
+}
