@@ -8,7 +8,7 @@ import TagTwo from '../Assets/HiTag.svg'
 import Basket from '../Assets/shopping.svg'
 import Heart from '../Assets/favorite.svg'
 
-0
+
 function Cart() {
     const todos = [
         {
