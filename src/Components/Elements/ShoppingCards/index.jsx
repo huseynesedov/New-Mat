@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import  Images from '../../../Assets/images/js/Images'
 
 
-
 function ShoppingCards() {
 
     let {   Tag ,Location,
