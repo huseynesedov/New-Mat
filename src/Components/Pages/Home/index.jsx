@@ -1,25 +1,14 @@
 import React from "react";
 import Slider from "react-slick";
 
-import Navv from "../../Components/Nav/Navv"; // Update import statement
-import { Footer } from "../../Components/Footer/Footer";
-
+import Navv from "../../Layout/Nav/Navv"; // Update import statement
+import { Footer } from "../../Layout/Footer/Footer";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
-// import Tag from '../../Assets/Tag.png'
-// import Location from '../../Assets/location.svg'
-// import Down from '../../Assets/DownSharp.svg'
-// import Return from '../../Assets/Return.svg'
-// import TagTwo from '../../Assets/HiTag.svg'
-// import Basket from '../../Assets/shopping.svg'
-// import Heart from '../../Assets/favorite.svg'
-
-import Cart from "../../Sections/ShoopingCart";
+import ShoppingCards from "../../Elements/ShoppingCards";
 
 import './home.css'
 import { Helmet } from "react-helmet";
-import { Link } from "react-router-dom";
 
 function Home() {
   const settings = {
@@ -220,7 +209,7 @@ function Home() {
                 </div>
               </div> */}
 
-              <Cart></Cart>
+              <ShoppingCards/>
             </div>
 
 

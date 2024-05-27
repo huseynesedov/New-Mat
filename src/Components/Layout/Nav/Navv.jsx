@@ -1,25 +1,24 @@
-// import { useState } from 'react';
-
-
-import './nav.css'
 import { Link } from "react-router-dom";
-import Logo from '../../Assets/Logo.png'
-import Voice from '../../Assets/keyboard_voice_24px.png'
-import Glass from '../../Assets/magnifying-glass.png'
-
-import Heart from '../../Assets/Heart.png'
-import Basket from '../../Assets/BiBasket.png'
-import Clipboard from '../../Assets/Clipboard.png'
-import Vector from '../../Assets/Vector.png'
-
-import User from '../../Assets/User.png'
-import FiUser from '../../Assets/FiUser.png'
-import Office from '../../Assets/OfficeBuilding.png'
-import Key from '../../Assets/Key.png'
-import Language from '../../Assets/Language.png'
+import  Images from '../../../Assets/images/js/Images'
+import './nav.css'
 
 
 function Navv() {
+  let {
+    Basket,
+    Heart,
+    Logo,
+    Voice,
+    Glass,
+    Clipboard,
+    Vector,
+    User,
+    FiUser,
+    Office,
+    Key,
+    Language,
+  } = Images
+
 
   return (
     <>

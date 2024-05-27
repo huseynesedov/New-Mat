@@ -1,16 +1,19 @@
 import { Link } from "react-router-dom";
-
-import Tag from '../Assets/Tag.png'
-import Location from '../Assets/location.svg'
-import Down from '../Assets/DownSharp.svg'
-import Return from '../Assets/Return.svg'
-import TagTwo from '../Assets/HiTag.svg'
-import Basket from '../Assets/shopping.svg'
-import Heart from '../Assets/favorite.svg'
+import  Images from '../../../Assets/images/js/Images'
 
 
-function Cart() {
-    const todos = [
+
+function ShoppingCards() {
+
+    let {   Tag ,Location,
+        Down,
+        Return,
+        TagTwo,
+        Basket,
+        Heart
+    } = Images
+
+    const data = [
         {
             id: 1,
             tag_name: "671987636",
@@ -69,9 +72,9 @@ function Cart() {
     ];
     return (
         <>
-            {todos.length > 0 ?
+            {data.length > 0 ?
 
-                todos.map((todo) => (
+                data.map((todo) => (
                     <Link to={`/Detail/${todo.id}`}>
 
                         <div className="CartCenterMain" key={todo.id}>
@@ -204,4 +207,4 @@ function Cart() {
     );
 }
 
-export default Cart;
+export default ShoppingCards;
