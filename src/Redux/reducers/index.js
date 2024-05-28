@@ -8,14 +8,11 @@ import {
   LOG_OUT,
   LOADING_OFF,
   LOADING_ON,
-  GET_OPTIONS,
-  SET_OPTIONS,
   GET_LANG,
   GET_CATS_ERROR,
   SET_EDIT,
   CANCEL_EDIT,
   GET_LANG_ERROR,
-  // SET_LANG,
   SET_NOTIFICATION,
   SET_STOCK, GET_CATS,
 } from "./../types";
@@ -79,74 +76,7 @@ export function loaderReducer(isLoading = 0, action) {
   }
 }
 
-const initialOptions = {
-  warehouseCategories: [],
-  measurementUnits: [],
-  parcelCategories: [],
-  permissionGroups: [],
-  mainIngredients: [],
-  fertilizerKinds: [],
-  annualWorkPlans: [],
-  cropCategories: [],
-  deliveryTerms: [],
-  parcelRegions: [],
-  parcelSectors: [],
-  reproductions: [],
-  paymentKinds: [],
-  paymentTerms: [],
-  workStatuses: [],
-  fertilizers: [],
-  warehouses: [],
-  positions: [],
-  customers: [],
-  countries: [],
-  cropSorts: [],
-  reserves: [],
-  parcels: [],
-  modules: [],
-  todos: [],
-  users: [],
-  tools: [],
-  crops: [],
 
-  temporaryOperationKinds: [],
-  temporaryInAndOutItems: [],
-  temporaryCustomers: [],
-  temporaryAccountKinds: [],
-  temporaryPayAccounts: [],
-  temporaryParcels: [],
-  temporarySectors: [],
-};
-
-export function optionsReducer(
-  options = {
-    az: { ...initialOptions },
-    en: { ...initialOptions },
-    ru: { ...initialOptions },
-  },
-  action
-) {
-  switch (action.type) {
-    case SET_OPTIONS:
-      return action.payload;
-    // case RESET_OPTION:
-    case GET_OPTIONS:
-      return options;
-    default:
-      return options;
-  }
-}
-
-export function langReducer(langs = [], action) {
-  switch (action.type) {
-    case GET_LANG:
-      return action.payload;
-    case GET_LANG_ERROR:
-      return action.payload.message;
-    default:
-      return langs;
-  }
-}
 
 export function catReducer(cats = [], action) {
   switch (action.type) {
@@ -172,17 +102,6 @@ export function notificationReducer(
   }
 }
 
-export function stockReducer(
-  data = { medicalStock: 0, cropStock: 0, reserveStock: 0 },
-  action
-) {
-  switch (action.type) {
-    case SET_STOCK:
-      return action.payload;
-    default:
-      return data;
-  }
-}
 
 export const edit = (data = false, action) =>{
   switch (action.type){

@@ -6,23 +6,11 @@ import {
   LOG_OUT,
   CANCEL_EDIT,
   SET_EDIT,
-  SET_LANG,
   SET_NOTIFICATION,
-  SET_STOCK, GET_LANG,
-  GET_LANG_ERROR,
 } from "./../types";
 import admin from "../../Const/api";
 import history from "../../Const/history";
 import {apiRoutes} from "../../Const/apiroutes";
-
-export const getStock = () => async (dispatch) => {
-  await admin.get("auth/stockinfo").then((res) => {
-    dispatch({
-      type: SET_STOCK,
-      payload: res.data,
-    });
-  });
-};
 
 export const getUserData = (exp) => async (dispatch) => {
   dispatch({ type: LOADING_ON });
@@ -86,31 +74,7 @@ export const logOut = () => ({
 
 
 
-export const getLangs = () => async (dispatch) => {
-  await admin
-      .get(apiRoutes.admin.language)
-      .then((res) => {
-        dispatch({
-          type: GET_LANG,
-          payload:res.data,
-        });
-      })
-      .catch((error) => {
-        dispatch({
-          type: GET_LANG_ERROR,
-          payload: { message: "Xəta baş verdi" },
-        });
-      })
-}
 
-
-
-export const changeLanguage = (payload) => {
-  return {
-    type: SET_LANG,
-    payload,
-  };
-};
 
 export const notify = (description, isHappy) => {
   return {
