@@ -1,7 +1,12 @@
-const index = () =>{
+import Header from "../Nav/Header";
+import {Footer} from "../Footer/Footer";
+
+const Layout = (props) =>{
     return <div>
-        Hello
+        <Header/>
+        {props.children}
+        <Footer/>
     </div>
 }
 
-export default  index;
+export default  Layout;

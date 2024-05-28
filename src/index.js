@@ -1,41 +1,23 @@
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
-
-import Home from './App';
-
-
-
-import { useLocation } from 'react-router-dom';
-
-function ScrollToTop() {
-  const { pathname } = useLocation();
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
-
-  return null;
-}
-
-
-function Index() {
-  return (
-      <Router>
-        <Routes>
-
-          <Route path="/" element={<Home />} />
-          
-        </Routes>
-        <ScrollToTop />
-      </Router>
-  );
-}
+import { BrowserRouter as Router } from 'react-router-dom';
+import App from './App'
+import './Assets/style/animate.css'
+import './Assets/style/main.scss'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import store from "./Redux/store";
+import { Provider } from 'react-redux';
+import history from './Const/history';
 
 
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<Index />);
+root.render(
+    <Provider store={store}>
+      <Router history={history}><App /></Router>
+    </Provider>,
+);

@@ -3,7 +3,7 @@ import  Images from '../../../Assets/images/js/Images'
 import './nav.css'
 
 
-function Navv() {
+function Header() {
   let {
     Basket,
     Heart,
@@ -23,7 +23,7 @@ function Navv() {
   return (
     <>
       <div className="Container">
-        <div className="row">
+        <div className="myRow">
           <div className="logo_SearchBar">
             <img src={Logo} alt="" />
             <label htmlFor="searchBar">
@@ -163,4 +163,4 @@ function Navv() {
 }
 
 
-export default Navv;
+export default Header;

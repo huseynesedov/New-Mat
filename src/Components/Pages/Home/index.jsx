@@ -1,10 +1,5 @@
 import React from "react";
 import Slider from "react-slick";
-
-import Navv from "../../Layout/Nav/Navv"; // Update import statement
-import { Footer } from "../../Layout/Footer/Footer";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import ShoppingCards from "../../Elements/ShoppingCards";
 
 import './home.css'
@@ -32,10 +27,9 @@ function Home() {
         <title>MAT Software - Home</title>
       </Helmet>
 
-      <Navv />
 
       <div className="Container">
-        <div className="row line">
+        <div className="myRow line">
           <div className="textCenter">
             <h2>En cox satilan brendler</h2>
           </div>
@@ -223,7 +217,6 @@ function Home() {
       </div>
 
 
-      <Footer />
     </>
   );
 }

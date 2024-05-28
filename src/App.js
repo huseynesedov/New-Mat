@@ -1,10 +1,14 @@
-import Home from './Components/Pages/Home/index';
+import React from "react";
+import  RouteList  from "./Components/Layout/Routes/Routes"
+import Layout from "./Components//Layout/MainLayout/Layout"
 
 function App() {
-  return (
-    <>
-      <Home/>
-    </>
+    return (
+        <>
+            <Layout>
+                <RouteList/>
+            </Layout>
+        </>
   );
 }
 
