@@ -103,7 +103,7 @@ function Header() {
                       </div>
                     </Link>
 
-                    <Link>
+                    <Link to={'/profile'}>
                       <img src={FiUser} alt=""/>
                       <p className='DownText Blue'>
                         Şəxsi Məlumatlar
