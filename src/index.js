@@ -11,6 +11,7 @@ import "slick-carousel/slick/slick-theme.css";
 import store from "./Redux/store";
 import { Provider } from 'react-redux';
 import history from './Const/history';
+import './i18n';
 
 
 

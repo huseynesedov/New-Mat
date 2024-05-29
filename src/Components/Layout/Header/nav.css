@@ -19,6 +19,7 @@
     --color-btnbg: #182390;
 }
 
+
 * {
     margin: 0;
     padding: 0;
@@ -42,10 +43,14 @@ a {
 .myRow {
     width: 92%;
     height: 100%;
-    border-bottom: 2px solid var(--color-line);
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+
+.border-bottom-line{
+    border-bottom: 2px solid var(--color-line);
 }
 
 .logo_SearchBar {
@@ -105,20 +110,29 @@ a {
 
 
 .HiClipboardList {
-    width: 23.3%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     height: 100%;
 }
 
+.HiClipboardList a {
+    margin-right: 20px;
+}
+
 .ClipBoard {
+    margin-top: 10px;
     width: 59px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 47px;
+}
+
+.ClipBoard img{
+    height: 24px;
+    width: 24px;
 }
 
 .ClipBoard h3 {

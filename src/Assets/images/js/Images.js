@@ -18,6 +18,19 @@ import Key from '../Key.png'
 import Language from '../Language.png'
 
 
+import Agat from '../agat.png'
+import Delphi from '../delphi.png'
+import Holts from '../holts.png'
+import Lavr from '../lavr.png'
+import Gm from '../gm.png'
+import EuroLub from '../EUROLUB.png'
+import  Lamborgini from '../lamborgini.png'
+import wolswagen from '../wolswagen.png'
+import  nissan from '../nissan.png'
+
+import elba from '../elba.png'
+import  foodg from '../foodg.png'
+
 export default  {
      Tag ,
      Location,
@@ -36,4 +49,15 @@ export default  {
      Office,
      Key,
      Language,
+     Agat,
+     Delphi ,
+     Holts ,
+     Lavr ,
+     Gm ,
+     EuroLub ,
+     Lamborgini ,
+     wolswagen ,
+     nissan,
+     elba,
+     foodg
 }

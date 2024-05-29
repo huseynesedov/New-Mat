@@ -4,22 +4,9 @@ import ShoppingCards from "../../Elements/ShoppingCards";
 
 import './home.css'
 import { Helmet } from "react-helmet";
-
+import images from "../../../Assets/images/js/Images";
 function Home() {
-  const settings = {
-    className: "center",
-    infinite: true,
-    centerPadding: "60px",
-    slidesToShow: 10,
-    autoplay: true,
-    autoplaySpeed: 2000,
-    swipeToSlide: true,
-    afterChange: function (index) {
-      console.log(
-        `Slider Changed to: ${index + 1}, background: #222; color: #bada55`
-      );
-    }
-  };
+  let {foodg , elba} = images
   return (
     <>
       <Helmet>
@@ -30,53 +17,13 @@ function Home() {
 
       <div className="Container">
         <div className="myRow line">
-          <div className="textCenter">
-            <h2>En cox satilan brendler</h2>
-          </div>
-          <div className="BredsSlide">
-            <div className="slider-container">
-              <Slider {...settings}>
-                <div className="BrandCircle">
-                  <img className="BrandImg" src="https://upload.wikimedia.org/wikipedia/commons/4/44/BMW.svg" alt="" />
-                </div>
-                <div className="BrandCircle">
-                  <img className="BrandImg" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Mercedes-Benz_Star_2022.svg/120px-Mercedes-Benz_Star_2022.svg.png" alt="" />
-                </div>
-                <div className="BrandCircle">
-                  <h3>3</h3>
-                </div>
-                <div className="BrandCircle">
-                  <h3>4</h3>
-                </div>
-                <div className="BrandCircle">
-                  <h3>5</h3>
-                </div>
-                <div className="BrandCircle">
-                  <h3>6</h3>
-                </div>
-                <div className="BrandCircle">
-                  <h3>7</h3>
-                </div>
-                <div className="BrandCircle">
-                  <h3>8d</h3>
-                </div>
-                <div className="BrandCircle">
-                  <h3>9</h3>
-                </div>
-                <div className="BrandCircle">
-                  <h3>10</h3>
-                </div>
-              </Slider>
-            </div>
-
-          </div>
 
           <div className="BrendImgCenter">
             <div className="CenterImg">
-              <img src="https://seyler.ekstat.com/img/max/800/i/iOA665pDf2mr7M8P-636554123779981811.jpg" alt="" />
+              <img src={foodg} alt="" />
             </div>
             <div className="CenterImg">
-              <img src="https://seyler.ekstat.com/img/max/800/i/iOA665pDf2mr7M8P-636554123779981811.jpg" alt="" />
+              <img src={elba} alt="" />
             </div>
           </div>
 

@@ -3,7 +3,6 @@ import {thunk} from "redux-thunk";
 import {
   userReducer,
   loaderReducer,
-  langReducer,
   notificationReducer,
   catReducer,
   edit,
@@ -14,7 +13,6 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const rootReducer = combineReducers({
   user: userReducer,
   loader: loaderReducer,
-  langs: langReducer,
   cats: catReducer,
   edit:edit,
   notification: notificationReducer,
