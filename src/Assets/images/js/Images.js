@@ -17,6 +17,16 @@ import Office from '../OfficeBuilding.png'
 import Key from '../Key.png'
 import Language from '../Language.png'
 
+import user from "../User.svg"
+import mail from "../MailOutline.svg"
+import location from "../location2.svg"
+import tel from "../Phone.svg"
+import pen from "../edit.svg"
+import NewAddress from "../add_circle.svg"
+import Add_Bin from "../Add_Bin.svg"
+import SearchBar from "../BiSearch.svg"
+import FiTag from "../FiTag.svg"
+
 
 import Agat from '../agat.png'
 import Delphi from '../delphi.png'
@@ -24,15 +34,15 @@ import Holts from '../holts.png'
 import Lavr from '../lavr.png'
 import Gm from '../gm.png'
 import EuroLub from '../EUROLUB.png'
-import  Lamborgini from '../lamborgini.png'
+import Lamborgini from '../lamborgini.png'
 import wolswagen from '../wolswagen.png'
-import  nissan from '../nissan.png'
+import nissan from '../nissan.png'
 
 import elba from '../elba.png'
-import  foodg from '../foodg.png'
+import foodg from '../foodg.png'
 
-export default  {
-     Tag ,
+export default {
+     Tag,
      Location,
      Down,
      Return,
@@ -50,14 +60,23 @@ export default  {
      Key,
      Language,
      Agat,
-     Delphi ,
-     Holts ,
-     Lavr ,
-     Gm ,
-     EuroLub ,
-     Lamborgini ,
-     wolswagen ,
+     Delphi,
+     Holts,
+     Lavr,
+     Gm,
+     EuroLub,
+     Lamborgini,
+     wolswagen,
      nissan,
      elba,
-     foodg
+     foodg,
+     user,
+     mail,
+     location,
+     tel,
+     pen, 
+     NewAddress,
+     Add_Bin,
+     SearchBar,
+     FiTag
 }

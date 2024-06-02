@@ -138,8 +138,140 @@
 .mat2-ProfilContainer {
     width: 90%;
     height: 84%;
-    border: 1px solid;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+
+.w-402p {
+    width: 430px !important;
+}
+
+.form-group input:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.form-group textarea:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.black-4 {
+    color: #444444 !important;
+    font-weight: 700;
+}
+
+.input-place::placeholder {
+    color: #A0AEC0;
+    font-weight: 400;
+}
+
+.UserEditİnfo {
+    padding: 6px 15px 6px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1.7px solid #0162DD;
+    color: #0162DD;
+    border-radius: 6px;
+    background-color: transparent;
+}
+
+.UserEditİnfo span {
+    font-size: 14px;
+    margin-left: 8px;
+}
+
+
+.textarea {
+    height: 121px;
+}
+
+.textarea::placeholder {
+    margin-top: 20px;
+}
+
+
+.AddNewAddres {
+    width: 170px;
+    height: 24px;
+    border: none;
+    display: flex;
+    color: #8F8F8F;
+    background-color: transparent;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.Add_Bin {
+    cursor: pointer;
+    display: none;
+}
+
+
+.SearchInput {
+    margin-left: 20px;
+    border: none;
+    background-color: transparent;
+}
+
+.ProductSearch {
+    width: 336px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #EBEBEB;
+    color: #0162DD;
+    border-radius: 6px;
+    background-color: transparent;
+}
+
+.SearchInput::placeholder {
+    color: #A0AEC0;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.SearchInput:focus {
+    outline: none;
+}
+
+.SearchBarIcon {
+    margin-right: 15px;
+}
+
+
+
+
+.mat3-ProfilContainer {
+    width: 90%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.TagNo {
+    border-bottom: 1.2px solid #E2E8F0;
+}
+
+.TagNo img {
+    margin-right: 4px;
+}
+
+.TagNo span {
+    font-size: 16;
+    font-weight: 500;
+}
+
+
+
+.ProductEvaluate {
+    width: 262px;
+    height: 32px;
+    color: #0162DD;
+    border: 2px solid #0162DD;
+    background-color: transparent;
+    border-radius: 8px;
 }

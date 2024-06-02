@@ -1,5 +1,4 @@
 import React from "react";
-import Slider from "react-slick";
 import ShoppingCards from "../../Elements/ShoppingCards";
 
 import './home.css'
