@@ -192,7 +192,7 @@ const Profile = () => {
 
 
                                 <div className="row d-flex  justify-content-between mt-5">
-                                    <div className="col-4 border rounded" style={{ width: "315px", height: "400px" }}>
+                                    <div className="col-4 border rounded" style={{ width: "366px" }}>
                                         <div className="row">
                                             <div className="col d-flex align-items-center justify-content-center">
                                                 <img src="https://seyler.ekstat.com/img/max/800/i/iOA665pDf2mr7M8P-636554123779981811.jpg" className="mt-4" style={{ width: "144px", height: "136px" }} alt="" />
@@ -204,97 +204,21 @@ const Profile = () => {
                                                 <span className="black-4">56808394934</span>
                                             </div>
                                         </div>
-                                        <div className="row mt-2">
+                                        <div className="row mt-3">
                                             <div className="col">
                                                 <p style={{ fontSize: "15px", color: "#797979" }}>
                                                     <b className="black-4" style={{ fontSize: "16px !important" }}>Shell Rotella 550041918 </b>-2PK T6 Tam Sintetik Ağır Mühərrik Yağı 5W-40, 2,5 Qalon Sürahi, 2 paket
                                                 </p>
                                             </div>
                                         </div>
-                                        <div className="row mt-2">
+                                        <div className="row mt-3">
                                             <div className="col">
                                                 <p style={{ color: "#797979", fontSize: "12px", marginLeft: "5px" }}>
                                                     Təslim edilən tarix : 10-10-2010
                                                 </p>
                                             </div>
                                         </div>
-                                        <div className="row mt-4">
-                                            <div className="col d-flex align-items-center justify-content-center">
-                                                <button className="ProductEvaluate" data-toggle="modal" data-target="#exampleModalLong">
-                                                    Məhsulu Dəyərləndir
-                                                </button>
-                                            </div>
-                                        </div>
-
-
-
-
-                                    </div>
-                                    <div className="col-4 border rounded" style={{ width: "315px", height: "400px" }}>
-                                        <div className="row">
-                                            <div className="col d-flex align-items-center justify-content-center">
-                                                <img src="https://seyler.ekstat.com/img/max/800/i/iOA665pDf2mr7M8P-636554123779981811.jpg" className="mt-4" style={{ width: "144px", height: "136px" }} alt="" />
-                                            </div>
-                                        </div>
-                                        <div className="row mt-4 ">
-                                            <div className="col TagNo d-flex aligin-items-center">
-                                                <img src={FiTag} alt="" />
-                                                <span className="black-4">56808394934</span>
-                                            </div>
-                                        </div>
-                                        <div className="row mt-2">
-                                            <div className="col">
-                                                <p style={{ fontSize: "15px", color: "#797979" }}>
-                                                    <b className="black-4" style={{ fontSize: "16px !important" }}>Shell Rotella 550041918 </b>-2PK T6 Tam Sintetik Ağır Mühərrik Yağı 5W-40, 2,5 Qalon Sürahi, 2 paket
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div className="row mt-2">
-                                            <div className="col">
-                                                <p style={{ color: "#797979", fontSize: "12px", marginLeft: "5px" }}>
-                                                    Təslim edilən tarix : 10-10-2010
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div className="row mt-4">
-                                            <div className="col d-flex align-items-center justify-content-center">
-                                                <button className="ProductEvaluate" data-toggle="modal" data-target="#exampleModalLong">
-                                                    Məhsulu Dəyərləndir
-                                                </button>
-                                            </div>
-                                        </div>
-
-
-
-
-                                    </div>
-                                    <div className="col-4 border rounded" style={{ width: "315px", height: "400px" }}>
-                                        <div className="row">
-                                            <div className="col d-flex align-items-center justify-content-center">
-                                                <img src="https://seyler.ekstat.com/img/max/800/i/iOA665pDf2mr7M8P-636554123779981811.jpg" className="mt-4" style={{ width: "144px", height: "136px" }} alt="" />
-                                            </div>
-                                        </div>
-                                        <div className="row mt-4 ">
-                                            <div className="col TagNo d-flex aligin-items-center">
-                                                <img src={FiTag} alt="" />
-                                                <span className="black-4">56808394934</span>
-                                            </div>
-                                        </div>
-                                        <div className="row mt-2">
-                                            <div className="col">
-                                                <p style={{ fontSize: "15px", color: "#797979" }}>
-                                                    <b className="black-4" style={{ fontSize: "16px !important" }}>Shell Rotella 550041918 </b>-2PK T6 Tam Sintetik Ağır Mühərrik Yağı 5W-40, 2,5 Qalon Sürahi, 2 paket
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div className="row mt-2">
-                                            <div className="col">
-                                                <p style={{ color: "#797979", fontSize: "12px", marginLeft: "5px" }}>
-                                                    Təslim edilən tarix : 10-10-2010
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div className="row mt-4">
+                                        <div className="row mt-4 mb-4">
                                             <div className="col d-flex align-items-center justify-content-center">
                                                 <button className="ProductEvaluate" data-toggle="modal" data-target="#exampleModalLong">
                                                     Məhsulu Dəyərləndir

@@ -1,7 +1,4 @@
 import "./style.css"
-import images from "../../../Assets/images/js/Images"
-import { useState } from "react";
-
 
 
 const Address = () => {
