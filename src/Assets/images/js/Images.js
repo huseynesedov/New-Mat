@@ -26,6 +26,7 @@ import NewAddress from "../add_circle.svg"
 import Add_Bin from "../Add_Bin.svg"
 import SearchBar from "../BiSearch.svg"
 import FiTag from "../FiTag.svg"
+import ModalClose from "../ModalCloseButton.svg"
 
 
 import Agat from '../agat.png'
@@ -78,5 +79,6 @@ export default {
      NewAddress,
      Add_Bin,
      SearchBar,
-     FiTag
+     FiTag,
+     ModalClose
 }

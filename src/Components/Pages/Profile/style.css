@@ -275,3 +275,75 @@
     background-color: transparent;
     border-radius: 8px;
 }
+
+
+
+
+.modal-dialog {
+    height: 92% !important;
+    display: flex;
+    align-items: center;
+
+}
+
+.x {
+    cursor: pointer;
+}
+
+.p-rating-item-active {
+    background-image: url("../../../Assets/images/star_activ.svg");
+    color: transparent;
+}
+
+.p-rating-icon svg {
+    border: 1px solid black;
+}
+
+
+.p-rating-item {
+    width: 20px;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    height: 20px;
+}
+
+.p-icon {
+    width: 18px;
+    height: 17px;
+    margin-top: 3px;
+    margin-left: 3px;
+}
+
+.modal-footer {
+    border-top: none !important;
+}
+
+.modal-header {
+    padding: 0 !important;
+}
+
+.ModalClose {
+    width: 134px;
+    height: 40px;
+    color: black !important;
+    border: none !important;
+    background-color: #EDF2F7 !important;
+}
+
+.ModalSend {
+    width: 134px;
+    height: 40px;
+    color: white !important;
+    border: none !important;
+    background-color: #182390 !important;
+}
+
+.ModalTextarea {
+    height: 95px !important;
+}
+
+.ModalTextarea:focus {
+    box-shadow: none !important;
+    border: 1px solid #E2E8F0 !important;
+}
