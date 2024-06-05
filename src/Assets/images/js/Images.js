@@ -42,6 +42,8 @@ import nissan from '../nissan.png'
 import elba from '../elba.png'
 import foodg from '../foodg.png'
 
+import footer from '../logo-removebg-preview.svg'
+
 export default {
      Tag,
      Location,
@@ -80,5 +82,6 @@ export default {
      Add_Bin,
      SearchBar,
      FiTag,
-     ModalClose
+     ModalClose,
+     footer
 }

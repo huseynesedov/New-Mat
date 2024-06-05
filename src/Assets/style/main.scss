@@ -6,3 +6,25 @@
 p{
   margin-bottom: 0 !important;
 }
+
+
+.footer{
+  height: 100%;
+  padding-top:85px;
+  padding-bottom:60px;
+  background: $main-color;
+  font-size:14px;
+  .heading{
+    text-transform: uppercase;
+  }
+  .social-icon-item{
+    height:37px;
+    width:37px;
+    border:2px solid white;
+    border-radius:50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+  }
+}

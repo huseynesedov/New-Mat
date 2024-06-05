@@ -14,7 +14,7 @@ function Home() {
       </Helmet>
 
 
-      <div className="Container">
+      <div className="Container h-100">
         <div className="myRow line">
 
           <div className="BrendImgCenter">
@@ -151,14 +151,7 @@ function Home() {
 
               <ShoppingCards/>
             </div>
-
-
-
-
-
           </div>
-
-
         </div>
       </div>
 
