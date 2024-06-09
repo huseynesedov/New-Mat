@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { Rating } from 'primereact/rating';
 import { Products } from './Product';
+
 import Images from '../../../../Assets/images/js/Images';
 
 const Item = () => {

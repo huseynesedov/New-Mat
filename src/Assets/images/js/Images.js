@@ -28,6 +28,9 @@ import SearchBar from "../BiSearch.svg"
 import FiTag from "../FiTag.svg"
 import ModalClose from "../ModalCloseButton.svg"
 
+import Hiuser from "../HiUser.svg"
+
+
 
 import Agat from '../agat.png'
 import Delphi from '../delphi.png'
@@ -83,5 +86,6 @@ export default {
      SearchBar,
      FiTag,
      ModalClose,
-     footer
+     footer,
+     Hiuser
 }

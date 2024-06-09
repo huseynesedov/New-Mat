@@ -83,8 +83,8 @@ const Profile = () => {
 
                             <div className="mat-TwoPage">
 
-                                <button className="mat-ButtonInfo Active" onClick={handlePage1Click}>Şəxsi Məlumatlar</button>
-                                <button className="mat-ButtonBack " onClick={handlePage2Click}>Geri Bildirmə</button>
+                                <button className={`mat-ButtonInfo ${currentPage === 1 ? "Active" : ""}`} onClick={handlePage1Click}>Şəxsi Məlumatlar</button>
+                                <button className={`mat-ButtonBack ${currentPage === 2 ? "Active" : ""}`} onClick={handlePage2Click}>Geri Bildirmə</button>
                             </div>
 
                         </div>

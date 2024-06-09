@@ -110,7 +110,7 @@ function Header() {
                       </p>
                     </Link>
 
-                    <Link>
+                    <Link to={'/BusinesProfil'}>
                       <img src={Office} alt=""/>
                       <p className="DownText">
                         Şirkət Məlumatları

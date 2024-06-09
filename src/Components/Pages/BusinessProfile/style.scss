@@ -1,0 +1,375 @@
+.mat-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.mat-row {
+    margin-top: 45px;
+    height: 1342px;
+    width: 92%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background-color: #F2F2F2;
+}
+
+.mat-row2 {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.matP {
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.mat-profilInformationContainer {
+    width: 100%;
+    height: 228px;
+    margin-top: 30px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border: 2px solid #E2E8F0;
+
+}
+
+.mat-ProfilContainer {
+    width: 90%;
+    height: 84%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.mat-ProfilCenter {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    height: 130px;
+}
+
+.mat-Profil {
+    max-width: 130px;
+    max-height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #EBEBEB;
+    border-radius: 8px;
+}
+
+
+.mat-UserInformationCenter {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: 30px;
+}
+
+.UserName {
+    font-size: 24px;
+    font-weight: 500;
+    color: #444444;
+}
+
+.mat-UserInformation {
+    width: 100%;
+}
+
+.mat-UserMailText {
+    align-items: center;
+    color: #444444;
+
+    font-size: 12px;
+    font-weight: 400;
+    margin-left: 5px;
+}
+
+.ml-20 {
+    margin-left: 20px;
+}
+
+.mat-UserMail {
+    align-items: center;
+}
+
+.mat-ButtonInfo,
+.mat-ButtonBack {
+    border: none;
+    background-color: transparent;
+    color: #444444;
+}
+
+.mat-ButtonBack {
+    margin-left: 20px;
+}
+
+.Active {
+    color: #0162DD !important;
+}
+
+
+
+.mat-UserInformationContainer {
+    width: 100%;
+    height: 865px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border: 2px solid #E2E8F0;
+    margin-top: 50px;
+}
+
+
+
+
+
+/* new */
+
+
+.mat3-ProfilContainer {
+    width: 90%;
+    height: 84%;
+    display: flex;
+    flex-direction: column;
+}
+
+.w-402p {
+    width: 430px !important;
+}
+
+.form-group input:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.form-group textarea:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.black-4 {
+    color: #444444 !important;
+    font-weight: 700;
+}
+
+.input-place::placeholder {
+    color: #A0AEC0;
+    font-weight: 400;
+}
+
+.UserEditİnfo {
+    padding: 6px 15px 6px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1.7px solid #0162DD;
+    color: #0162DD;
+    border-radius: 6px;
+    background-color: transparent;
+}
+
+.UserEditİnfo span {
+    font-size: 14px;
+    margin-left: 8px;
+}
+
+
+.textarea {
+    height: 121px;
+}
+
+.textarea::placeholder {
+    margin-top: 20px;
+}
+
+
+.AddNewAddres {
+    width: 170px;
+    height: 24px;
+    border: none;
+    display: flex;
+    color: #8F8F8F;
+    background-color: transparent;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.Add_Bin {
+    cursor: pointer;
+    display: none;
+}
+
+
+.SearchInput {
+    margin-left: 20px;
+    border: none;
+    background-color: transparent;
+}
+
+.ProductSearch {
+    width: 336px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #EBEBEB;
+    color: #0162DD;
+    border-radius: 6px;
+    background-color: transparent;
+}
+
+.SearchInput::placeholder {
+    color: #A0AEC0;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.SearchInput:focus {
+    outline: none;
+}
+
+.SearchBarIcon {
+    margin-right: 15px;
+}
+
+
+
+
+.mat3-ProfilContainer {
+    width: 90%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.TagNo {
+    border-bottom: 1.2px solid #E2E8F0;
+}
+
+.TagNo img {
+    margin-right: 4px;
+}
+
+.TagNo span {
+    font-size: 16;
+    font-weight: 500;
+}
+
+
+
+.ProductEvaluate {
+    width: 262px;
+    height: 32px;
+    color: #0162DD;
+    border: 2px solid #0162DD;
+    background-color: transparent;
+    border-radius: 8px;
+}
+
+
+
+
+.modal-dialog {
+    height: 92% !important;
+    display: flex;
+    align-items: center;
+
+}
+
+.x {
+    cursor: pointer;
+}
+
+.p-rating-item-active {
+    background-image: url("../../../Assets/images/star_activ.svg");
+    color: transparent;
+}
+
+.p-rating-icon svg {
+    border: 1px solid black;
+}
+
+
+.p-rating-item {
+    width: 20px;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    height: 20px;
+}
+
+.p-icon {
+    width: 18px;
+    height: 17px;
+    margin-top: 3px;
+    margin-left: 3px;
+}
+
+.modal-footer {
+    border-top: none !important;
+}
+
+.modal-header {
+    padding: 0 !important;
+}
+
+.ModalClose {
+    width: 134px;
+    height: 40px;
+    color: black !important;
+    border: none !important;
+    background-color: #EDF2F7 !important;
+}
+
+.ModalSend {
+    width: 134px;
+    height: 40px;
+    color: white !important;
+    border: none !important;
+    background-color: #182390 !important;
+}
+
+.ModalTextarea {
+    height: 95px !important;
+}
+
+.ModalTextarea:focus {
+    box-shadow: none !important;
+    border: 1px solid #E2E8F0 !important;
+}
+
+
+
+
+.gradient1{
+    width: 246px !important ;
+    height: 156px !important;
+    border-radius: 16px;
+    background: linear-gradient(110deg , #9CD1EB 0%, #1D739F);
+}
+
+.gradient2{
+    width: 246px !important ;
+    height: 156px !important;
+    border-radius: 16px;
+    background: linear-gradient(110deg , #FED4B4 0%, #3BB9A1);
+}
+
+.gradient3{
+    width: 246px !important ;
+    height: 156px !important;
+    border-radius: 16px;
+    background: linear-gradient(110deg , #BAE8FB 0%, #B2B1FD);
+}
