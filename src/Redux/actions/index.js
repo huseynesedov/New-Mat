@@ -32,36 +32,42 @@ export const getUserData = (exp) => async (dispatch) => {
 };
 
 export const logInUser = (e, p) => async (dispatch) => {
-  if (e.trim().length === 0 ||   p.trim().length === 0) {
-    dispatch({
-      type: SET_USER_ERROR,
-      payload: { message: "İstifadəçi adı və şifrə daxil edilməlidir" },
-    });
-  } else {
-    dispatch({ type: LOADING_ON });
-    await admin
-      .post(apiRoutes.admin.login , {
-        username:e , password:p
-      })
-      .then((res) => {
-        localStorage.setItem("access_token", res.data.token);
-        // dispatch(getUserData());
-        dispatch({
-          type: SET_USER_LOGGED_IN,
-          payload: localStorage.getItem("access_token"),
-        });
-        history.push("/");
-      })
-      .catch((error) => {
-        dispatch({
-          type: SET_USER_ERROR,
-          payload: { message: "İstifadəçi adı və ya şifrə yanlışdır" },
-        });
-      })
-      .finally(() => {
-        dispatch({ type: LOADING_OFF });
-      });
-  }
+  // temporary
+  dispatch({
+    type: SET_USER_LOGGED_IN,
+    payload: localStorage.getItem("access_token"),
+  });
+
+  // if (e.trim().length === 0 ||   p.trim().length === 0) {
+  //   dispatch({
+  //     type: SET_USER_ERROR,
+  //     payload: { message: "İstifadəçi adı və şifrə daxil edilməlidir" },
+  //   });
+  // } else {
+  //   dispatch({ type: LOADING_ON });
+  //   await admin
+  //     .post(apiRoutes.admin.login , {
+  //       username:e , password:p
+  //     })
+  //     .then((res) => {
+  //       localStorage.setItem("access_token", res.data.token);
+  //       // dispatch(getUserData());
+  //       dispatch({
+  //         type: SET_USER_LOGGED_IN,
+  //         payload: localStorage.getItem("access_token"),
+  //       });
+  //       history.push("/");
+  //     })
+  //     .catch((error) => {
+  //       dispatch({
+  //         type: SET_USER_ERROR,
+  //         payload: { message: "İstifadəçi adı və ya şifrə yanlışdır" },
+  //       });
+  //     })
+  //     .finally(() => {
+  //       dispatch({ type: LOADING_OFF });
+  //     });
+  // }
 };
 
 export const toggleLoading = (payload) => ({
