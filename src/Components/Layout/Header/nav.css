@@ -188,7 +188,7 @@ a {
 }
 
 /* The container <div> - needed to position the dropdown content */
-.dropdown {
+.DropDown {
     height: 80px;
     background-color: #ffffff;
     position: relative;

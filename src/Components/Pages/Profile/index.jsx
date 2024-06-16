@@ -176,6 +176,7 @@ const Profile = () => {
                                             <div className="col d-flex flex-row-reverse ">
                                                 <img src={Add_Bin} alt="" className={`${isFlex ? 'd-flex' : ''} Add_Bin`} onClick={handleHideClick} />
                                             </div>
+                                            
                                             {ShowNewAddres && <NewAddres />}
                                             <button onClick={handleClick} className="AddNewAddres">
                                                 <img src={NewAddress} alt="" />

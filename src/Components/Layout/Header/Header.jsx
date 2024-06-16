@@ -58,7 +58,7 @@ function Header() {
                   </h3>
                 </div>
               </Link>
-              <Link className={'nav-link'}>
+              <Link className={'nav-link'} to="/Basket">
                 <div className="ClipBoard">
                   <img src={Basket} alt=""/>
                   <h3>
@@ -83,7 +83,7 @@ function Header() {
                 </div>
                 <img src={Vector} className='dropbtn' alt=""/>
 
-                <div class="dropdown">
+                <div class="DropDown">
 
                   <div class="dropdown-content">
 

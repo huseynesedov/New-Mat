@@ -30,6 +30,11 @@ import ModalClose from "../ModalCloseButton.svg"
 
 import Hiuser from "../HiUser.svg"
 
+import Box from "../FiBox.svg"
+import CarOrder from "../car-order.svg"
+import down from "../arrow_down_.svg"
+import Liner from "../Line.svg"
+import TabloDelete from "../delete_tablo.svg"
 
 
 import Agat from '../agat.png'
@@ -80,12 +85,17 @@ export default {
      mail,
      location,
      tel,
-     pen, 
+     pen,
      NewAddress,
      Add_Bin,
      SearchBar,
      FiTag,
      ModalClose,
      footer,
-     Hiuser
+     Hiuser,
+     Box,
+     down,
+     CarOrder,
+     Liner,
+     TabloDelete
 }
