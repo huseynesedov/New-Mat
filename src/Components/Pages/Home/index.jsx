@@ -26,7 +26,7 @@ function Home() {
             </div>
           </div>
 
-          <div className="ShopingCartsCenterMain">
+          <div className="ShopingCartsCenterMain mt-5">
             <div className="ShopingTextAndIcon">
               <h2>En cox satilan brendler</h2>
             </div>

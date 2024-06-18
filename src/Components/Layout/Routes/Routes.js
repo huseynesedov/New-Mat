@@ -5,6 +5,7 @@ import React from "react";
 import Profile from "../../Pages/Profile";
 import BusinesProfil from "../../Pages/BusinessProfile";
 import Basket from "../../Pages/Basket/index";
+import Detail from "../../Pages/ProductDetail/index";
 
 
 const RouteList = () => {
@@ -14,6 +15,7 @@ const RouteList = () => {
             <Route path="/profile" element={<Profile />} />
             <Route path="/BusinesProfil" element={<BusinesProfil />} />
             <Route path="/Basket" element={<Basket />} />
+            <Route path="/detail/:id" element={<Detail />} />
         </Routes>
     </>
 }

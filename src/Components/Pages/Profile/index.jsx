@@ -211,8 +211,6 @@ const Profile = () => {
                                 <div className="row d-flex  justify-content-between mt-5">
 
                                         <ProdcutItem  />
-                           
-
                                 </div>
                             </div>
                         )}

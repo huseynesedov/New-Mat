@@ -133,7 +133,7 @@ const BasketItems = () => {
                                                 </div>
                                             </div>
                                             <div className="col mt-2">
-                                                <h3 className="BrandingName">
+                                            <h3 className="BrandingName">
                                                     {Data.brand_name}
                                                     <span className="BrandingNameTwo">
                                                         {Data.brand_title}

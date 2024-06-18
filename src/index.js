@@ -18,7 +18,9 @@ import './i18n';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <Provider store={store}>
-      <Router history={history}><App /></Router>
-    </Provider>,
+  <Provider store={store}>
+    <Router history={history}>
+      <App />
+    </Router>
+  </Provider>,
 );

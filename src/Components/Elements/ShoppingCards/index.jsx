@@ -4,7 +4,7 @@ import Images from '../../../Assets/images/js/Images'
 
 function ShoppingCards() {
 
-    let { Tag, Location,
+    let { FiTag, Location,
         Down,
         Return,
         TagTwo,
@@ -71,7 +71,7 @@ function ShoppingCards() {
     ];
     return (
         <>
-            <div className="container-fluid">
+            <div className="container-fluid mt-5">
                 <div className="row">
                     {data.length > 0 ?
 
@@ -87,7 +87,7 @@ function ShoppingCards() {
                                             </div>
                                             <div className="TitleCenter">
                                                 <span className="Tag">
-                                                    <img src={Tag} alt="" />
+                                                    <img src={FiTag} alt="" />
                                                     <p className="OemNo">
                                                         {d.tag_name}
                                                     </p>
@@ -147,8 +147,8 @@ function ShoppingCards() {
 
                                     </div>
 
-                                    <Link to={`/Detail/${d.id}`} className="BrendingDetailTitle text-decoration-none">
-                                        <div className="BrendTitleCenter">
+                                    <Link to={`/detail/${d.id}`} className="BrendingDetailTitle text-decoration-none">
+                                        <div className="BrendTitleCenter mt-2">
                                             <h3 className="BrandingName">
 
                                                 {d.brand_name}
@@ -170,7 +170,7 @@ function ShoppingCards() {
 
                                                 </del>
                                             </p>
-                                            <p className="Price">
+                                            <p className="Price fb-800">
                                                 {d.price}
 
                                             </p>

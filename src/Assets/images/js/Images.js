@@ -36,6 +36,15 @@ import down from "../arrow_down_.svg"
 import Liner from "../Line.svg"
 import TabloDelete from "../delete_tablo.svg"
 
+// Detail Page
+import chrevron_right from "../chevron-right.svg"
+import ShareSosial from "../ShareSosial.svg"
+import Star_Yellow from "../star_border_yellow.svg"
+import Star_Gray from "../star_border_grayx.svg"
+import Location_gray from "../IoLocationGreen.svg"
+import Heart2 from "../favorite_border_24px.svg"
+
+
 
 import Agat from '../agat.png'
 import Delphi from '../delphi.png'
@@ -97,5 +106,11 @@ export default {
      down,
      CarOrder,
      Liner,
-     TabloDelete
+     TabloDelete,
+     chrevron_right,
+     ShareSosial,
+     Star_Yellow,
+     Star_Gray,
+     Location_gray,
+     Heart2
 }
