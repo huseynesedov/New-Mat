@@ -92,7 +92,26 @@ const Index = () => {
             {currentPage === 2 && (
                 <div className="container-fluid  d-flex justify-content-center ">
                     <div className="myRow">
-                        
+                        <table className="table  table-bordered mt-3">
+                            <tbody>
+                                <tr className={'table-light'}>
+                                    <th scope="col">Arac marka</th>
+                                    <th colSpan={2} scope="col">Qem NO</th>
+                                </tr>
+                                <tr>
+                                    <td>Otto</td>
+                                    <td colSpan={2}>@mdo</td>
+                                </tr>
+                                <tr>
+                                    <td>Otto</td>
+                                    <td colSpan={2}>@mdo</td>
+                                </tr>
+                                <tr>
+                                    <td>Otto</td>
+                                    <td colSpan={2}>@mdo</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             )}
