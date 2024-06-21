@@ -9,21 +9,10 @@ const Index = () => {
 
     const [currentPage, setCurrentPage] = useState(1);
 
-    const handlePage1Click = () => {
-        setCurrentPage(1);
+    const handlePageClick = (page) => {
+        setCurrentPage(page);
     };
-    const handlePage2Click = () => {
-        setCurrentPage(2);
-    };
-    const handlePage3Click = () => {
-        setCurrentPage(3);
-    };
-    const handlePage4Click = () => {
-        setCurrentPage(4);
-    };
-    const handlePage5Click = () => {
-        setCurrentPage(5);
-    };
+
     return (
         <>
             <div className="container-fluid d-flex justify-content-center">
@@ -58,19 +47,19 @@ const Index = () => {
             <div className="container-fluid d-flex justify-content-center mt-5">
                 <div className="myRow mt-3">
                     <div className="mat-TwoPage">
-                        <button className={`mat-ButtonInfo ${currentPage === 1 ? 'Active' : ''}`} onClick={handlePage1Click}>
+                        <button className={`mat-ButtonInfo ${currentPage === 1 ? 'Active' : ''}`} onClick={() => handlePageClick(1)}>
                             Benzer Mahsular
                         </button>
-                        <button className={`mat-ButtonBack ${currentPage === 2 ? 'Active' : ''}`} onClick={handlePage2Click}>
+                        <button className={`mat-ButtonBack ${currentPage === 2 ? 'Active' : ''}`} onClick={() => handlePageClick(2)}>
                             Qem Ref
                         </button>
-                        <button className={`mat-ButtonBack ${currentPage === 3 ? 'Active' : ''}`} onClick={handlePage3Click}>
+                        <button className={`mat-ButtonBack ${currentPage === 3 ? 'Active' : ''}`} onClick={() => handlePageClick(3)}>
                             Cross Ref
                         </button>
-                        <button className={`mat-ButtonBack ${currentPage === 4 ? 'Active' : ''}`} onClick={handlePage4Click}>
+                        <button className={`mat-ButtonBack ${currentPage === 4 ? 'Active' : ''}`} onClick={() => handlePageClick(4)}>
                             Istifada Olunan NV-Lar
                         </button>
-                        <button className={`mat-ButtonBack ${currentPage === 5 ? 'Active' : ''}`} onClick={handlePage5Click}>
+                        <button className={`mat-ButtonBack ${currentPage === 5 ? 'Active' : ''}`} onClick={() => handlePageClick(5)}>
                             Stok Harakatlari
                         </button>
                     </div>
@@ -81,8 +70,6 @@ const Index = () => {
                 <div className="container-fluid  d-flex justify-content-center ">
                     <div className="myRow">
                         <div className="ShopingCartsCenterMain">
-
-
                             <ShoppingCards />
                         </div>
                     </div>
@@ -90,26 +77,96 @@ const Index = () => {
             )}
 
             {currentPage === 2 && (
-                <div className="container-fluid  d-flex justify-content-center ">
+                <div className="container-fluid mt-5 d-flex justify-content-center">
                     <div className="myRow">
-                        <table className="table  table-bordered mt-3">
+                        <table className="table MyTable  table-bordered mt-3">
                             <tbody>
-                                <tr className={'table-light'}>
-                                    <th scope="col">Arac marka</th>
-                                    <th colSpan={2} scope="col">Qem NO</th>
+                                <tr>
+                                    <th style={{ padding: "12px 27px 5px 19px" }} className='text-44' scope="col">Arac marka</th>
+                                    <th style={{ padding: "12px 27px 5px 19px" }} colSpan={2} scope="col">Qem NO</th>
                                 </tr>
                                 <tr>
-                                    <td>Otto</td>
-                                    <td colSpan={2}>@mdo</td>
+                                    <td style={{ padding: "12px 27px 5px 19px" }} >Otto</td>
+                                    <td style={{ padding: "12px 27px 5px 19px" }} colSpan={2}>@mdo</td>
                                 </tr>
                                 <tr>
-                                    <td>Otto</td>
-                                    <td colSpan={2}>@mdo</td>
+                                    <td style={{ padding: "12px 27px 5px 19px" }} >Otto</td>
+                                    <td style={{ padding: "12px 27px 5px 19px" }} colSpan={2}>@mdo</td>
+                                </tr><tr>
+                                    <td style={{ padding: "12px 27px 5px 19px" }} >Otto</td>
+                                    <td style={{ padding: "12px 27px 5px 19px" }} colSpan={2}>@mdo</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            )}
+            {currentPage === 3 && (
+                  <div className="container-fluid mt-5 d-flex justify-content-center">
+                    <div className="myRow">
+                        <table className="table MyTable  table-bordered mt-3">
+                            <tbody>
+                                <tr>
+                                    <th style={{ padding: "12px 27px 5px 19px" }} className='text-44' scope="col">Uretici adi</th>
+                                    <th style={{ padding: "12px 27px 5px 19px" }}  scope="col">Oem No</th>
                                 </tr>
                                 <tr>
-                                    <td>Otto</td>
-                                    <td colSpan={2}>@mdo</td>
+                                    <td style={{ padding: "12px 27px 5px 19px" }} >Mercedes Benz</td>
+                                    <td style={{ padding: "12px 27px 5px 19px" }} >@mdo</td>
                                 </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            )}
+            {currentPage === 4 && (
+                  <div className="container-fluid mt-5 d-flex justify-content-center">
+                    <div className="myRow">
+                        <table className="table MyTable  table-bordered mt-3">
+                            <tbody>
+                                <tr>
+                                    <th style={{ padding: "12px 27px 5px 19px" }} className='text-44' scope="col">Arac marka</th>
+                                    <th style={{ padding: "12px 27px 5px 19px" }} colSpan={2} scope="col">Vehicle Model</th>
+                                    <th style={{ padding: "12px 27px 5px 19px" }} colSpan={2} scope="col">Vehicle Type</th>
+                                    <th style={{ padding: "12px 27px 5px 19px" }} colSpan={2} scope="col">Year</th>
+                                    <th style={{ padding: "12px 27px 5px 19px" }} colSpan={2} scope="col">English Code</th>
+                                    <th style={{ padding: "12px 27px 5px 19px" }} colSpan={2} scope="col">HP</th>
+                                    <th style={{ padding: "12px 27px 5px 19px" }} colSpan={2} scope="col">KW</th>
+                                </tr>
+                                <tr>
+                                    <td style={{ padding: "12px 27px 5px 19px" }} >Mercedes Benz</td>
+                                    <td style={{ padding: "12px 27px 5px 19px" }} colSpan={2}>@mdo</td>
+                                    <td style={{ padding: "12px 27px 5px 19px" }} colSpan={2}>@mdo</td>
+                                    <td style={{ padding: "12px 27px 5px 19px" }} colSpan={2}>@mdo</td>
+                                    <td style={{ padding: "12px 27px 5px 19px" }} colSpan={2}>@mdo</td>
+                                    <td style={{ padding: "12px 27px 5px 19px" }} colSpan={2}>@mdo</td>
+                                    <td style={{ padding: "12px 27px 5px 19px" }} colSpan={2}>@mdo</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            )}
+            {currentPage === 5 && (
+                  <div className="container-fluid mt-5 d-flex justify-content-center">
+                    <div className="myRow">
+                        <table className="table MyTable  table-bordered mt-3">
+                            <tbody>
+                                <tr>
+                                    <th style={{ padding: "12px 27px 5px 19px" }} className='text-44' scope="col">Date</th>
+                                    <th style={{ padding: "12px 27px 5px 19px" }} colSpan={2} scope="col">Quantlty</th>
+                                    <th style={{ padding: "12px 27px 5px 19px" }} colSpan={2} scope="col">File Number</th>
+                                    <th style={{ padding: "12px 27px 5px 19px" }} colSpan={2} scope="col">Sales Price</th>
+                                </tr>
+                                <tr>
+                                    <td style={{ padding: "12px 27px 5px 19px" }} >Mercedes Benz</td>
+                                    <td style={{ padding: "12px 27px 5px 19px" }} colSpan={2}>@mdo</td>
+                                    <td style={{ padding: "12px 27px 5px 19px" }} colSpan={2}>@mdo</td>
+                                    <td style={{ padding: "12px 27px 5px 19px" }} colSpan={2}>@mdo</td>
+                                </tr>
+
                             </tbody>
                         </table>
                     </div>

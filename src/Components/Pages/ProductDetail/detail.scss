@@ -22,27 +22,60 @@
 
 
 /* App.css */
-table {
+
+
+.MyTable {
+    border: 1px solid #E2E8F0;
+    width: 100%;
+    border-radius: 8px !important;
+    border-color: #E2E8F0 !important;
+
+    tbody {
+        tr {
+            td {
+                color: #444444 !important;
+            }
+
+            th {
+                width: 173px !important;
+                font-size: 14px;
+                color: #444444 !important;
+                font-weight: 400;
+                background-color: #F2F2F2 !important;
+            }
+        }
+    }
+}
+
+
+.MyTable2 {
     border: 1px solid #E9EBF8;
     width: 100%;
     border-radius: 8px !important;
 
-    tr {
-        margin-left: 20px;
+    tbody {
+
+        tr {
+            margin-left: 20px;
+            td{
+                color: #444444 !important;
+            }
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            width: 173px !important;
+            background-color: #f2f2f2;
+        }
     }
+
 }
 
-th,
-td {
-    border: 1px solid black;
-    padding: 8px;
-    text-align: left;
-}
-
-th {
-    width: 173px !important;
-    background-color: #f2f2f2;
-}
 
 .row-header {
     padding: 16px 0px 4px 15px;
@@ -109,7 +142,8 @@ th {
 .buttonSebet {
     background-color: #182390;
     border-radius: 8px;
-    button{
+
+    button {
         color: white;
     }
 }
@@ -124,10 +158,14 @@ th {
     background-color: rgba(242, 242, 242, 0.5);
 }
 
-.fb-800{
+.fb-800 {
     font-weight: 800 !important;
 }
 
-.bg_F2{
+.bg_F2 {
     background-color: #F2F2F2;
+}
+
+.f_28{
+    font-size: 28px;
 }
