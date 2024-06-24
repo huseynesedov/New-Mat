@@ -72,12 +72,12 @@ function ShoppingCards() {
     
     return (
         <>
-            <div className="container-fluid mt-5">
+            <div className="container-fluid">
                 <div className="row">
                     {data.length > 0 ?
 
                         data.map((d) => (
-                            <div className={'d-block text-decoration-none col-lg-3 col-md-6'} >
+                            <div className={'d-block text-decoration-none col-lg-3 col-lg-4 col-md-6'} >
 
                                 <div className="CartCenterMain" key={d.id}>
 

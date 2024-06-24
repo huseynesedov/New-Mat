@@ -1,15 +1,6 @@
 import Slider from "react-slick";
 import React, {useState} from "react";
 import images from "../../../Assets/images/js/Images";
-import Agat from "../../../Assets/images/agat.png";
-import Delphi from "../../../Assets/images/delphi.png";
-import Holts from "../../../Assets/images/holts.png";
-import Lavr from "../../../Assets/images/lavr.png";
-import Gm from "../../../Assets/images/gm.png";
-import EuroLub from "../../../Assets/images/EUROLUB.png";
-import Lamborgini from "../../../Assets/images/lamborgini.png";
-import wolswagen from "../../../Assets/images/wolswagen.png";
-import nissan from "../../../Assets/images/nissan.png";
 const BrandList = () => {
 
     let {
@@ -78,7 +69,7 @@ const BrandList = () => {
     return <div className="Container h-100">
         <div className="myRow h-auto line">
             <div className="text-start w-100 mt-4">
-                <h3 className={'font-weight-bold'}>Ən çox axtarılan brendlər</h3>
+                <h3 className={'font-weight-bold text-44'}>Ən çox axtarılan brendlər</h3>
             </div>
             <div className="BredsSlide">
                 <div className="slider-container">

@@ -4,6 +4,7 @@ import ShoppingCards from "../../Elements/ShoppingCards";
 import './home.css'
 import { Helmet } from "react-helmet";
 import images from "../../../Assets/images/js/Images";
+
 function Home() {
   let {foodg , elba} = images
   return (

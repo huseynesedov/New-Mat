@@ -44,6 +44,16 @@ import Star_Gray from "../star_border_grayx.svg"
 import Location_gray from "../IoLocationGreen.svg"
 import Heart2 from "../favorite_border_24px.svg"
 
+// Products
+import Filtr from "../filter_list.svg"
+import Stok from "../location_searching.svg"
+import AiOutlineUngroup from "../AiOutlineUngroup.svg"
+import FiTag2 from "../FiTag2.svg"
+import glass from "../searchglas.svg"
+import BiCar from "../BiCar.svg"
+import List24 from "../list_24px.svg"
+
+
 
 
 import Agat from '../agat.png'
@@ -112,5 +122,12 @@ export default {
      Star_Yellow,
      Star_Gray,
      Location_gray,
-     Heart2
+     Heart2,
+     Filtr,
+     Stok,
+     AiOutlineUngroup,
+     FiTag2,
+     glass,
+     BiCar,
+     List24
 }
