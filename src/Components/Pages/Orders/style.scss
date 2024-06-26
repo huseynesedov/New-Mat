@@ -1,0 +1,100 @@
+.checkout-steps {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+
+  .step {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 20%;
+    margin: 0 10px;
+
+    span {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 16px;
+      color: #666;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #3e8e41;
+    }
+
+    .blue-dot {
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 10px;
+      height: 10px;
+      background-color: #007bff;
+      border-radius: 50%;
+    }
+  }
+}
+
+
+
+
+.OrderTable {
+  thead {
+    tr {
+      height: 54px;
+      vertical-align: baseline;
+      th {
+        width: 114px;
+        font-weight: 500;
+        color: #444444;
+        font-size: 14px;
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      td {
+        padding: 35px 0px 12px 0px;
+        color: #8F8F8F;
+      }
+    }
+  }
+}
+
+.Status{
+  margin-bottom: 27px;
+  border-radius: 6px;
+  height: 24px;
+  color: white;
+  background-color: #48BB78;
+  p{
+    margin: 0px 10px 0px 10px;
+  }
+}
+
+.view{
+  margin-bottom: 27px;
+  border-radius: 6px;
+  height: 25px;
+  border: 1px solid #146DA0;
+  color: #3182CE;
+  background-color: transparent;
+  p{
+    margin: 0px 10px 0px 10px;
+  }
+}

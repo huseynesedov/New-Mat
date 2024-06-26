@@ -6,7 +6,7 @@ import Return from '../Return.svg'
 import TagTwo from '../HiTag.svg'
 import Basket from '../shopping.svg'
 import Heart from '../favorite.svg'
-import Logo from '../Logo.png'
+import Logo from '../Logo.svg'
 import Voice from '../keyboard_voice_24px.png'
 import Glass from '../magnifying-glass.png'
 import Clipboard from '../Clipboard.png'
@@ -52,6 +52,14 @@ import FiTag2 from "../FiTag2.svg"
 import glass from "../searchglas.svg"
 import BiCar from "../BiCar.svg"
 import List24 from "../list_24px.svg"
+
+// Login
+import Ellipse from "../Ellipse 1.svg"
+import CarAccessories from "../composition-different-car-accessories 1.svg"
+
+// Order Detail
+import printsvg from "../MdReceiptLong.svg"
+
 
 
 
@@ -129,5 +137,8 @@ export default {
      FiTag2,
      glass,
      BiCar,
-     List24
+     List24,
+     Ellipse,
+     CarAccessories,
+     printsvg
 }

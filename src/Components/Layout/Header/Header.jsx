@@ -66,7 +66,7 @@ function Header() {
                   </h3>
                 </div>
               </Link>
-              <Link className={'nav-link'}>
+              <Link className={'nav-link'} to="/Orders">
                 <div className="ClipBoard">
                   <img src={Clipboard} alt=""/>
                   <h3>
