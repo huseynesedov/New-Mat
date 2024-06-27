@@ -59,7 +59,8 @@ import CarAccessories from "../composition-different-car-accessories 1.svg"
 
 // Order Detail
 import printsvg from "../MdReceiptLong.svg"
-
+// Home
+import Endirim from "../endirim.svg"
 
 
 
@@ -140,5 +141,6 @@ export default {
      List24,
      Ellipse,
      CarAccessories,
-     printsvg
+     printsvg,
+     Endirim
 }

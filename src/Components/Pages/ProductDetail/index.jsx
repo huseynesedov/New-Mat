@@ -26,7 +26,7 @@ const Index = () => {
                         <img src={chrevron_right} alt="" />
                         <span className="t-01">Shel oil 675347834</span>
                     </p>
-                    <div className="border-bottom-line mt-4" style={{ width: '1416px', marginLeft: '-11px' }}></div>
+                    <div className="border-bottom-line mt-4" style={{ width: '100%'}}></div>
                 </div>
             </div>
 

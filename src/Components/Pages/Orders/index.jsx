@@ -66,7 +66,7 @@ const Orders = () => {
               Sifarisler
             </p>
           </p>
-          <div className="border-bottom-line mt-4" style={{ width: '1416px', marginLeft: '-11px' }}></div>
+          <div className="border-bottom-line mt-4" style={{ width: '100%'}}></div>
         </div>
       </div>
 
@@ -113,8 +113,8 @@ const Orders = () => {
                     <td className="d-flex">
                       <ProductStatus status={product.status} />
                     </td>
-                    <td>Haci Rafael</td>
-                    <td>-----</td>
+                    <td style={{ textAlign: "center" }}>Haci Rafael</td>
+                    <td style={{ textAlign: "center" }}>-----</td>
                     <td>413246 Sifarişle birleşdi</td>
                     <td>Baku</td>
                     <td>22.97 AZN</td>

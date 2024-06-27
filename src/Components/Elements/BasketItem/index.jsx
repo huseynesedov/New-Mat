@@ -53,7 +53,7 @@ const BasketItems = () => {
     return (
         <>
             {Object.keys(groupedData).map((category, categoryIndex) => (
-                <div className="myContainer position-relative gy-4 rounded" style={{ padding: "0rem 0rem 0.8rem 0rem" }} key={categoryIndex}>
+                <div className="w-100 position-relative gy-4 rounded" style={{ padding: "0rem 0rem 0.8rem 0rem" }} key={categoryIndex}>
                     <div className="row ms-4 mt-3">
                         <p className="text-44 fb-600">
                             {category}
@@ -74,7 +74,7 @@ const BasketItems = () => {
                     <div className="myContainer">
                         {groupedData[category].map((Data, index) => (
                             <div className="row rounded bg-white ms-3 mt-4 me-3" key={index} style={{ height: "120px" }}>
-                                <div className="col-1 d-flex align-items-center h-100" style={{ width: "20px" }}>
+                                <div className="col-1 d-flex align-items-center h-100" style={{ width: "40px" }}>
                                     <div className="checkbox">
                                         <input
                                             type="checkbox"
@@ -87,10 +87,10 @@ const BasketItems = () => {
                                 </div>
                                 <div className="col d-flex justify-content-between">
                                     <div className="d-flex">
-                                        <div className="col-1 ms-3 d-flex align-items-center h-100">
+                                        <div className="col-1 ms-3 d-flex align-items-center">
                                             <img src="https://limonoto.com/wp-content/uploads/2023/04/11144-61YG.jpeg" width="47px" height="43px" alt="" />
                                         </div>
-                                        <div className="col-2 mt-3 ms-4" style={{ width: "421px" }}>
+                                        <div className="col-2 mt-3 ms-4" style={{ width: "74%" }}>
                                             <div className="col w-100 d-flex justify-content-between">
                                                 <div className='d-flex'>
                                                     <img src={FiTag} alt="" />

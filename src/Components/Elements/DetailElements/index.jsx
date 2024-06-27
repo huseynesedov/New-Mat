@@ -64,7 +64,7 @@ const DetailElements = () => {
     return (
         <>
             <div className="myRow mt-3">
-                <div className="row align-items-center justify-content-between border rounded" style={{ width: "537px", height: "655px" }}>
+                <div className="row align-items-center justify-content-between border rounded" style={{ width: "39.3%", height: "655px" }}>
                     {/* imgs carousel */}
                     <div className="col-1 d-flex flex-column justify-content-between ms-3 p-0" style={{ width: "97px", height: "420px" }}>
                         {item.carouselImages && item.carouselImages.map((imageObj, index) => (
@@ -83,8 +83,8 @@ const DetailElements = () => {
                     {/* img container end */}
                 </div>
 
-                <div className="row flex-column" style={{ width: "840px" }}>
-                    <div className="d-flex justify-content-between">
+                <div className="row flex-column flex-wrap" style={{ width: "61%" }}>
+                    <div className="d-flex justify-content-between flex-wrap">
                         <div className="col-1 d-flex flex-column" style={{ width: "490px" }}>
                             <span className="d-flex">
                                 <img src={FiTag} alt="" />

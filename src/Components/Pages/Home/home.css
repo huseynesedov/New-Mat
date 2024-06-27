@@ -94,8 +94,6 @@
 
 
 .CartCenterMain {
-    width: 100%;
-    height: 320px;
     margin-bottom: 30px;
     border: 2px solid #E2E8F0;
     border-radius: 10px;
@@ -105,8 +103,6 @@
 }
 
 .ImgTitleMain {
-    width: 100%;
-    height: 143.62204721px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -191,20 +187,13 @@
     margin-left: 12px;
 }
 
-
-.OemNo {
-    font-weight: 600;
-    margin-left: 4px;
-}
-
 .brendNo {
     font-size: 12px;
 }
 
 
 .LocationBrendNameCenter {
-    width: 100%;
-    height: 37.795275591px;
+    height: 40px;
     border-bottom: 2px solid #E2E8F0;
     display: flex;
     align-items: center;
@@ -273,8 +262,6 @@ a {
 
 
 .BrendingDetailTitle {
-    width: 100%;
-    height: 37.795275591px;
     border-bottom: 2px solid #E2E8F0;
     display: flex;
     align-items: center;
@@ -293,7 +280,7 @@ a {
 .BrendTitleCenter {
     text-align: start;
     display: flex;
-    margin-left: 20px;
+    margin-left: 16px;
     /* align-items: center; */
 }
 
@@ -304,8 +291,6 @@ a {
 }
 
 .PriceCounter {
-    width: 100%;
-    height: 55.692913386px;
     border-bottom: 2px solid #E2E8F0;
     display: flex;
     align-items: center;
@@ -313,8 +298,6 @@ a {
 }
 
 .prices {
-    width: 20%;
-    height: 80%;
     display: flex;
     justify-content: space-between;
     flex-direction: column;
@@ -400,14 +383,12 @@ a {
     font-weight: 700;
 }
 .BasketLikeCenter{
-    width: 100%;
-    height: 40.795275591px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 .Basket {
-    width: 236px;
+    width: 76%;
     height: 23px;
     display: flex;
     align-items: center;
@@ -434,4 +415,13 @@ a {
     border-radius: 100%;
     margin-left: 20px;
     background-color: rgba(242, 242, 242, 0.5);
+}
+
+
+.discount{
+    left: 20px;
+    top: 26px;
+    transform: rotate(321deg);
+    font-size: 9px;
+    font-weight: bold;
 }

@@ -30,8 +30,8 @@ function Header() {
               <Link to={'/'}>
                 <img src={Logo} alt=""/>
               </Link>
-              <label htmlFor="searchBar">
-                <div className="search">
+              <label htmlFor="searchBar ">
+                <div className="search ms-2">
                   <Link>
                     <input type="text" className='searchTextBar'/>
                   </ Link>

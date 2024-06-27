@@ -9,7 +9,7 @@ const Basket = () => {
     const handleButtonClick = () => {
         setOpen(!open);
     };
-    let { Box, CarOrder, down, Liner} = Images
+    let { Box, CarOrder, down, Liner } = Images
     return (
         <>
             <div className="container-fluid d-flex justify-content-center">
@@ -22,7 +22,7 @@ const Basket = () => {
 
             <div className="container-fluid d-flex justify-content-center mt-5">
                 <div className="myRow d-flex align-items-center justify-content-between">
-                    <div className="myContainer position-relative rounded" style={{ padding: "0rem 0rem 0.8rem 0rem" }}>
+                    <div className="myContainer w-75 position-relative rounded" style={{ padding: "0rem 0rem 0.8rem 0rem" }}>
 
 
                         <BasketItems />
@@ -30,13 +30,16 @@ const Basket = () => {
                     </div>
 
                     <div className="myContainer2 rounded">
-                        <div className="myRow2 mt-5 ">
-                            <button className="drop w-100 align-items-center d-flex justify-content-between" onClick={handleButtonClick}>
-                                <p className='ms-2 t-79'>
-                                    Çatdırılma Növü
-                                </p>
-                                <img className='me-2' src={down} alt="" />
-                            </button>
+                        <div className="row mt-5 ">
+                            <div className="myRow2">
+
+                                <button className="drop align-items-center d-flex justify-content-between" onClick={handleButtonClick}>
+                                    <p className='ms-2 t-79'>
+                                        Çatdırılma Növü
+                                    </p>
+                                    <img className='me-2' src={down} alt="" />
+                                </button>
+                            </div>
                             {open && (
                                 <div className="dropdown mt-2">
                                     <ul>
