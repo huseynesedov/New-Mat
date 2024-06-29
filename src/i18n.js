@@ -5,7 +5,7 @@ import { en } from "./lang/en";
 import { ru } from "./lang/ru";
 
 const resources = {
-az: {
+  az: {
     translation: az,
   },
   en: {

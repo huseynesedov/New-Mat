@@ -1,21 +1,26 @@
+// Main
+import Logo from '../Logo.svg'
+
 
 import Tag from '../Tag.png'
 import Location from '../location.svg'
 import Down from '../DownSharp.svg'
 import Return from '../Return.svg'
 import TagTwo from '../HiTag.svg'
-import Basket from '../shopping.svg'
 import Heart from '../favorite.svg'
-import Logo from '../Logo.svg'
-import Voice from '../keyboard_voice_24px.png'
-import Glass from '../magnifying-glass.png'
-import Clipboard from '../Clipboard.png'
-import Vector from '../Vector.png'
-import User from '../User.png'
-import FiUser from '../FiUser.png'
+
+// Header
+import User from '../User.svg'
+import Glass from '../magnifying-glass.svg'
+import FiUser from '../FiUser.svg'
+import Voice from '../keyboard_voice_24px.svg'
 import Office from '../OfficeBuilding.png'
-import Key from '../Key.png'
-import Language from '../Language.png'
+import Key from '../Key.svg'
+import Basket from '../BiBasket.svg'
+import Language from '../Language.svg'
+import Vector from '../Vector.svg'
+import Clipboard from '../Clipboard.svg'
+
 
 import user from "../User.svg"
 import mail from "../MailOutline.svg"
@@ -52,6 +57,8 @@ import FiTag2 from "../FiTag2.svg"
 import glass from "../searchglas.svg"
 import BiCar from "../BiCar.svg"
 import List24 from "../list_24px.svg"
+import Vector2 from '../shopping_cart_24px.svg'
+
 
 // Login
 import Ellipse from "../Ellipse 1.svg"
@@ -89,9 +96,9 @@ export default {
      Basket,
      Heart,
      Logo,
+     Clipboard,
      Voice,
      Glass,
-     Clipboard,
      Vector,
      User,
      FiUser,
@@ -142,5 +149,6 @@ export default {
      Ellipse,
      CarAccessories,
      printsvg,
-     Endirim
+     Endirim,
+     Vector2
 }

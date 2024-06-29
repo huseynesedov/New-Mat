@@ -87,8 +87,19 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
     background-color: #F2F2F2 !important;
+    .col{
+        width: 90% !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        *.row{
+            width: 100% !important;
+            align-items: center;
+            justify-content: center;
+        }
+    }
 }
 
 .drop {
@@ -153,7 +164,7 @@
 }
 
 .ProductEvaluate2 {
-    width: 262px;
+    width: 100%;
     height: 32px;
     color: white;
     border: 2px solid #0162DD;

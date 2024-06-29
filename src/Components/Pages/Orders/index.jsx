@@ -16,7 +16,6 @@ const ProductStatus = ({ status }) => {
   const style = {
     marginBottom: '27px',
     borderRadius: '6px',
-    height: '24px',
     color: 'white',
     backgroundColor: bgColor,
     display: 'flex',

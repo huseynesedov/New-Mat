@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import Images from '../../../Assets/images/js/Images';
 
 function ShoppingCards() {
-    let { FiTag, Location, Down, Return, TagTwo, Basket, Heart, Endirim } = Images;
+    let { FiTag, Location, Down, Return, TagTwo, Vector2, Heart, Endirim } = Images;
 
     const data = [
         {
@@ -184,7 +184,7 @@ function ShoppingCards() {
 
                                     <div className="BasketLikeCenter my-2">
                                         <button className="Basket">
-                                            <img src={Basket} alt="" />
+                                            <img src={Vector2} alt="" />
                                             <p className="BasketTitle">
                                                 Səbətə at
                                             </p>

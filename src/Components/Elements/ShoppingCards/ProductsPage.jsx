@@ -9,7 +9,8 @@ function ShoppingCards() {
         Return,
         TagTwo,
         Basket,
-        Heart
+        Heart,
+        Endirim
     } = Images
 
     const data = [
@@ -22,7 +23,9 @@ function ShoppingCards() {
             brand_name: "Shell Rotella 550041918",
             brand_title: "-2PK T6 Tam Sintetik Ağır Mühərrik Yağı 5W-40, 2,5 Qalon Sürahi, 2 paket",
             del_price: "200 AZN",
-            price: "190 AZN"
+            price: "190 AZN",
+            discount: true,
+            discountTitle: "10 % endirim"
         },
         {
             id: 2,
@@ -33,7 +36,9 @@ function ShoppingCards() {
             brand_name: "Shell Rotella 550041918",
             brand_title: "-2PK T6 Tam Sintetik Ağır Mühərrik Yağı 5W-40, 2,5 Qalon Sürahi, 2 paket",
             del_price: "200 AZN",
-            price: "190 AZN"
+            price: "190 AZN",
+            discount: false,
+            discountTitle: ""
         },
         {
             id: 3,
@@ -44,7 +49,9 @@ function ShoppingCards() {
             brand_name: "Shell Rotella 550041918",
             brand_title: "-2PK T6 Tam Sintetik Ağır Mühərrik Yağı 5W-40, 2,5 Qalon Sürahi, 2 paket",
             del_price: "200 AZN",
-            price: "190 AZN"
+            price: "190 AZN",
+            discount: true,
+            discountTitle: "5 % endirim"
         },
         {
             id: 4,
@@ -55,7 +62,9 @@ function ShoppingCards() {
             brand_name: "Shell Rotella 550041918",
             brand_title: "-2PK T6 Tam Sintetik Ağır Mühərrik Yağı 5W-40, 2,5 Qalon Sürahi, 2 paket",
             del_price: "200 AZN",
-            price: "190 AZN"
+            price: "190 AZN",
+            discount: false,
+            discountTitle: ""
         },
         {
             id: 5,
@@ -66,10 +75,12 @@ function ShoppingCards() {
             brand_name: "Shell Rotella 550041918",
             brand_title: "-2PK T6 Tam Sintetik Ağır Mühərrik Yağı 5W-40, 2,5 Qalon Sürahi, 2 paket",
             del_price: "200 AZN",
-            price: "190 AZN"
+            price: "190 AZN",
+            discount: true,
+            discountTitle: "15 % endirim"
         }
     ];
-    
+
     return (
         <>
             <div className="container-fluid">
@@ -77,10 +88,17 @@ function ShoppingCards() {
                     {data.length > 0 ?
 
                         data.map((d) => (
-                            <div className={'d-block text-decoration-none col-lg-3 col-lg-4 col-md-6'} >
+                            <div className={'d-block text-decoration-none col-lg-4 col-md-6'} >
 
-                                <div className="CartCenterMain" key={d.id}>
-
+                                <div className="CartCenterMain">
+                                    {d.discount && (
+                                        <div className="position-absolute" style={{ left: "-21px", top: "-17px" }}>
+                                            <img src={Endirim} alt="" />
+                                            <p className="text-white position-absolute discount">
+                                                {d.discountTitle}
+                                            </p>
+                                        </div>
+                                    )}
                                     <div className="ImgTitleMain">
                                         <div className="ImgBrendingTitle">
                                             <div className="ImgFocus">
@@ -89,7 +107,7 @@ function ShoppingCards() {
                                             <div className="TitleCenter">
                                                 <span className="Tag">
                                                     <img src={FiTag} alt="" />
-                                                    <p className="OemNo">
+                                                    <p className="OemNo text-44">
                                                         {d.tag_name}
                                                     </p>
                                                 </span>
@@ -99,7 +117,6 @@ function ShoppingCards() {
                                                     </div>
                                                     <p className="brendNo">
                                                         {d.tag_Title}
-
                                                     </p>
                                                 </span>
                                             </div>
@@ -107,22 +124,19 @@ function ShoppingCards() {
                                         <div className="OemTextCenter">
                                             <p className="Oem">
                                                 OEM № :
-                                                <p className="OemNo">
+                                                <p className="OemNo text-44">
                                                     {d.tag_name}
-
                                                 </p>
                                             </p>
                                         </div>
                                     </div>
 
                                     <div className="LocationBrendNameCenter">
-
                                         <div className="LocationBrend">
                                             <div className="Location">
                                                 <img src={Location} alt="" />
                                                 <p className="LocationName">
                                                     {d.location}
-
                                                 </p>
                                                 <img src={Down} alt="" />
                                             </div>
@@ -131,7 +145,6 @@ function ShoppingCards() {
                                                 <img src={TagTwo} alt="" />
                                                 <p className="BrendTitle">
                                                     {d.car_name}
-
                                                 </p>
                                             </div>
                                         </div>
@@ -143,24 +156,18 @@ function ShoppingCards() {
                                                     return
                                                 </p>
                                             </Link>
-
                                         </div>
-
                                     </div>
 
                                     <Link to={`/detail/${d.id}`} className="BrendingDetailTitle text-decoration-none">
                                         <div className="BrendTitleCenter mt-2">
                                             <h3 className="BrandingName">
-
                                                 {d.brand_name}
-
                                                 <p className="BrandingNameTwo">
                                                     {d.brand_title}
-
                                                 </p>
                                             </h3>
                                         </div>
-
                                     </Link>
 
                                     <div className="PriceCounter">
@@ -168,12 +175,10 @@ function ShoppingCards() {
                                             <p className="DelPrice">
                                                 <del>
                                                     {d.del_price}
-
                                                 </del>
                                             </p>
                                             <p className="Price fb-800">
                                                 {d.price}
-
                                             </p>
                                         </div>
 
@@ -182,14 +187,13 @@ function ShoppingCards() {
                                                 -
                                             </button>
                                             <input type="text" name="" id="" className="counter" />
-
                                             <button className="plus">
                                                 +
                                             </button>
                                         </div>
                                     </div>
 
-                                    <div className="BasketLikeCenter">
+                                    <div className="BasketLikeCenter my-2">
                                         <button className="Basket">
                                             <img src={Basket} alt="" />
                                             <p className="BasketTitle">
