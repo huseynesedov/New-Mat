@@ -1,8 +1,10 @@
 import { Button, Form } from "react-bootstrap";
 import Images from "../../../Assets/images/js/Images";
 import "./login.scss"
+import { useAuth } from "../../../AuthContext";
 const Login = () => {
     let { Logo, Ellipse,CarAccessories } = Images
+    const { login } = useAuth();
     return <>
         <div className="container-fluid vh-100">
             <div className="row h-100">
@@ -42,7 +44,7 @@ const Login = () => {
                                     <Form.Check type="checkbox" label="Kendi Tarayicimda Devam Etmek Istiyorum" />
                                 </Form.Group>
 
-                                <Button variant="primary w-100 mt-4 rounded-pill" type="submit">
+                                <Button onClick={login} variant="primary w-100 mt-4 rounded-pill" type="submit">
                                     Giriş
                                 </Button>
                             </Form>

@@ -7,7 +7,8 @@ import {
   CANCEL_EDIT,
   SET_EDIT,
   SET_NOTIFICATION,
-} from "./../types";
+  ADD_TO_CART
+} from "../types";
 import admin from "../../Const/api";
 import history from "../../Const/history";
 import {apiRoutes} from "../../Const/apiroutes";
@@ -98,3 +99,11 @@ export const setEdit = (bolean) => {
       return {type: CANCEL_EDIT}
     }
 }
+
+
+export const addToCart = (item) => {
+    return {
+        type: ADD_TO_CART,
+        payload: item
+    };
+};

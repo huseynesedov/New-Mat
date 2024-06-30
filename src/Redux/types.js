@@ -27,3 +27,7 @@ export const SET_LANG = "SET_LANG";
 
 export const SET_NOTIFICATION = "SET_NOTIFICATION";
 export const SET_STOCK = "SET_STOCK";
+
+
+
+export const ADD_TO_CART = 'ADD_TO_CART';

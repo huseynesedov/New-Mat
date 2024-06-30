@@ -15,6 +15,7 @@ import {
   GET_LANG_ERROR,
   SET_NOTIFICATION,
   SET_STOCK, GET_CATS,
+  ADD_TO_CART
 } from "./../types";
 
 const initialUser = {
@@ -36,14 +37,14 @@ export function userReducer(userData = initialUser, action) {
       }
       return {
         data,
-        isLoggedIn: data.token !== null ?  true : false,
+        isLoggedIn: data.token !== null ? true : false,
         message: "",
         notify: !userData.notify,
       };
     case SET_USER:
       return {
         data: action.payload.data,
-        isLoggedIn: action.payload.data.token !== null ?  true : false,
+        isLoggedIn: action.payload.data.token !== null ? true : false,
         message: "Successfully logged in",
         notify: !userData.notify,
       };
@@ -103,13 +104,32 @@ export function notificationReducer(
 }
 
 
-export const edit = (data = false, action) =>{
-  switch (action.type){
+export const edit = (data = false, action) => {
+  switch (action.type) {
     case SET_EDIT:
       return true;
     case CANCEL_EDIT:
       return false;
-    default :
+    default:
       return data;
   }
 }
+
+
+
+
+const initialState = {
+  items: []
+};
+
+const cartReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case ADD_TO_CART:
+      return {
+        ...state,
+        items: [...state.items, action.payload]
+      };
+    default:
+      return state;
+  }
+};

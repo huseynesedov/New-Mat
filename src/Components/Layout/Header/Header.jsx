@@ -5,6 +5,7 @@ import React, { useState, useEffect } from "react";
 import BrandList from "../../Elements/BrandList";
 import { toast } from "react-toastify";
 import i18n from "../../../i18n";
+import { useAuth } from "../../../AuthContext";
 
 const dillerTablo = [
   { name: "AZ", code: "az", flag: "https://upload.wikimedia.org/wikipedia/commons/d/dd/Flag_of_Azerbaijan.svg" },
@@ -69,7 +70,7 @@ function Header() {
   const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
 
   useEffect(() => {
-    recognition.lang = 'en-US';
+    recognition.lang = 'az';
     recognition.continuous = true;
     recognition.interimResults = true;
 
@@ -98,6 +99,10 @@ function Header() {
   const handleInputChange = (event) => {
     setTranscript(event.target.value);
   };
+
+
+
+  const { logout } = useAuth();
 
   return (
     <>
@@ -210,7 +215,7 @@ function Header() {
                         ))}
                       </div>
                     )}
-                    <Link>
+                    <Link onClick={logout}>
                       <div className="upLine">
                         <p className='NameSurname up'>Çıkış</p>
                       </div>

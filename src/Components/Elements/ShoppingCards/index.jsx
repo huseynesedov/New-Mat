@@ -15,8 +15,10 @@ function ShoppingCards() {
             brand_title: "-2PK T6 Tam Sintetik Ağır Mühərrik Yağı 5W-40, 2,5 Qalon Sürahi, 2 paket",
             del_price: "200 AZN",
             price: "190 AZN",
-            discount: true, 
-            discountTitle: "10 % endirim" 
+            discount: true,
+            discountTitle: "10 % endirim",
+            category: "Oil"
+
         },
         {
             id: 2,
@@ -29,7 +31,8 @@ function ShoppingCards() {
             del_price: "200 AZN",
             price: "190 AZN",
             discount: false,
-            discountTitle: ""
+            discountTitle: "",
+            category: "Oil"
         },
         {
             id: 3,
@@ -41,8 +44,9 @@ function ShoppingCards() {
             brand_title: "-2PK T6 Tam Sintetik Ağır Mühərrik Yağı 5W-40, 2,5 Qalon Sürahi, 2 paket",
             del_price: "200 AZN",
             price: "190 AZN",
-            discount: true, 
-            discountTitle: "5 % endirim"
+            discount: true,
+            discountTitle: "5 % endirim",
+            category: "Akumlyator"
         },
         {
             id: 4,
@@ -55,22 +59,12 @@ function ShoppingCards() {
             del_price: "200 AZN",
             price: "190 AZN",
             discount: false,
-            discountTitle: ""
-        },
-        {
-            id: 5,
-            tag_name: "671987636",
-            tag_Title: "E39, E36, E35",
-            location: "Baku",
-            car_name: "Hundai",
-            brand_name: "Shell Rotella 550041918",
-            brand_title: "-2PK T6 Tam Sintetik Ağır Mühərrik Yağı 5W-40, 2,5 Qalon Sürahi, 2 paket",
-            del_price: "200 AZN",
-            price: "190 AZN",
-            discount: true, 
-            discountTitle: "15 % endirim"
+            discountTitle: "",
+            category: "Ehtiyat Hissesi"
         }
     ];
+
+
 
     return (
         <>
@@ -80,11 +74,11 @@ function ShoppingCards() {
                         data.map((d) => (
                             <div className={'d-block text-decoration-none position-relative col-lg-3 col-md-6'} key={d.id}>
                                 <div className="CartCenterMain">
-                                    {d.discount && ( 
+                                    {d.discount && (
                                         <div className="position-absolute" style={{ left: "-21px", top: "-17px" }}>
                                             <img src={Endirim} alt="" />
                                             <p className="text-white position-absolute discount">
-                                                {d.discountTitle} 
+                                                {d.discountTitle}
                                             </p>
                                         </div>
                                     )}
@@ -183,7 +177,7 @@ function ShoppingCards() {
                                     </div>
 
                                     <div className="BasketLikeCenter my-2">
-                                        <button className="Basket">
+                                        <button className="Basket" >
                                             <img src={Vector2} alt="" />
                                             <p className="BasketTitle">
                                                 Səbətə at
