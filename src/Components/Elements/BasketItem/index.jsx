@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { Item } from "./items";
+import { useSelector, useDispatch } from 'react-redux';
+import { removeFromCart, removeCategoryFromCart, removeSelectedItemsFromCart, incrementQuantity, decrementQuantity } from '../../../Redux/actions/index';
 import Images from "../../../Assets/images/js/Images";
 
-const BasketItems = () => {
+const BasketItems = ({ onUpdateTotal, onUpdateOriginalTotal }) => {
     let { FiTag, Down, Location, TagTwo, TabloDelete, Add_Bin } = Images;
+    const dispatch = useDispatch();
+    const items = useSelector(state => state.cart.items);
 
-    const [data, setData] = useState([]);
     const [selectedItems, setSelectedItems] = useState({});
 
-    useEffect(() => {
-        setData(Item);
-    }, []);
-
-    const groupedData = data.reduce((acc, item) => {
+    const groupedData = items.reduce((acc, item) => {
         if (!acc[item.category]) {
             acc[item.category] = [];
         }
@@ -21,7 +19,7 @@ const BasketItems = () => {
     }, {});
 
     const handleDelete = (id, category) => {
-        setData(prevData => prevData.filter(item => item.id !== id));
+        dispatch(removeFromCart(id));
         setSelectedItems(prevSelectedItems => {
             const updatedCategory = { ...prevSelectedItems[category] };
             delete updatedCategory[id];
@@ -30,13 +28,13 @@ const BasketItems = () => {
     };
 
     const handleDeleteAll = (category) => {
-        setData(prevData => prevData.filter(item => item.category !== category));
+        dispatch(removeCategoryFromCart(category));
         setSelectedItems(prevSelectedItems => ({ ...prevSelectedItems, [category]: {} }));
     };
 
     const handleDeleteSelected = (category) => {
         const selectedIds = Object.keys(selectedItems[category]).filter(id => selectedItems[category][id]);
-        setData(prevData => prevData.filter(item => !selectedIds.includes(item.id.toString())));
+        dispatch(removeSelectedItemsFromCart(category, selectedIds));
         setSelectedItems(prevSelectedItems => ({ ...prevSelectedItems, [category]: {} }));
     };
 
@@ -49,6 +47,44 @@ const BasketItems = () => {
             }
         }));
     };
+
+    const handleIncrement = (id) => {
+        dispatch(incrementQuantity(id));
+    };
+
+    const handleDecrement = (id) => {
+        dispatch(decrementQuantity(id));
+    };
+
+    // Calculate total price
+    const calculateTotal = () => {
+        let total = 0;
+        items.forEach(item => {
+            if (item.price && item.quantity) {
+                const price = item.indirimliFiyat ? parseFloat(item.indirimliFiyat) : parseFloat(item.price);
+                total += price * parseFloat(item.quantity);
+            }
+        });
+        return total.toFixed(2);
+    };
+
+    // Calculate total original price (without discount)
+    const calculateOriginalTotal = () => {
+        let originalTotal = 0;
+        items.forEach(item => {
+            if (item.price && item.quantity) {
+                originalTotal += parseFloat(item.price) * parseFloat(item.quantity);
+            }
+        });
+        return originalTotal.toFixed(2);
+    };
+
+    useEffect(() => {
+        const total = calculateTotal();
+        const originalTotal = calculateOriginalTotal();
+        onUpdateTotal(total);
+        onUpdateOriginalTotal(originalTotal);
+    }, [items, onUpdateTotal, onUpdateOriginalTotal]);
 
     return (
         <>
@@ -133,7 +169,7 @@ const BasketItems = () => {
                                                 </div>
                                             </div>
                                             <div className="col mt-2">
-                                            <h3 className="BrandingName">
+                                                <h3 className="BrandingName">
                                                     {Data.brand_name}
                                                     <span className="BrandingNameTwo">
                                                         {Data.brand_title}
@@ -144,11 +180,11 @@ const BasketItems = () => {
                                     </div>
                                     <div className="col-3 d-flex align-items-center">
                                         <div className="counterCenter">
-                                            <button className="del">
+                                            <button className="del" onClick={() => handleDecrement(Data.id)}>
                                                 -
                                             </button>
-                                            <input type="text" name="" id="" className="counter" />
-                                            <button className="plus">
+                                            <input type="text" name="" id="" className="counter" value={Data.quantity} readOnly />
+                                            <button className="plus" onClick={() => handleIncrement(Data.id)}>
                                                 +
                                             </button>
                                         </div>
@@ -157,14 +193,33 @@ const BasketItems = () => {
                                                 <img width="24px" className='' src={TabloDelete} alt="" />
                                             </button>
                                             <div className="prices2 mt-2">
-                                                <p className="Price">
-                                                    {Data.price}
-                                                </p>
-                                                <p className="DelPrice">
-                                                    <del>
-                                                        {Data.del_price}
-                                                    </del>
-                                                </p>
+                                                {Data.indirimliFiyat ? (
+                                                    <>
+                                                        <p className="Price fb-800">
+                                                            {Data.indirimliFiyat} AZN
+                                                        </p>
+                                                        {Data.price !== Data.indirimliFiyat && (
+                                                            <del>
+                                                                <p className="DelPrice">
+                                                                    <del>
+                                                                        {Data.price}
+                                                                    </del>
+                                                                </p>
+                                                            </del>
+                                                        )}
+                                                    </>
+                                                ) : (
+                                                    <p className="OriginalPrice">
+                                                        {Data.price} AZN
+                                                    </p>
+                                                )}
+                                                {Data.del_price && (
+                                                    <p className="DelPrice">
+                                                        <del>
+                                                            {Data.del_price}
+                                                        </del>
+                                                    </p>
+                                                )}
                                             </div>
                                         </div>
                                     </div>

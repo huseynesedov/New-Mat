@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import Images from '../../../Assets/images/js/Images';
 import './nav.scss';
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import BrandList from "../../Elements/BrandList";
 import { toast } from "react-toastify";
 import i18n from "../../../i18n";
@@ -18,6 +18,7 @@ function Header() {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [isLanguageDropdownOpen, setLanguageDropdownOpen] = useState(false);
   const [currentLanguage, setCurrentLanguage] = useState(dillerTablo[0]);
+  const dropdownRef = useRef(null);
 
   const {
     Basket,
@@ -57,6 +58,7 @@ function Header() {
   const dilChange = (dil, e) => {
     e.stopPropagation();
     setLanguageDropdownOpen(false);
+    setDropdownOpen(false);  // Close the main dropdown as well
     setCurrentLanguage(dil);
     i18n.changeLanguage(dil.code);
     toast.success(dil.name);
@@ -100,9 +102,26 @@ function Header() {
     setTranscript(event.target.value);
   };
 
-
-
   const { logout } = useAuth();
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+        setLanguageDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  useEffect(() => {
+    setDropdownOpen(false);
+    setLanguageDropdownOpen(false);
+  }, [location]);
 
   return (
     <>
@@ -112,8 +131,10 @@ function Header() {
             <Link to={'/'}>
               <img src={Logo} alt="" />
             </Link>
+            <div className="ms-2">
+
             <label htmlFor="searchBar">
-              <div className="search ms-2">
+              <div className="search">
                 <input
                   type="text"
                   value={transcript}
@@ -136,6 +157,7 @@ function Header() {
                 </div>
               </div>
             </label>
+            </div>
           </div>
           <div className="HiClipboardList">
             <Link className={'nav-link'}>
@@ -156,7 +178,7 @@ function Header() {
                 <h3>Sifarişlər</h3>
               </div>
             </Link>
-            <div className={`BiChevronDown ${isDropdownOpen ? 'open' : ''}`} onClick={toggleDropdown}>
+            <div ref={dropdownRef} className={`BiChevronDown ${isDropdownOpen ? 'open' : ''}`} onClick={toggleDropdown}>
               <div className="imgUser">
                 <img src={User} alt="" />
               </div>

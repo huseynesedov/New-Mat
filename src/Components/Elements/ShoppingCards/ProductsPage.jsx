@@ -1,17 +1,11 @@
-import { Link } from "react-router-dom";
-import Images from '../../../Assets/images/js/Images'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import Images from '../../../Assets/images/js/Images';
+import { addToCart, incrementQuantity, decrementQuantity } from '../../../Redux/actions/index';
 
-
-function ShoppingCards() {
-
-    let { FiTag, Location,
-        Down,
-        Return,
-        TagTwo,
-        Basket,
-        Heart,
-        Endirim
-    } = Images
+const ShoppingCards = () => {
+    let { FiTag, Location, Down, Return, TagTwo, Vector2, Heart, Endirim } = Images;
 
     const data = [
         {
@@ -22,12 +16,10 @@ function ShoppingCards() {
             car_name: "Hundai",
             brand_name: "Shell Rotella 550041918",
             brand_title: "-2PK T6 Tam Sintetik Ağır Mühərrik Yağı 5W-40, 2,5 Qalon Sürahi, 2 paket",
-            del_price: "200 AZN",
-            price: "190 AZN",
+            price: "400 AZN",
             discount: true,
-            discountTitle: "10 % endirim",
+            discountTitle: "10",
             category: "Oil"
-
         },
         {
             id: 2,
@@ -37,10 +29,9 @@ function ShoppingCards() {
             car_name: "Hundai",
             brand_name: "Shell Rotella 550041918",
             brand_title: "-2PK T6 Tam Sintetik Ağır Mühərrik Yağı 5W-40, 2,5 Qalon Sürahi, 2 paket",
-            del_price: "200 AZN",
-            price: "190 AZN",
-            discount: false,
-            discountTitle: "",
+            price: "590 AZN",
+            discount: true,
+            discountTitle: "2",
             category: "Oil"
         },
         {
@@ -51,10 +42,9 @@ function ShoppingCards() {
             car_name: "Hundai",
             brand_name: "Shell Rotella 550041918",
             brand_title: "-2PK T6 Tam Sintetik Ağır Mühərrik Yağı 5W-40, 2,5 Qalon Sürahi, 2 paket",
-            del_price: "200 AZN",
             price: "190 AZN",
             discount: true,
-            discountTitle: "5 % endirim",
+            discountTitle: "5",
             category: "Akumlyator"
         },
         {
@@ -65,147 +55,177 @@ function ShoppingCards() {
             car_name: "Hundai",
             brand_name: "Shell Rotella 550041918",
             brand_title: "-2PK T6 Tam Sintetik Ağır Mühərrik Yağı 5W-40, 2,5 Qalon Sürahi, 2 paket",
-            del_price: "200 AZN",
-            price: "190 AZN",
+            price: "10090 AZN",
             discount: false,
             discountTitle: "",
             category: "Ehtiyat Hissesi"
         }
     ];
 
+    const dispatch = useDispatch();
+    const cartItems = useSelector(state => state.cart.items);
+
+    const handleQuantityChange = (id, increment) => {
+        if (increment) {
+            dispatch(incrementQuantity(id));
+        } else {
+            dispatch(decrementQuantity(id));
+        }
+    };
+
+    const handleAddToCart = (product) => {
+        const itemInCart = cartItems.find(item => item.id === product.id);
+        if (itemInCart) {
+            handleQuantityChange(product.id, true);
+        } else {
+            dispatch(addToCart(product));
+        }
+    };
+
+    const newData = data.map(item => {
+        if (item.discount && item.discountTitle) {
+            const price = parseFloat(item.price);
+            const discountTitle = parseFloat(item.discountTitle);
+            const discountedPrice = price - (price * (discountTitle / 100));
+            return { ...item, discountedPrice: discountedPrice.toFixed(2) };
+        } else {
+            return { ...item, discountedPrice: item.price };
+        }
+    });
 
     return (
-        <>
-            <div className="container-fluid">
-                <div className="row">
-                    {data.length > 0 ?
+        <div className="container-fluid mt-5">
+            <div className="row">
+                {newData.map(d => (
+                    <div className="d-block text-decoration-none position-relative col-lg-4 col-md-6" key={d.id}>
+                        <div className="CartCenterMain">
+                            {d.discount && (
+                                <div className="position-absolute" style={{ left: "-21px", top: "-17px" }}>
+                                    <img src={Endirim} alt="Discount" />
+                                    <p className="text-white position-absolute discount">
+                                        {d.discountTitle}% endirim
+                                    </p>
+                                </div>
+                            )}
 
-                        data.map((d) => (
-                            <div className={'d-block text-decoration-none col-lg-4 col-md-6'} >
-
-                                <div className="CartCenterMain">
-                                    {d.discount && (
-                                        <div className="position-absolute" style={{ left: "-21px", top: "-17px" }}>
-                                            <img src={Endirim} alt="" />
-                                            <p className="text-white position-absolute discount">
-                                                {d.discountTitle}
-                                            </p>
+                            <Link to={`/detail/${d.id}`}>
+                                <div className="ImgTitleMain">
+                                    <div className="ImgBrendingTitle">
+                                        <div className="ImgFocus">
+                                            <img src="https://seyler.ekstat.com/img/max/800/i/iOA665pDf2mr7M8P-636554123779981811.jpg" alt="Product" />
                                         </div>
-                                    )}
-                                    <div className="ImgTitleMain">
-                                        <div className="ImgBrendingTitle">
-                                            <div className="ImgFocus">
-                                                <img src="https://seyler.ekstat.com/img/max/800/i/iOA665pDf2mr7M8P-636554123779981811.jpg" alt="" />
-                                            </div>
-                                            <div className="TitleCenter">
-                                                <span className="Tag">
-                                                    <img src={FiTag} alt="" />
-                                                    <p className="OemNo text-44">
-                                                        {d.tag_name}
-                                                    </p>
-                                                </span>
-                                                <span className="TagTwo">
-                                                    <div className="ImgCenters">
-                                                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/BMW.svg/900px-BMW.svg.png" alt="" />
-                                                    </div>
-                                                    <p className="brendNo">
-                                                        {d.tag_Title}
-                                                    </p>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div className="OemTextCenter">
-                                            <p className="Oem">
-                                                OEM № :
+                                        <div className="TitleCenter ms-3">
+                                            <span className="Tag">
+                                                <img src={FiTag} alt="FiTag" />
                                                 <p className="OemNo text-44">
                                                     {d.tag_name}
                                                 </p>
-                                            </p>
+                                            </span>
+                                            <span className="TagTwo">
+                                                <div className="ImgCenters">
+                                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/BMW.svg/900px-BMW.svg.png" alt="TagTwo" />
+                                                </div>
+                                                <p className="brendNo">
+                                                    {d.tag_Title}
+                                                </p>
+                                            </span>
                                         </div>
                                     </div>
-
-                                    <div className="LocationBrendNameCenter">
-                                        <div className="LocationBrend">
-                                            <div className="Location">
-                                                <img src={Location} alt="" />
-                                                <p className="LocationName">
-                                                    {d.location}
-                                                </p>
-                                                <img src={Down} alt="" />
-                                            </div>
-
-                                            <div className="Brend">
-                                                <img src={TagTwo} alt="" />
-                                                <p className="BrendTitle">
-                                                    {d.car_name}
-                                                </p>
-                                            </div>
-                                        </div>
-
-                                        <div className="Returun">
-                                            <Link className={'text-decoration-none'} to="/">
-                                                <img src={Return} alt="" />
-                                                <p className="ReturunTitle">
-                                                    return
-                                                </p>
-                                            </Link>
-                                        </div>
-                                    </div>
-
-                                    <Link to={`/detail/${d.id}`} className="BrendingDetailTitle text-decoration-none">
-                                        <div className="BrendTitleCenter mt-2">
-                                            <h3 className="BrandingName">
-                                                {d.brand_name}
-                                                <p className="BrandingNameTwo">
-                                                    {d.brand_title}
-                                                </p>
-                                            </h3>
-                                        </div>
-                                    </Link>
-
-                                    <div className="PriceCounter">
-                                        <div className="prices">
-                                            <p className="DelPrice">
-                                                <del>
-                                                    {d.del_price}
-                                                </del>
+                                    <div className="OemTextCenter">
+                                        <p className="Oem">
+                                            OEM № :
+                                            <p className="OemNo text-44">
+                                                {d.tag_name}
                                             </p>
-                                            <p className="Price fb-800">
-                                                {d.price}
-                                            </p>
-                                        </div>
-
-                                        <div className="counterCenter">
-                                            <button className="del">
-                                                -
-                                            </button>
-                                            <input type="text" name="" id="" className="counter" />
-                                            <button className="plus">
-                                                +
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                    <div className="BasketLikeCenter my-2">
-                                        <button className="Basket">
-                                            <img src={Basket} alt="" />
-                                            <p className="BasketTitle">
-                                                Səbətə at
-                                            </p>
-                                        </button>
-                                        <div className="Heart">
-                                            <img src={Heart} alt="" />
-                                        </div>
+                                        </p>
                                     </div>
                                 </div>
-                            </div>
-                        )) : null
-                    }
-                </div>
-            </div>
+                            </Link>
 
-        </>
+                            <div className="LocationBrendNameCenter">
+                                <div className="LocationBrend">
+                                    <div className="Location">
+                                        <img src={Location} alt="Location" />
+                                        <p className="LocationName">
+                                            {d.location}
+                                        </p>
+                                        <img src={Down} alt="Down" />
+                                    </div>
+                                    <div className="Brend">
+                                        <img src={TagTwo} alt="TagTwo" />
+                                        <p className="BrendTitle">
+                                            {d.car_name}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div className="Returun">
+                                    <Link className="text-decoration-none" to="/">
+                                        <img src={Return} alt="Return" />
+                                        <p className="ReturunTitle">
+                                            return
+                                        </p>
+                                    </Link>
+                                </div>
+                            </div>
+
+                            <Link to={`/detail/${d.id}`} className="BrendingDetailTitle text-decoration-none">
+                                <div className="BrendTitleCenter mt-2">
+                                    <h3 className="BrandingName">
+                                        {d.brand_name}
+                                        <p className="BrandingNameTwo">
+                                            {d.brand_title}
+                                        </p>
+                                    </h3>
+                                </div>
+                            </Link>
+
+                            <div className="PriceCounter">
+                                <div className="prices">
+                                    {d.discount && (
+                                        <p className="DelPrice">
+                                            <del>
+                                                {d.price}
+                                            </del>
+                                        </p>
+                                    )}
+                                    <p className="Price fb-800">
+                                        {d.discountedPrice}
+                                    </p>
+                                </div>
+
+                                <div className="counterCenter">
+                                    <button className="del" onClick={() => handleQuantityChange(d.id, false)}>
+                                        -
+                                    </button>
+                                    <input
+                                        type="text"
+                                        value={cartItems.find(item => item.id === d.id)?.quantity || 1}
+                                        readOnly
+                                        className="counter"
+                                    />
+                                    <button className="plus" onClick={() => handleQuantityChange(d.id, true)}>
+                                        +
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div className="BasketLikeCenter my-2">
+                                <button className="Basket" onClick={() => handleAddToCart(d)}>
+                                    <img src={Vector2} alt="Add to Basket" />
+                                    <p className="BasketTitle">
+                                        Səbətə at
+                                    </p>
+                                </button>
+                                <div className="Heart">
+                                    <img src={Heart} alt="Favorite" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
     );
-}
+};
 
 export default ShoppingCards;

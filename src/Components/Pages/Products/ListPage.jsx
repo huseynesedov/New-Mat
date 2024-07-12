@@ -59,11 +59,11 @@ function Home() {
             </div>
 
             <div className="container-fluid d-flex justify-content-center mt-5">
-                <div className="myRow align-items-start mt-5 d-flex justify-content-between">
+                <div className="myRow flex-nowrap align-items-start mt-5 d-flex justify-content-between">
                     <div className="myContainer2 rounded">
 
                         <div className="col">
-                            <div className="myRow2 mt-3 ">
+                            <div className="myRow4 mt-3 ">
                                 <button className={`drop2 w-90 align-items-center d-flex justify-content-between ${open1 ? 'clicked' : 'down'}`} onClick={handleButtonClick1}>
                                     <div className="d-flex">
                                         <img src={Filtr} alt="" />
@@ -123,7 +123,7 @@ function Home() {
                             {/* Line */}
                             <img className='mt-3 w-100' src={Liner} alt="" />
 
-                            <div className="myRow2 mt-3 ">
+                            <div className="myRow4 mt-3 ">
                                 <button className={`drop2 w-90 align-items-center d-flex justify-content-between ${open2 ? 'clicked' : 'down'}`} onClick={handleButtonClick2}>
                                     <div className="d-flex">
                                         <img src={Stok} alt="" />
@@ -220,7 +220,7 @@ function Home() {
                             {/* Line */}
                             <img className='mt-3 w-100' src={Liner} alt="" />
 
-                            <div className="myRow2 mt-3 ">
+                            <div className="myRow4 mt-3 ">
                                 <button className={`drop2 w-90 align-items-center d-flex justify-content-between ${open3 ? 'clicked' : 'down'}`} onClick={handleButtonClick3}>
                                     <div className="d-flex">
                                         <img src={AiOutlineUngroup} alt="" />
@@ -289,7 +289,7 @@ function Home() {
                             {/* Line */}
                             <img className='mt-3 w-100' src={Liner} alt="" />
 
-                            <div className="myRow2 mt-3 ">
+                            <div className="myRow4 mt-3 ">
                                 <button className={`drop2 w-90 align-items-center d-flex justify-content-between ${open2 ? 'clicked' : 'down'}`} onClick={handleButtonClick4}>
                                     <div className="d-flex">
                                         <img src={FiTag2} alt="" />
@@ -354,7 +354,7 @@ function Home() {
                             {/* Line */}
                             <img className='mt-3 w-100' src={Liner} alt="" />
 
-                            <div className="myRow2 mt-3 ">
+                            <div className="myRow4 mt-3 ">
                                 <button className={`drop2 w-90 align-items-center d-flex justify-content-between ${open2 ? 'clicked' : 'down'}`} onClick={handleButtonClick5}>
                                     <div className="d-flex">
                                         <img src={BiCar} alt="" />
@@ -393,7 +393,7 @@ function Home() {
                             {/* Line */}
                             <img className='mt-3 w-100' src={Liner} alt="" />
 
-                            <div className="myRow2 mt-3 mb-2">
+                            <div className="myRow4 mt-3 mb-2">
                                 <button className={`drop2 w-90 align-items-center d-flex justify-content-between ${open2 ? 'clicked' : 'down'}`} onClick={handleButtonClick6}>
                                     <div className="d-flex">
                                         <img src={List24} alt="" />
