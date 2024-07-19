@@ -1,58 +1,59 @@
 import { BaseApi } from "../Const/api";
+import { apiRoutes } from "../Const/apiRoutes";
 
 export const ProductApi = {
     // Base
     DecryptBase(params) {
-        return BaseApi.get('/product/v1/Base/Decrypt', { params });
+        return BaseApi.get(apiRoutes.product.decryptBase, { params });
     },
     EncryptBase(params) {
-        return BaseApi.get('/product/v1/Base/Encrypt', { params });
+        return BaseApi.get(apiRoutes.product.encryptBase, { params });
     },
 
     // Product
     DecryptProduct(params) {
-        return BaseApi.get('/product/v1/Product/Decrypt', { params });
+        return BaseApi.get(apiRoutes.product.decryptProduct, { params });
     },
     EncryptProduct(params) {
-        return BaseApi.get('/product/v1/Product/Encrypt', { params });
+        return BaseApi.get(apiRoutes.product.encryptProduct, { params });
     },
     GetProductById(params) {
-        return BaseApi.get('/product/v1/Product/GetById', { params });
+        return BaseApi.get(apiRoutes.product.getById, { params });
     },
     GetCrossListByProductId(params) {
-        return BaseApi.get('/product/v1/Product/GetCrossListByProductId', { params });
+        return BaseApi.get(apiRoutes.product.getCrossListByProductId, { params });
     },
     GetManufacturerAdditionalDiscountById(params) {
-        return BaseApi.get('/product/v1/Product/GetManufacturerAdditionalDiscountById', { params });
+        return BaseApi.get(apiRoutes.product.getManufacturerAdditionalDiscountById, { params });
     },
     GetOemByProductId(params) {
-        return BaseApi.get('/product/v1/Product/GetOemByProductId', { params });
+        return BaseApi.get(apiRoutes.product.getOemByProductId, { params });
     },
     GetProductAdditionalDiscountById(params) {
-        return BaseApi.get('/product/v1/Product/GetProductAdditionalDiscountById', { params });
+        return BaseApi.get(apiRoutes.product.getProductAdditionalDiscountById, { params });
     },
     GetProductGroupsById(params) {
-        return BaseApi.get('/product/v1/Product/GetProductGroupsById', { params });
+        return BaseApi.get(apiRoutes.product.getProductGroupsById, { params });
     },
     GetProductPricesById(params) {
-        return BaseApi.get('/product/v1/Product/GetProductPricesById', { params });
+        return BaseApi.get(apiRoutes.product.getProductPricesById, { params });
     },
     GetProductQuantitiesById(params) {
-        return BaseApi.get('/product/v1/Product/GetProductQuantitiesById', { params });
+        return BaseApi.get(apiRoutes.product.getProductQuantitiesById, { params });
     },
     GetSearchTable(data) {
-        return BaseApi.post('/product/v1/Product/GetSearchTable', data);
+        return BaseApi.post(apiRoutes.product.getSearchTable, data);
     },
     GetShelfAdressesById(params) {
-        return BaseApi.get('/product/v1/Product/GetShelfAdressesById', { params });
+        return BaseApi.get(apiRoutes.product.getShelfAdressesById, { params });
     },
     GetVehicleBrandById(params) {
-        return BaseApi.get('/product/v1/Product/GetVehicleBrandById', { params });
+        return BaseApi.get(apiRoutes.product.getVehicleBrandById, { params });
     },
     GetVehicleListByProductId(params) {
-        return BaseApi.get('/product/v1/Product/GetVehicleListByProductId', { params });
+        return BaseApi.get(apiRoutes.product.getVehicleListByProductId, { params });
     },
     GetVehicleModelById(params) {
-        return BaseApi.get('/product/v1/Product/GetVehicleModelById', { params });
+        return BaseApi.get(apiRoutes.product.getVehicleModelById, { params });
     },
 };
