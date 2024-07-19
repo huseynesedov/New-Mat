@@ -38,7 +38,7 @@ const Basket = () => {
             </div>
 
             <div className="container-fluid d-flex justify-content-center mt-5">
-                <div className="myRow d-flex align-items-center justify-content-between">
+                <div className="myRow d-flex align-items-start justify-content-between">
                     <div className="myContainer w-75 position-relative rounded" style={{ padding: "0rem 0rem 0.8rem 0rem" }}>
                         <BasketItems onUpdateTotal={handleUpdateTotal} onUpdateOriginalTotal={handleUpdateOriginalTotal} />
                     </div>
