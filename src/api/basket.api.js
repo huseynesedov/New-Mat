@@ -1,35 +1,53 @@
+import { BaseApi } from "../Const/api";
+import { apiRoutes } from "../Const/apiRoutes";
 
-import {BaseApi} from "../Const/api";
 export const BasketApi = {
-    AddToBasket(params){
-        BaseApi.post('/basket/v1/BasketDetail/AddToBasket', params)
+    DecryptBase(params) {
+        return BaseApi.get(apiRoutes.basket.decryptBase, { params });
     },
-    DeleteAll(params){
-        BaseApi.delete('/basket/v1/BasketDetail/DeleteAll', params)
+    EncryptBase(params) {
+        return BaseApi.get(apiRoutes.basket.encryptBase, { params });
     },
-    DeleteByIds(params){
-        BaseApi.delete('/basket/v1/BasketDetail/DeleteByIds', params)
+    BaseTest(params) {
+        return BaseApi.get(apiRoutes.basket.baseTest, { params });
     },
-    DeleteById(params){
-        BaseApi.delete('/basket/v1/BasketDetail/DeleteById', params)
+    AddToBasket(data) {
+        return BaseApi.post(apiRoutes.basket.addToBasket, data);
     },
-    GetListByCurrent(params){
-        BaseApi.get('/basket/v1/BasketDetail/GetListByCurrent', params)
+    DecryptBasketDetail(params) {
+        return BaseApi.get(apiRoutes.basket.decryptBasketDetail, { params });
     },
-    GetListByProductType(params){
-        BaseApi.get('/basket/v1/BasketDetail/GetListByProductType', params)
+    DeleteAll(params) {
+        return BaseApi.delete(apiRoutes.basket.deleteAllBasketDetails, { params });
     },
-    GetTotalPrice(params){
-        BaseApi.get('/basket/v1/BasketDetail/GetTotalPrice', params)
+    DeleteById(params) {
+        return BaseApi.delete(apiRoutes.basket.deleteBasketDetailById, { params });
     },
-    UpdateQuantity(params){
-        BaseApi.post('/basket/v1/BasketDetail/UpdateQuantity', params)
+    DeleteByIds(params) {
+        return BaseApi.delete(apiRoutes.basket.deleteBasketDetailByIds, { params });
     },
-    UpdateStatus(params){
-        BaseApi.delete('/basket/v1/BasketDetail/UpdateStatus', params)
+    EncryptBasketDetail(params) {
+        return BaseApi.get(apiRoutes.basket.encryptBasketDetail, { params });
     },
-    UpdateStatusByProductTypeId(params){
-        BaseApi.delete('/basket/v1/BasketDetail/UpdateStatusByProductTypeId', params)
+    GetListByCurrent(params) {
+        return BaseApi.get(apiRoutes.basket.getListByCurrentCustomer, { params });
     },
-}
-
+    GetListByProductType(params) {
+        return BaseApi.get(apiRoutes.basket.getListByProductType, { params });
+    },
+    GetTotalPrice(params) {
+        return BaseApi.get(apiRoutes.basket.getTotalPrice, { params });
+    },
+    BasketDetailTest(params) {
+        return BaseApi.get(apiRoutes.basket.basketDetailTest, { params });
+    },
+    UpdateQuantity(data) {
+        return BaseApi.post(apiRoutes.basket.updateQuantity, data);
+    },
+    UpdateStatus(params) {
+        return BaseApi.delete(apiRoutes.basket.updateStatus, { params });
+    },
+    UpdateStatusByProductTypeId(params) {
+        return BaseApi.delete(apiRoutes.basket.updateStatusByProductTypeId, { params });
+    }
+};
