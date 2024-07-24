@@ -1,0 +1,14 @@
+body {
+    width: 100%;
+    overflow-x: hidden; /* Yatay kaydırmayı önlemek için */
+  }
+  
+
+.rooot {
+    display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+  }

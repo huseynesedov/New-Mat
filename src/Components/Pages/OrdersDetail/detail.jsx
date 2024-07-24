@@ -42,7 +42,7 @@ const Orders = () => {
                             Sifaris Melumatlari
                         </p>
                     </div>
-                    <div className="print" onClick={handlePrint} style={{cursor: 'pointer'}}>
+                    <div className="print" onClick={handlePrint} style={{ cursor: 'pointer' }}>
                         <img src={printsvg} alt="" />
                         <p className="ms-3 fb-500">
                             Print
@@ -206,6 +206,16 @@ const Orders = () => {
                                         Street:  S. Bedelbeyli Kuc. 104 Az1000, City:  Absheron ,State:  Absheron ,Zipcode:  AZ1000
                                     </p>
                                 </div>
+                                <img className='mt-2' src={Liner} alt="" />
+
+                            </div>
+                            <div className="col mt-4 d-flex justify-content-between">
+                                <p className="f-18 text-44 fb-500">
+                                    Shipment Type
+                                </p>
+                                <p className="f-16 text-black">
+                                    2,77 EUR
+                                </p>
                             </div>
                         </div>
                     </div>

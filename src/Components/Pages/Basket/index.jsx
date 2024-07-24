@@ -49,7 +49,7 @@ const Basket = () => {
                             <div className="row mt-5 ">
                                 <div className="myRow2">
                                     <button className="drop align-items-center d-flex justify-content-between" onClick={handleButtonClick}>
-                                        <p className='ms-2 t-79'>
+                                        <p className='ms-2 fw_400 t-79'>
                                             Çatdırılma Növü
                                         </p>
                                         <img className='me-2' src={down} alt="" />
@@ -62,13 +62,13 @@ const Basket = () => {
                                                 <button className='picup'>
                                                     <li className='d-flex'>
                                                         <img className='ms-2' src={Box} alt="" />
-                                                        <p className="t-79 ms-2">Pick up</p>
+                                                        <p className="t-79 fw_400 ms-2">Pick up</p>
                                                     </li>
                                                 </button>
                                                 <button className='picup'>
                                                     <li className='d-flex'>
                                                         <img className='ms-2' src={CarOrder} alt="" />
-                                                        <p className="t-79 ms-2">Normal</p>
+                                                        <p className="t-79 fw_400 ms-2">Normal</p>
                                                     </li>
                                                 </button>
                                             </ul>

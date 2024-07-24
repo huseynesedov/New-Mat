@@ -146,9 +146,9 @@
     width: 100%;
     display: flex;
     background-color: white;
-    border: 2px solid #E9EBF8;
+    border: 1px solid #E9EBF8;
     border-bottom: 0 !important;
-    border-radius: 4px;
+    border-radius: 6px;
 
     ul {
         width: 100%;
@@ -159,7 +159,7 @@
         button {
             display: flex;
             border: none;
-            border-bottom: 2px solid #E9EBF8 !important;
+            border-bottom: 1px solid #E9EBF8 !important;
         }
     }
 }
@@ -172,11 +172,11 @@
 }
 
 .ProductEvaluate2 {
-    width: 100%;
+    width: 80%;
     height: 32px;
     color: white;
-    border: 2px solid #0162DD;
-    background-color: #0162DD;
+    border: 2px solid #182390;
+    background-color: #182390;
     border-radius: 8px;
 }
 
@@ -335,3 +335,6 @@
 
 
 
+.fw_400{
+    font-weight: 400;
+}
