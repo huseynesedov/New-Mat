@@ -10,7 +10,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import store from "./Redux/store";
 import { Provider } from 'react-redux';
-import history from './Const/history';
+import history from './const/history';
 import './i18n';
 
 

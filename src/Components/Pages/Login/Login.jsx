@@ -2,9 +2,15 @@ import { Button, Form } from "react-bootstrap";
 import Images from "../../../Assets/images/js/Images";
 import "./login.scss"
 import { useAuth } from "../../../AuthContext";
+import {useState} from "react";
 const Login = () => {
     let { Logo, Ellipse,CarAccessories } = Images
     const { login } = useAuth();
+
+    const [userCode , setUserCode] =  useState()
+    const [customerCode , setCustomerCode] =  useState()
+    const [password , setPassword] =  useState()
+
     return <>
         <div className="container-fluid vh-100">
             <div className="row h-100">
@@ -28,23 +34,31 @@ const Login = () => {
                         <div className="col mt-5" style={{ width: "537px" }}>
                             <Form>
                                 <Form.Group className="mb-3" controlId="formBasicEmail">
-                                    <Form.Label>Cari kodu</Form.Label>
-                                    <Form.Control type="text" placeholder="+994 50 4452172" />
+                                    <Form.Label>Müşteri kodu</Form.Label>
+                                    <Form.Control onChange={(e)=>{
+                                        setCustomerCode(e.target.value)
+                                    }} type="text" placeholder="" />
                                 </Form.Group>
 
                                 <Form.Group className="mb-3" controlId="formBasicPassword">
                                     <Form.Label>Kullanici Kodu</Form.Label>
-                                    <Form.Control type="text" placeholder="994 12 4452172" />
+                                    <Form.Control onChange={(e)=>{
+                                        setUserCode(e.target.value)
+                                    }}  type="text" placeholder="" />
                                 </Form.Group>
                                 <Form.Group className="mb-3" controlId="formBasicPassword">
-                                    <Form.Label>şifrə</Form.Label>
-                                    <Form.Control type="password" placeholder="****" />
+                                    <Form.Label>Şifrə</Form.Label>
+                                    <Form.Control onChange={(e)=>{
+                                        setPassword(e.target.value)
+                                    }}  type="password" placeholder="****" />
                                 </Form.Group>
                                 <Form.Group className="mb-3 mt-2" controlId="formBasicCheckbox">
                                     <Form.Check type="checkbox" label="Kendi Tarayicimda Devam Etmek Istiyorum" />
                                 </Form.Group>
 
-                                <Button onClick={login} variant="primary w-100 mt-4 rounded-pill" type="submit">
+                                <Button onClick={()=>{
+                                    login(userCode , customerCode , password)
+                                }} variant="primary w-100 mt-4 rounded-pill" type="submit">
                                     Giriş
                                 </Button>
                             </Form>

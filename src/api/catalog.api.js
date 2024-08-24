@@ -1,5 +1,5 @@
-import { BaseApi } from "../Const/api";
-import { apiRoutes } from "../Const/apiRoutes";
+import { BaseApi } from "../const/api";
+import { apiRoutes } from "../const/apiroutes";
 
 export const CatalogApi = {
     // Manufacturer

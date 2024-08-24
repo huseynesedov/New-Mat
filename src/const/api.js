@@ -10,9 +10,8 @@ const createConfig = (params, contentType) => {
         config["params"] = params;
     }
     if (token) {
-        config["headers"] = {"Content-Type": contentType, "token": token};
+        config["headers"] = {"Content-Type": contentType, "Authorization": `Bearer ${token}`};
     }
-
     return config;
 }
 
@@ -27,21 +26,21 @@ const createFormDataConfig = (params) => {
 export const BaseApi = {
     get(url, params) {
 
-        let fullUrl = `${BASE_URL}/${url}`;
+        let fullUrl = `${BASE_URL}${url}`;
         let config = createJsonConfig(params)
 
         return axios.get(fullUrl, config).then(response => response.data);
     },
     post(url, params) {
 
-        let fullUrl = `${BASE_URL}/${url}`;
+        let fullUrl = `${BASE_URL}${url}`;
         let config = createJsonConfig();
 
         return axios.post(fullUrl, params, config).then(response => response.data);
     },
     postFormData(url, params) {
 
-        let fullUrl = `${BASE_URL}/${url}`;
+        let fullUrl = `${BASE_URL}${url}`;
 
         let formData = new FormData();
         Object.keys(params).forEach(key => {
@@ -53,7 +52,7 @@ export const BaseApi = {
     },
     postFormDataFile(url, params) {
 
-        let fullUrl = `${BASE_URL}/${url}`;
+        let fullUrl = `${BASE_URL}${url}`;
 
         let formData = new FormData();
         Object.keys(params).forEach(key => {
@@ -68,13 +67,13 @@ export const BaseApi = {
         return axios.post(fullUrl, formData, config).then(response => response.data);
     },
     delete(url, params) {
-        let fullUrl = `${BASE_URL}/${url}`;
+        let fullUrl = `${BASE_URL}${url}`;
         let config = createJsonConfig(params);
 
         return axios.delete(fullUrl, config).then(response => response.data);
     },
     deleteNew(url, params) {
-        let fullUrl = `${BASE_URL}/${url}`;
+        let fullUrl = `${BASE_URL}${url}`;
         let config = createJsonConfig();
         return axios.delete(fullUrl , {
             ...config,
@@ -85,7 +84,7 @@ export const BaseApi = {
     },
     put(url, params) {
 
-        let fullUrl = `${BASE_URL}/${url}`;
+        let fullUrl = `${BASE_URL}${url}`;
         let config = createJsonConfig();
 
         return axios.put(fullUrl, params, config).then(response => response.data);

@@ -1,13 +1,14 @@
-import React from 'react';
+import React , {useState , useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Images from '../../../Assets/images/js/Images';
 import { addToCart, incrementQuantity, decrementQuantity } from '../../../Redux/actions/index';
+import {ProductApi} from "../../../api/product.api";
 
 const ShoppingCards = () => {
     const { FiTag, Location, Down, Return, TagTwo, Vector2, Heart, Endirim } = Images;
 
-    const data = [
+    const [data, setData] = useState([
         {
             id: 1,
             tag_name: "671987636",
@@ -60,7 +61,20 @@ const ShoppingCards = () => {
             discountTitle: "",
             category: "Ehtiyat Hissesi"
         }
-    ];
+    ]);
+
+
+    useEffect(() => {
+        ProductApi.GetBestSeller(
+            {
+                page: 0,
+                pageSize: 20
+            }
+        ).then((res) => {
+            setData(res.data)
+        } )
+    }, []);
+
 
     const dispatch = useDispatch();
     const cartItems = useSelector(state => state.cart.items);

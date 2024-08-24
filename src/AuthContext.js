@@ -1,5 +1,6 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
-
+import {AccountApi} from "./api/account.api";
+import {notification } from 'antd';
 const AuthContext = createContext();
 
 export const useAuth = () => {
@@ -8,23 +9,45 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [api] = notification.useNotification();
 
   useEffect(() => {
     const storedLoggedIn = localStorage.getItem('loggedIn');
     if (storedLoggedIn) {
       setLoggedIn(JSON.parse(storedLoggedIn));
     }
+    else{
+      setLoggedIn(false)
+    }
     setLoading(false);
   }, []);
 
-  const login = () => {
+  const login = (userCode , customerCode , passwordHash) => {
     setLoading(true);
-    setTimeout(() => {
+
+    AccountApi.Login({userCode, customerCode, passwordHash}).then((res) => {
+      // 000000001
+      // 000000001
+      // admin123!!!
       setLoggedIn(true);
       localStorage.setItem('loggedIn', true);
+      localStorage.setItem('token', res.accessToken);
+      localStorage.setItem('refreshToken', res.refreshToken);
+    }).catch(()=>{
+      setLoggedIn(false)
+      openNotification()
+    }).finally(()=>{
       setLoading(false);
-    }, 1000); // Simulated loading time
+    })
+  };
+
+  const openNotification = () => {
+    api.info({
+      message: `Error`,
+      description: 'İstifadəçi adı və şifrəni yenidən yoxlayın',
+      placement:'topRight'
+    });
   };
 
   const logout = () => {

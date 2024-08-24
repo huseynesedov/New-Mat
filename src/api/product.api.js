@@ -1,5 +1,5 @@
-import { BaseApi } from "../Const/api";
-import { apiRoutes } from "../Const/apiRoutes";
+import { BaseApi } from "../const/api";
+import { apiRoutes } from "../const/apiroutes";
 
 export const ProductApi = {
     // Base
@@ -52,6 +52,9 @@ export const ProductApi = {
     },
     GetVehicleListByProductId(params) {
         return BaseApi.get(apiRoutes.product.getVehicleListByProductId, { params });
+    },
+    GetBestSeller(data) {
+        return BaseApi.post(apiRoutes.product.getBestSeller, data)
     },
     GetVehicleModelById(params) {
         return BaseApi.get(apiRoutes.product.getVehicleModelById, { params });
