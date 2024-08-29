@@ -35,12 +35,13 @@ export const apiRoutes = {
         getShelfAdressesById: '/product/v1/Product/GetShelfAdressesById',
         getVehicleBrandById: '/product/v1/Product/GetVehicleBrandById',
         getVehicleListByProductId: '/product/v1/Product/GetVehicleListByProductId',
+        getBestSeller: '/product/v1/Product/GetBestSeller',
         getVehicleModelById: '/product/v1/Product/GetVehicleModelById',
     },
 
     // VehicleBrand
     vehicleBrand: {
-        getListAsync: '/catalog/v1/VehicleBrand/GetListAsync',
+        getListAsync: '/catalog/v1/VehicleBrand/GetList',
         test: '/catalog/v1/VehicleBrand/Test',
     },
 
@@ -63,7 +64,15 @@ export const apiRoutes = {
         updateStatus: '/basket/v1/BasketDetail/UpdateStatus',
         updateStatusByProductTypeId: '/basket/v1/BasketDetail/UpdateStatusByProductTypeId',
     },
-
+    // account
+    account: {
+        adminLogin: '/account/v1/Account/AdminLogin',
+        decrypt: '/account/v1/Account/Decrypt',
+        encrypt: '/account/v1/Account/Encrypt',
+        login: '/account/v1/Account/Login',
+        refreshToken: '/account/v1/Account/RefreshToken',
+        test: '/account/v1/Account/Test',
+    },
     // Catalog
     catalog: {
         baseTest: '/catalog/v1/Base/Test',

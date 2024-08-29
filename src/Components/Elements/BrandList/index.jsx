@@ -1,20 +1,7 @@
 import Slider from "react-slick";
-import React, {useState} from "react";
-import images from "../../../Assets/images/js/Images";
+import React, {useEffect, useState} from "react";
+import {CatalogApi} from "../../../api/catalog.api";
 const BrandList = () => {
-
-    let {
-        Agat,
-        Delphi ,
-        Holts ,
-        Lavr ,
-        Gm ,
-        EuroLub ,
-        Lamborgini ,
-        wolswagen ,
-        nissan
-    } = images
-
     const settings = {
         className: "center",
         infinite: true,
@@ -25,45 +12,19 @@ const BrandList = () => {
         swipeToSlide: true,
     };
 
-    const [list , setList] = useState([
-        {
-            id:1,
-            url:Agat
-        },
-        {
-            id:2,
-            url:Delphi
-        },
-        {
-            id:2,
-            url:Holts
-        },
-        {
-            id:2,
-            url:Lavr
-        },
-        {
-            id:2,
-            url:Gm
-        },
-        {
-            id:2,
-            url:EuroLub
-        },
-        {
-            id:2,
-            url:Lamborgini
-        },
-        {
-            id:2,
-            url:wolswagen
-        },
-        {
-            id:2,
-            url:nissan
-        },
+    const [list , setList] = useState([])
 
-    ])
+    useEffect(() => {
+        CatalogApi.GetVehicleBrandListAsync().then((res) =>    {
+            let arr = res.map((r)=>{
+                return {
+                    ...r,
+                    url: r.content
+                }
+            })
+           setList(arr)
+        })
+    }, []);
 
 
     return <div className="Container h-100">
