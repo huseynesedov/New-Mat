@@ -6,10 +6,10 @@ export const AccountApi = {
         return BaseApi.post(apiRoutes.account.adminLogin, data);
     },
     Decrypt(params) {
-        return BaseApi.get(apiRoutes.account.decrypt, { params });
+        return BaseApi.get(apiRoutes.account.decrypt, { ...params });
     },
     Encrypt(params) {
-        return BaseApi.get(apiRoutes.account.encrypt, { params });
+        return BaseApi.get(apiRoutes.account.encrypt, { ...params });
     },
     Login(data) {
         return BaseApi.post(apiRoutes.account.login, data);
@@ -18,6 +18,6 @@ export const AccountApi = {
         return BaseApi.post(apiRoutes.account.refreshToken, data);
     },
     Test(params) {
-        return BaseApi.get(apiRoutes.account.test, { params });
+        return BaseApi.get(apiRoutes.account.test, { ...params });
     }
 };

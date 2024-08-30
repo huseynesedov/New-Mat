@@ -23,7 +23,7 @@ export const apiRoutes = {
         encryptBase: '/product/v1/Base/Encrypt',
         decryptProduct: '/product/v1/Product/Decrypt',
         encryptProduct: '/product/v1/Product/Encrypt',
-        getById: '/product/v1/Product/GetById?id=',
+        getById: '/product/v1/Product/GetById',
         getCrossListByProductId: '/product/v1/Product/GetCrossListByProductId',
         getManufacturerAdditionalDiscountById: '/product/v1/Product/GetManufacturerAdditionalDiscountById',
         getOemByProductId: '/product/v1/Product/GetOemByProductId',
