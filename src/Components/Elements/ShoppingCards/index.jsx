@@ -1,83 +1,49 @@
-import React , {useState , useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Images from '../../../Assets/images/js/Images';
 import { addToCart, incrementQuantity, decrementQuantity } from '../../../Redux/actions/index';
-import {ProductApi} from "../../../api/product.api";
+import { ProductApi } from "../../../api/product.api";
 
 const ShoppingCards = () => {
     const { FiTag, Location, Down, Return, TagTwo, Vector2, Heart, Endirim } = Images;
 
-    const [data, setData] = useState([
-        {
-            id: 1,
-            tag_name: "671987636",
-            tag_Title: "E39, E36, E35",
-            location: "Baku",
-            car_name: "Hundai",
-            brand_name: "Shell Rotella 550041918",
-            brand_title: "-2PK T6 Tam Sintetik Ağır Mühərrik Yağı 5W-40, 2,5 Qalon Sürahi, 2 paket",
-            price: "400 AZN",
-            discount: true,
-            discountTitle: "10",
-            category: "Oil"
-        },
-        {
-            id: 2,
-            tag_name: "671987636",
-            tag_Title: "E39, E36, E35",
-            location: "Baku",
-            car_name: "Hundai",
-            brand_name: "Shell Rotella 550041918",
-            brand_title: "-2PK T6 Tam Sintetik Ağır Mühərrik Yağı 5W-40, 2,5 Qalon Sürahi, 2 paket",
-            price: "590 AZN",
-            discount: true,
-            discountTitle: "2",
-            category: "Oil"
-        },
-        {
-            id: 3,
-            tag_name: "671987636",
-            tag_Title: "E39, E36, E35",
-            location: "Baku",
-            car_name: "Hundai",
-            brand_name: "Shell Rotella 550041918",
-            brand_title: "-2PK T6 Tam Sintetik Ağır Mühərrik Yağı 5W-40, 2,5 Qalon Sürahi, 2 paket",
-            price: "190 AZN",
-            discount: true,
-            discountTitle: "5",
-            category: "Akumlyator"
-        },
-        {
-            id: 4,
-            tag_name: "671987636",
-            tag_Title: "E39, E36, E35",
-            location: "Baku",
-            car_name: "Hundai",
-            brand_name: "Shell Rotella 550041918",
-            brand_title: "-2PK T6 Tam Sintetik Ağır Mühərrik Yağı 5W-40, 2,5 Qalon Sürahi, 2 paket",
-            price: "10090 AZN",
-            discount: false,
-            discountTitle: "",
-            category: "Ehtiyat Hissesi"
-        }
-    ]);
+    const [data, setData] = useState([]);
 
 
     useEffect(() => {
         ProductApi.GetBestSeller(
             {
                 page: 0,
-                pageSize: 20
+                pageSize: 5
             }
         ).then((res) => {
             setData(res.data)
-        } )
+        })
     }, []);
 
 
+    const handleClick = async (idHash) => {
+        console.log("Gönderilen idHash:", idHash); // idHash değerini kontrol edin
+
+        try {
+            const response = await ProductApi.GetProductById({ id: idHash });
+            console.log("API Yanıtı:", response); 
+        } catch (error) {
+            if (error.response) {
+                console.error("Hata Detayları:", {
+                    status: error.response.status,
+                    data: error.response.data,
+                    headers: error.response.headers,
+                });
+            } else {
+                console.error('API isteği sırasında bir hata oluştu:', error.message);
+            }
+        }
+    };
+    
+
     const dispatch = useDispatch();
-    const cartItems = useSelector(state => state.cart.items);
 
     const handleQuantityChange = (id, increment) => {
         if (increment) {
@@ -87,23 +53,43 @@ const ShoppingCards = () => {
         }
     };
 
-    const handleAddToCart = (product) => {
+
+    const cartItems = useSelector(state => state.cart.items);
+
+    const handleAddToCart = async (product) => {
         const itemInCart = cartItems.find(item => item.id === product.id);
+   
         if (itemInCart) {
             handleQuantityChange(product.id, true);
         } else {
-            dispatch(addToCart(product));
+            try {
+                // API'ye POST isteği gönder
+                const response = await ProductApi.AddToBasket({
+                    productId: product.id,
+                    quantity: 1,
+                    // Diğer gerekli ürün verilerini ekleyin
+                });
+   
+                if (response && response.status === 200) {
+                    // API isteği başarılıysa, ürünü Redux'a ekle
+                    dispatch(addToCart(product));
+                } else {
+                    console.error('Ürün sepete eklenemedi:', response.status);
+                }
+            } catch (error) {
+                console.error('API isteği sırasında bir hata oluştu:', error);
+            }
         }
     };
-
+   
     const newData = data.map(item => {
-        if (item.discount && item.discountTitle) {
-            const price = parseFloat(item.price);
+        if (item.prices[0].value && item.discountTitle) {
+            const price = parseFloat(item.prices[0].value);
             const discountTitle = parseFloat(item.discountTitle);
             const indirimliFiyat = price - (price * (discountTitle / 100));
             return { ...item, indirimliFiyat: indirimliFiyat.toFixed(2) };
         } else {
-            return { ...item, indirimliFiyat: item.price };
+            return { ...item, indirimliFiyat: item.prices[0].value };
         }
     });
 
@@ -111,7 +97,7 @@ const ShoppingCards = () => {
         <div className="container-fluid mt-5">
             <div className="row">
                 {newData.map(d => (
-                    <div className="d-block text-decoration-none position-relative col-lg-3 col-md-6" key={d.id}>
+                    <div className="d-block text-decoration-none position-relative col-lg-3 col-md-6" key={d.idHash}>
                         <div className="CartCenterMain">
                             {d.discount && (
                                 <div className="position-absolute" style={{ left: "-21px", top: "-17px" }}>
@@ -122,22 +108,22 @@ const ShoppingCards = () => {
                                 </div>
                             )}
 
-                            <Link to={`/detail/${d.id}`}>
+                            <Link to={`/detail/${d.idHash}`} key={d.idHash} onClick={() => handleClick(d.idHash)}>
                                 <div className="ImgTitleMain">
                                     <div className="ImgBrendingTitle">
                                         <div className="ImgFocus">
-                                            <img src="https://seyler.ekstat.com/img/max/800/i/iOA665pDf2mr7M8P-636554123779981811.jpg" alt="Product" />
+                                            <img src={`${d.baseUrl}${d.defaultContent}`} alt="Product" />
                                         </div>
                                         <div className="TitleCenter ms-3">
                                             <span className="Tag">
                                                 <img src={FiTag} alt="FiTag" />
                                                 <p className="OemNo text-44">
-                                                    {d.tag_name}
+                                                    {d.code}
                                                 </p>
                                             </span>
                                             <span className="TagTwo">
                                                 <div className="ImgCenters">
-                                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/BMW.svg/900px-BMW.svg.png" alt="TagTwo" />
+                                                    <img src={`${d.baseUrl}${d.manufacturerContent}`} alt="Product" />
                                                 </div>
                                                 <p className="brendNo">
                                                     {d.tag_Title}
@@ -149,7 +135,7 @@ const ShoppingCards = () => {
                                         <p className="Oem">
                                             OEM № :
                                             <p className="OemNo text-44">
-                                                {d.tag_name}
+                                                {d.oemCode}
                                             </p>
                                         </p>
                                     </div>
@@ -161,14 +147,14 @@ const ShoppingCards = () => {
                                     <div className="Location">
                                         <img src={Location} alt="Location" />
                                         <p className="LocationName">
-                                            {d.location}
+                                            {d.storages && d.storages.length > 0 ? d.storages[0].storageCode : ' '}
                                         </p>
                                         <img src={Down} alt="Down" />
                                     </div>
                                     <div className="Brend">
                                         <img src={TagTwo} alt="TagTwo" />
                                         <p className="BrendTitle">
-                                            {d.car_name}
+                                            {d.manufacturerName}
                                         </p>
                                     </div>
                                 </div>
@@ -182,12 +168,12 @@ const ShoppingCards = () => {
                                 </div>
                             </div>
 
-                            <Link to={`/detail/${d.id}`} className="BrendingDetailTitle text-decoration-none">
+                            <Link to={`/detail/${d.idHash}`} className="BrendingDetailTitle text-decoration-none">
                                 <div className="BrendTitleCenter mt-2">
                                     <h3 className="BrandingName">
-                                        {d.brand_name}
+                                        {d.name}
                                         <p className="BrandingNameTwo">
-                                            {d.brand_title}
+                                            {d.description}
                                         </p>
                                     </h3>
                                 </div>
@@ -198,12 +184,13 @@ const ShoppingCards = () => {
                                     {d.discount && (
                                         <p className="DelPrice">
                                             <del>
-                                                {d.price}
+                                                {/* {d.prices[0].value} {d.prices[0].currencyCode} */}
                                             </del>
                                         </p>
                                     )}
                                     <p className="Price fb-800">
-                                        {d.indirimliFiyat}
+                                        {d.prices[0].value} {d.prices[0].currencyName}
+
                                     </p>
                                 </div>
 

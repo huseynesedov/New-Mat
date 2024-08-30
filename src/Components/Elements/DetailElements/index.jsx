@@ -5,8 +5,8 @@ import Images from '../../../Assets/images/js/Images';
 import { FaHeart } from "react-icons/fa";
 
 const DetailElements = () => {
-    const { id } = useParams(); // URL'den ID'yi alırıq
-    const item = items.find(item => item.id === parseInt(id)); // ID'ye göre productu axdaririq
+    const { idHash } = useParams(); // URL'den ID'yi alırıq
+    const item = items.find(item => item.idHash === parseInt(idHash)); // ID'ye göre productu axdaririq
 
     const { Location_gray, FiTag, Star_Yellow, Star_Gray, Liner, Heart2 } = Images;
 
@@ -88,11 +88,11 @@ const DetailElements = () => {
                         <div className="col-1 d-flex flex-column" style={{ width: "490px" }}>
                             <span className="d-flex">
                                 <img src={FiTag} alt="" />
-                                <p className="OemNo text-44 ms-2">{item.oemNo}</p>
+                                <p className="OemNo text-44 ms-2">{item.oemCode}</p>
                             </span>
                             <span className="mt-1 text-44">
                                 <p className="Oem Oem2 d-flex align-items-baseline">
-                                    OEM № : <span className="OemNo OemNo2">{item.oemNo}</span>
+                                    OEM № : <span className="OemNo OemNo2">{item.oemCode}</span>
                                 </p>
                             </span>
                             <span>
@@ -135,7 +135,7 @@ const DetailElements = () => {
                                     {item.highlightedFeatures.map((feature, index) => (
                                         <tr key={index} className="border-E9">
                                             <th className="row-header f-14">{feature.name}</th>
-                                            <td className="ms-1">{feature.value}</td>
+                                            <td className="ms-1">{feature.value} </td>
                                         </tr>
                                     ))}
                                     <tr className="border-E9">

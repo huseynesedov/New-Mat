@@ -33,7 +33,7 @@ const Login = () => {
                         {/* Form */}
                         <div className="col mt-5" style={{ width: "537px" }}>
                             <Form>
-                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                <Form.Group className="mb-3" controlId="formBasicPassword">
                                     <Form.Label>Müşteri kodu</Form.Label>
                                     <Form.Control onChange={(e)=>{
                                         setCustomerCode(e.target.value)

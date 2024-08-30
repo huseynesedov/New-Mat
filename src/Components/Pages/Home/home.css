@@ -134,8 +134,13 @@
 }
 
 .OemNo {
+    width: 136px !important;
     font-weight: 600;
     margin-left: 4px;
+    width: 20px;
+    white-space: nowrap; /* Metnin tek satırda kalmasını sağlar */
+    overflow: hidden; /* Taşan metni gizler */
+    text-overflow: ellipsis; /* Metnin sonunda üç nokta ekler */
 }
 
 
@@ -163,6 +168,9 @@
 .Tag {
     display: flex;
     align-items: center;
+    word-wrap: break-word; /* veya */
+    overflow-wrap: break-word;
+    white-space: normal;
 }
 
 .Tag img {
@@ -270,7 +278,6 @@ a {
 }
 
 .BrandingName {
-    width: 90%;
     /* border: 1px solid black; */
     display: flex;
     color: #444444;
