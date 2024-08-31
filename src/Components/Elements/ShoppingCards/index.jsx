@@ -15,7 +15,7 @@ const ShoppingCards = () => {
         ProductApi.GetBestSeller(
             {
                 page: 0,
-                pageSize: 5
+                pageSize: 20
             }
         ).then((res) => {
             setData(res.data)
@@ -23,24 +23,24 @@ const ShoppingCards = () => {
     }, []);
 
 
-    const handleClick = async (idHash) => {
-        console.log("Gönderilen idHash:", idHash); // idHash değerini kontrol edin
+    // const handleClick = async (idHash) => {
+    //     console.log("Gönderilen idHash:", idHash); // idHash değerini kontrol edin
 
-        try {
-            const response = await ProductApi.GetProductById({ id: idHash });
-            console.log("API Yanıtı:", response); 
-        } catch (error) {
-            if (error.response) {
-                console.error("Hata Detayları:", {
-                    status: error.response.status,
-                    data: error.response.data,
-                    headers: error.response.headers,
-                });
-            } else {
-                console.error('API isteği sırasında bir hata oluştu:', error.message);
-            }
-        }
-    };
+    //     try {
+    //         const response = await ProductApi.GetProductById({ id: idHash });
+    //         console.log("API Yanıtı:", response); 
+    //     } catch (error) {
+    //         if (error.response) {
+    //             console.error("Hata Detayları:", {
+    //                 status: error.response.status,
+    //                 data: error.response.data,
+    //                 headers: error.response.headers,
+    //             });
+    //         } else {
+    //             console.error('API isteği sırasında bir hata oluştu:', error.message);
+    //         }
+    //     }
+    // };
     
 
     const dispatch = useDispatch();
@@ -108,7 +108,7 @@ const ShoppingCards = () => {
                                 </div>
                             )}
 
-                            <Link to={`/detail/${d.idHash}`} key={d.idHash} onClick={() => handleClick(d.idHash)}>
+                            <Link to={`/detail/${d.idHash}`} >
                                 <div className="ImgTitleMain">
                                     <div className="ImgBrendingTitle">
                                         <div className="ImgFocus">

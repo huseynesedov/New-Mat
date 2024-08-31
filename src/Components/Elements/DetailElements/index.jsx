@@ -1,27 +1,45 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { items } from './json';
 import Images from '../../../Assets/images/js/Images';
 import { FaHeart } from "react-icons/fa";
+import { ProductApi } from "../../../api/product.api";
 
 const DetailElements = () => {
     const { idHash } = useParams(); // URL'den ID'yi alırıq
-    const item = items.find(item => item.idHash === parseInt(idHash)); // ID'ye göre productu axdaririq
 
     const { Location_gray, FiTag, Star_Yellow, Star_Gray, Liner, Heart2 } = Images;
 
     const [selectedImage, setSelectedImage] = useState(""); // Default şəkil
     const [hoverRating, setHoverRating] = useState(0); // hover edildikdə tutulan rating
     const [isFavorite, setIsFavorite] = useState(false); // Favorite state
+    const [productData, setProductData] = useState(null); // Ürün bilgilerini saklayacak state
 
-    // Eğer ürün varsa və carouselImages dizisi tanımlı ise ilk resmi seç
     useEffect(() => {
-        if (item && item.carouselImages && item.carouselImages.length > 0) {
-            setSelectedImage(item.carouselImages[0].img);
-        }
-    }, [item]);
+        console.log("URL'den alınan idHash:", idHash);
+        const fetchProductData = async () => {
+            if (idHash) {
+                try {
+                    const response = await ProductApi.GetProductById({ id: idHash });
+                    console.log("API response:", response); // API yanıtını konsola yazdır
+                    setProductData(response.data); // API'den gelen veriyi state'e set et
+                } catch (error) {
+                    console.error("Error fetching product data:", error);
+                }
+            }
+        };
+    
+        fetchProductData();
+    }, [idHash]);
+    
 
-    if (!item) {
+    useEffect(() => {
+        // Eğer ürün varsa ve carouselImages dizisi tanımlı ise ilk resmi seç
+        if (productData && productData.carouselImages && productData.carouselImages.length > 0) {
+            setSelectedImage(productData.carouselImages[0].img);
+        }
+    }, [productData]);
+
+    if (!productData) {
         return (
             <div className='d-flex flex-column align-items-center w-100 h-100 justify-content-center'>
                 <img src="https://cdn.dribbble.com/users/721524/screenshots/4117132/media/6dff4135f851cd4af82839d83e00d1d6.png?resize=800x600&vertical=center" alt="" />
@@ -51,10 +69,10 @@ const DetailElements = () => {
         const stars = [];
         for (let i = 1; i <= 5; i++) {
             stars.push(
-                <img 
-                    key={i} 
-                    src={i <= rating ? Star_Yellow : Star_Gray} 
-                    alt={`${i <= rating ? 'yellow' : 'gray'}-star`} 
+                <img
+                    key={i}
+                    src={i <= rating ? Star_Yellow : Star_Gray}
+                    alt={`${i <= rating ? 'yellow' : 'gray'}-star`}
                 />
             );
         }
@@ -67,7 +85,7 @@ const DetailElements = () => {
                 <div className="row align-items-center justify-content-between border rounded" style={{ width: "39.3%", height: "655px" }}>
                     {/* imgs carousel */}
                     <div className="col-1 d-flex flex-column justify-content-between ms-3 p-0" style={{ width: "97px", height: "420px" }}>
-                        {item.carouselImages && item.carouselImages.map((imageObj, index) => (
+                        {productData.carouselImages && productData.carouselImages.map((imageObj, index) => (
                             <button key={index} className="none" onClick={() => handleImageClick(imageObj.img)}>
                                 <div className="d-flex border rounded w-100" style={{ height: "97px", padding: "6px" }}>
                                     <img className="w-100" src={imageObj.img} alt={`carousel-img-${index}`} />
@@ -88,17 +106,17 @@ const DetailElements = () => {
                         <div className="col-1 d-flex flex-column" style={{ width: "490px" }}>
                             <span className="d-flex">
                                 <img src={FiTag} alt="" />
-                                <p className="OemNo text-44 ms-2">{item.oemCode}</p>
+                                <p className="OemNo text-44 ms-2">{productData.oemCode}</p>
                             </span>
                             <span className="mt-1 text-44">
                                 <p className="Oem Oem2 d-flex align-items-baseline">
-                                    OEM № : <span className="OemNo OemNo2">{item.oemCode}</span>
+                                    OEM № : <span className="OemNo OemNo2">{productData.oemCode}</span>
                                 </p>
                             </span>
                             <span>
                                 <h3 className="BrandingName BrandingName2 mt-2">
-                                    {item.brandingName}
-                                    <span className="BrandingNameTwo">{item.brandingNameTwo}</span>
+                                    {productData.brandingName}
+                                    <span className="BrandingNameTwo">{productData.brandingNameTwo}</span>
                                 </h3>
                             </span>
                         </div>
@@ -107,14 +125,14 @@ const DetailElements = () => {
                             <div className="d-flex flex-column">
                                 <span className="d-blok">
                                     <div className="d-flex align-items-center">
-                                        <p className="me-2 fb-500 f-14">{hoverRating > 0 ? hoverRating.toFixed(1) : item.rating}</p>
+                                        <p className="me-2 fb-500 f-14">{hoverRating > 0 ? hoverRating.toFixed(1) : productData.rating}</p>
                                         <span onMouseEnter={() => handleMouseEnter(5)} onMouseLeave={handleMouseLeave}>
-                                            {renderStars(hoverRating > 0 ? hoverRating : item.rating)}
+                                            {renderStars(hoverRating > 0 ? hoverRating : productData.rating)}
                                         </span>
                                     </div>
                                 </span>
                                 <span className="d-flex mt-3 justify-content-end">
-                                    <p className="f-14 t_decoration text-44">{item.reviews} Degerlendirme</p>
+                                    <p className="f-14 t_decoration text-44">{productData.reviews} Degerlendirme</p>
                                 </span>
                             </div>
                         </div>
@@ -132,7 +150,7 @@ const DetailElements = () => {
                         <div className="col">
                             <table className='MyTable2'>
                                 <tbody>
-                                    {item.highlightedFeatures.map((feature, index) => (
+                                    {productData.highlightedFeatures.map((feature, index) => (
                                         <tr key={index} className="border-E9">
                                             <th className="row-header f-14">{feature.name}</th>
                                             <td className="ms-1">{feature.value} </td>
