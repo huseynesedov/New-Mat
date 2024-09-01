@@ -30,6 +30,7 @@ export const AuthProvider = ({ children }) => {
       // 000000001
       // 000000001
       // admin123!!!
+      console.log(res)
       setLoggedIn(true);
       localStorage.setItem('loggedIn', true);
       localStorage.setItem('token', res.accessToken);

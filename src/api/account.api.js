@@ -12,6 +12,7 @@ export const AccountApi = {
         return BaseApi.get(apiRoutes.account.encrypt, { ...params });
     },
     Login(data) {
+        console.log(data)
         return BaseApi.post(apiRoutes.account.login, data);
     },
     RefreshToken(data) {
