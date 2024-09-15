@@ -1,13 +1,23 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import './style.scss';
 import Images from '../../../Assets/images/js/Images';
 import BasketItems from '../../Elements/BasketItem/index';
 import { useSelector } from 'react-redux';
+import {BasketApi} from "../../../api/basket.api";
 
 const Basket = () => {
     const [open, setOpen] = useState(false);
     const [totalPrice, setTotalPrice] = useState(0);
     const [originalTotalPrice, setOriginalTotalPrice] = useState(0);
+    const [basketItems, setBasketItems] = useState([]);
+
+
+    useEffect(()=>{
+        BasketApi.GetListByCurrent().then((items)=>{
+            console.log(items)
+        })
+    })
+
 
     const handleButtonClick = () => {
         setOpen(!open);

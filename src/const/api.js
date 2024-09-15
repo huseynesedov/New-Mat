@@ -31,14 +31,13 @@ export const BaseApi = {
 
         return axios.get(fullUrl, config).then(response => response.data);
     },
-    post(url, params) {
-
+    post(url, params , queryParams) {
         let fullUrl = `${BASE_URL}${url}`;
-        let config = createJsonConfig();
+        let config = createJsonConfig(queryParams);
 
         return axios.post(fullUrl, params, config).then(response => response.data);
     },
-    postFormData(url, params) {
+    postFormData(url, params , queryParams) {
 
         let fullUrl = `${BASE_URL}${url}`;
 

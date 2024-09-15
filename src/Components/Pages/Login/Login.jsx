@@ -32,7 +32,6 @@ const Login = () => {
                         </div>
                         {/* Form */}
                         <div className="col mt-5" style={{ width: "537px" }}>
-                            <Form>
                                 <Form.Group className="mb-3" controlId="formBasicPassword">
                                     <Form.Label>Müşteri kodu</Form.Label>
                                     <Form.Control onChange={(e)=>{
@@ -61,7 +60,6 @@ const Login = () => {
                                 }} variant="primary w-100 mt-4 rounded-pill" type="submit">
                                     Giriş
                                 </Button>
-                            </Form>
                         </div>
                     </div>
                 </div>

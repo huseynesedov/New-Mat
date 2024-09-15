@@ -7,6 +7,7 @@ import ShoppingCards from "../../Elements/ShoppingCards/ProductsPage";
 function Home() {
     const { Filtr, wolswagen, BiCar, FiTag2, down, Liner, chrevron_right, Stok, AiOutlineUngroup, glass, List24 } = Images;
 
+    const [reset, setReset] = useState(false);
     const [open1, setOpen1] = useState(false);
     const handleButtonClick1 = () => {
         setOpen1(!open1);
@@ -44,19 +45,19 @@ function Home() {
                 <title>MAT Software - Home</title>
             </Helmet>
 
-            <div className="container-fluid d-flex justify-content-center mt-5">
-                <div className="myRow mt-5 align-items-start flex-column">
-                    <p className="text-44 f-14 d-flex fb-600">
-                        Ana sayfa
-                        <img src={chrevron_right} alt="" />
-                        Yag
-                        <img src={chrevron_right} alt="" />
-                        Delphi Oil
-                        <img src={chrevron_right} alt="" />
-                        <span className="t-01">Shel oil 675347834</span>
-                    </p>
-                </div>
-            </div>
+            {/*<div className="container-fluid d-flex justify-content-center mt-5">*/}
+            {/*    <div className="myRow mt-5 align-items-start flex-column">*/}
+            {/*        <p className="text-44 f-14 d-flex fb-600">*/}
+            {/*            Ana sayfa*/}
+            {/*            <img src={chrevron_right} alt="" />*/}
+            {/*            Yag*/}
+            {/*            <img src={chrevron_right} alt="" />*/}
+            {/*            Delphi Oil*/}
+            {/*            <img src={chrevron_right} alt="" />*/}
+            {/*            <span className="t-01">Shel oil 675347834</span>*/}
+            {/*        </p>*/}
+            {/*    </div>*/}
+            {/*</div>*/}
 
             <div className="container-fluid d-flex justify-content-center mt-5">
                 <div className="myRow flex-nowrap align-items-start mt-5 d-flex justify-content-between">
@@ -68,7 +69,7 @@ function Home() {
                                     <div className="d-flex">
                                         <img src={Filtr} alt="" />
                                         <p className='ms-2 text-black t-79'>
-                                            Filter 1
+                                            Filter
                                         </p>
                                     </div>
                                     <div className="DownImg">
@@ -82,36 +83,45 @@ function Home() {
                                                 <li className='d-flex'>
                                                     <div className="checkbox2">
                                                         <input
+                                                            onClick={()=>{
+                                                                setReset(!reset)
+                                                            }}
                                                             type="checkbox"
                                                             id={`checkbox1`}
                                                         />
                                                         <label htmlFor={`checkbox1`} className="checkmark2" />
                                                     </div>
-                                                    <p className="t-79 ms-2 mb-1">Aksiya 1</p>
+                                                    <p className="t-79 ms-2 mb-1">Aksiya </p>
                                                 </li>
                                             </button>
                                             <button className='picup2'>
                                                 <li className='d-flex'>
                                                     <div className="checkbox2">
                                                         <input
+                                                            onClick={()=>{
+                                                                setReset(!reset)
+                                                            }}
                                                             type="checkbox"
                                                             id={`checkbox2`}
                                                         />
                                                         <label htmlFor={`checkbox2`} className="checkmark2" />
                                                     </div>
-                                                    <p className="t-79 ms-2 mb-1">Yeni Mahsul 1</p>
+                                                    <p className="t-79 ms-2 mb-1">Yeni Mahsul </p>
                                                 </li>
                                             </button>
                                             <button className='picup2'>
                                                 <li className='d-flex align-items-center'>
                                                     <div className="checkbox2">
                                                         <input
+                                                            onClick={()=>{
+                                                                setReset(!reset)
+                                                            }}
                                                             type="checkbox"
                                                             id={`checkbox3`}
                                                         />
                                                         <label htmlFor={`checkbox3`} className="checkmark2" />
                                                     </div>
-                                                    <p className="t-79 ms-2 mb-1">Mevcuddur 1</p>
+                                                    <p className="t-79 ms-2 mb-1">Mevcuddur </p>
                                                 </li>
                                             </button>
                                         </ul>
@@ -142,6 +152,9 @@ function Home() {
                                                 <li className='d-flex'>
                                                     <div className="checkbox2 checkbox3">
                                                         <input
+                                                            onClick={()=>{
+                                                                setReset(!reset)
+                                                            }}
                                                             type="checkbox"
                                                             id={`checkbox7`}
                                                         />
@@ -154,6 +167,9 @@ function Home() {
                                                 <li className='d-flex'>
                                                     <div className="checkbox2 checkbox3">
                                                         <input
+                                                            onClick={()=>{
+                                                                setReset(!reset)
+                                                            }}
                                                             type="checkbox"
                                                             id={`checkbox8`}
                                                         />
@@ -166,6 +182,9 @@ function Home() {
                                                 <li className='d-flex align-items-center'>
                                                     <div className="checkbox2 checkbox3">
                                                         <input
+                                                            onClick={()=>{
+                                                                setReset(!reset)
+                                                            }}
                                                             type="checkbox"
                                                             id={`checkbox9`}
                                                         />
@@ -178,6 +197,9 @@ function Home() {
                                                 <li className='d-flex'>
                                                     <div className="checkbox2 checkbox3">
                                                         <input
+                                                            onClick={()=>{
+                                                                setReset(!reset)
+                                                            }}
                                                             type="checkbox"
                                                             id={`checkbox10`}
                                                         />
@@ -190,6 +212,9 @@ function Home() {
                                                 <li className='d-flex'>
                                                     <div className="checkbox2 checkbox3">
                                                         <input
+                                                            onClick={()=>{
+                                                                setReset(!reset)
+                                                            }}
                                                             type="checkbox"
                                                             id={`checkbox11`}
                                                         />
@@ -202,6 +227,9 @@ function Home() {
                                                 <li className='d-flex'>
                                                     <div className="checkbox2 checkbox3">
                                                         <input
+                                                            onClick={()=>{
+                                                                setReset(!reset)
+                                                            }}
                                                             type="checkbox"
                                                             id={`checkbox12`}
                                                         />
@@ -239,6 +267,9 @@ function Home() {
                                                 <li className='d-flex'>
                                                     <div className="checkbox2">
                                                         <input
+                                                            onClick={()=>{
+                                                                setReset(!reset)
+                                                            }}
                                                             type="radio"
                                                             name="productType"
                                                             id={`checkbox7`}
@@ -254,6 +285,9 @@ function Home() {
                                                 <li className='d-flex'>
                                                     <div className="checkbox2">
                                                         <input
+                                                            onClick={()=>{
+                                                                setReset(!reset)
+                                                            }}
                                                             type="radio"
                                                             name="productType"
                                                             id={`checkbox8`}
@@ -269,6 +303,9 @@ function Home() {
                                                 <li className='d-flex align-items-center'>
                                                     <div className="checkbox2">
                                                         <input
+                                                            onClick={()=>{
+                                                                setReset(!reset)
+                                                            }}
                                                             type="radio"
                                                             name="productType"
                                                             id={`checkbox9`}
@@ -306,7 +343,9 @@ function Home() {
                                         <ul>
                                             <div className="Searchİnput d-flex position-relative">
                                                 <img src={glass} className="position-absolute pos_px" alt="" />
-                                                <input type="text" placeholder="Brend axdar..." />
+                                                <input  onClick={()=>{
+                                                    setReset(!reset)
+                                                }}  type="text" placeholder="Brend axdar..." />
 
 
                                             </div>
@@ -371,7 +410,9 @@ function Home() {
                                         <ul>
                                             <div className="Searchİnput d-flex position-relative">
                                                 <img src={glass} className="position-absolute pos_px" alt="" />
-                                                <input type="text" placeholder="Avtomobil Markasi axdar..." />
+                                                <input  onClick={()=>{
+                                                    setReset(!reset)
+                                                }}  type="text" placeholder="Avtomobil Markasi axdar..." />
 
                                             </div>
                                             <button className='picup2'>
@@ -410,7 +451,9 @@ function Home() {
                                         <ul>
                                             <div className="Searchİnput d-flex position-relative">
                                                 <img src={glass} className="position-absolute pos_px" alt="" />
-                                                <input type="text" placeholder="Brend axdar..." />
+                                                <input  onClick={()=>{
+                                                    setReset(!reset)
+                                                }}  type="text" placeholder="Brend axdar..." />
 
 
                                             </div>
@@ -460,7 +503,7 @@ function Home() {
 
                     <div className="myContainer1 rounded">
                         <div className="">
-                            <ShoppingCards />
+                            <ShoppingCards  reset={reset}  setReset={setReset}/>
                         </div>
                     </div>
 

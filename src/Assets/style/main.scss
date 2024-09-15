@@ -28,3 +28,11 @@ p{
     color: white;
   }
 }
+
+.custom-spin{
+  margin-right:10px;
+}
+
+.custom-spin .ant-spin-dot i {
+  color: white !important; /* Change the spin dots to white */
+}

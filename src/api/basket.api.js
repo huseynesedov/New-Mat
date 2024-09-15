@@ -12,7 +12,7 @@ export const BasketApi = {
         return BaseApi.get(apiRoutes.basket.baseTest, { ...params });
     },
     AddToBasket(data) {
-        return BaseApi.post(apiRoutes.basket.addToBasket, data);
+        return BaseApi.post(apiRoutes.basket.addToBasket, data , data);
     },
     DecryptBasketDetail(params) {
         return BaseApi.get(apiRoutes.basket.decryptBasketDetail, { ...params });

@@ -37,10 +37,10 @@ const Orders = () => {
     // API çağrısını burada yapın ve ürünleri ayarlayın
     const fetchProducts = async () => {
       const fetchedProducts = [
-        { id: 1, status: 'Tesdiqlendi' },
-        { id: 2, status: 'Birleshdir' },
-        { id: 3, status: 'Legv Edilibdir' },
-        { id: 4, status: 'Legv Edilibdir' },
+        { id: 1, status: 'Tesdiqlendi'  , price: 234.2  , date:'13.09.2024'},
+        { id: 2, status: 'Birleshdir'  , price:  343.1 , date:'14.09.2024'},
+        { id: 3, status: 'Legv Edilibdir' , price: 235.1 , date:'13.09.2024'},
+        { id: 4, status: 'Legv Edilibdir'  , price: 432.1 , date:'13.09.2024'},
       ];
       setProducts(fetchedProducts);
     };
@@ -104,19 +104,19 @@ const Orders = () => {
                 </tr>
               </thead>
               <tbody>
-                {products.map((product) => (
+                {products.map((product, i) => (
                   <tr key={product.id}>
                     <td>{product.id}</td>
-                    <td>25.03.2024</td>
-                    <td>25.03.2024</td>
+                    <td>{product.date}</td>
+                    <td>{}</td>
                     <td className="d-flex">
                       <ProductStatus status={product.status} />
                     </td>
-                    <td style={{ textAlign: "center" }}>Haci Rafael</td>
+                    <td style={{ textAlign: "center" }}>Test</td>
                     <td style={{ textAlign: "center" }}>-----</td>
-                    <td>413246 Sifarişle birleşdi</td>
+                    <td>123{i} Sifarişle birleşdi</td>
                     <td>Baku</td>
-                    <td>22.97 AZN</td>
+                    <td>{product.price} AZN</td>
                     <td className="d-flex align-items-center">
                       <Link className="text-decoration-none" to={`/Orders/OrderDetail/${product.id}`}>
                         <div className="view">
@@ -151,19 +151,19 @@ const Orders = () => {
                 </tr>
               </thead>
               <tbody>
-                {products.filter(product => product.status === 'Legv Edilibdir').map((product) => (
+                {products.filter(product => product.status === 'Legv Edilibdir').map((product , i) => (
                   <tr key={product.id}>
                     <td>{product.id}</td>
-                    <td>25.03.2024</td>
-                    <td>25.03.2024</td>
+                    <td>{product.date}</td>
+                    <td>{}</td>
                     <td className="d-flex">
                       <ProductStatus status={product.status} />
                     </td>
-                    <td style={{ textAlign: "center" }}>Haci Rafael</td>
+                    <td style={{ textAlign: "center" }}>Tst</td>
                     <td style={{ textAlign: "center" }}>-----</td>
-                    <td>413246 Sifarişle birleşdi</td>
+                    <td>122{i} Sifarişle birleşdi</td>
                     <td>Baku</td>
-                    <td>22.97 AZN</td>
+                    <td>{product.price}</td>
                     <td className="d-flex align-items-center">
                       <Link className="text-decoration-none" to={`/Orders/OrderDetail/${product.id}`}>
                         <div className="view">
@@ -197,17 +197,17 @@ const Orders = () => {
                 </tr>
               </thead>
               <tbody>
-                {products.filter(product => product.status === 'Birleshdir').map((product) => (
+                {products.filter(product => product.status === 'Birleshdir').map((product , i) => (
                   <tr key={product.id}>
                     <td>{product.id}</td>
-                    <td>25.03.2024</td>
-                    <td>25.03.2024</td>
+                    <td>{product.date}</td>
+                    <td>{product.date}</td>
                     <td className="d-flex">
                       <ProductStatus status={product.status} />
                     </td>
-                    <td style={{ textAlign: "center" }}>Haci Rafael</td>
+                    <td style={{ textAlign: "center" }}>test</td>
                     <td style={{ textAlign: "center" }}>-----</td>
-                    <td>413246 Sifarişle birleşdi</td>
+                    <td>41324{i} Sifarişle birleşdi</td>
                     <td>Baku</td>
                     <td>22.97 AZN</td>
                     <td className="d-flex align-items-center">

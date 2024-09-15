@@ -1,6 +1,6 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import {AccountApi} from "./api/account.api";
-import {notification } from 'antd';
+import { notification } from 'antd';
 const AuthContext = createContext();
 
 export const useAuth = () => {
@@ -10,7 +10,24 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [api] = notification.useNotification();
+
+  const openNotification = (message, description , error) => {
+    if(error){
+      notification.error({
+        message,
+        description,
+        placement:'topRight'
+      });
+    }
+    else{
+      notification.info({
+        message,
+        description,
+        placement:'topRight'
+      });
+    }
+  };
+
 
   useEffect(() => {
     const storedLoggedIn = localStorage.getItem('loggedIn');
@@ -35,21 +52,18 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem('loggedIn', true);
       localStorage.setItem('token', res.accessToken);
       localStorage.setItem('refreshToken', res.refreshToken);
-    }).catch(()=>{
+    }).catch((error)=>{
+      setLoading(false);
       setLoggedIn(false)
-      openNotification()
+      openNotification('Xəta baş verdi', error.response.data.message , true)
     }).finally(()=>{
       setLoading(false);
     })
   };
 
-  const openNotification = () => {
-    api.info({
-      message: `Error`,
-      description: 'İstifadəçi adı və şifrəni yenidən yoxlayın',
-      placement:'topRight'
-    });
-  };
+
+
+
 
   const logout = () => {
     setLoggedIn(false);
@@ -57,8 +71,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ loggedIn, loading, login, logout }}>
+    <AuthContext.Provider value={{ loggedIn, loading, login, logout , openNotification }}>
       {children}
     </AuthContext.Provider>
   );
 };
+
