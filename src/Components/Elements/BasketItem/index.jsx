@@ -3,18 +3,18 @@ import { useSelector, useDispatch } from 'react-redux';
 import { removeFromCart, removeCategoryFromCart, removeSelectedItemsFromCart, incrementQuantity, decrementQuantity } from '../../../Redux/actions/index';
 import Images from "../../../Assets/images/js/Images";
 
-const BasketItems = ({ onUpdateTotal, onUpdateOriginalTotal }) => {
+const BasketItems = ({ onUpdateTotal, onUpdateOriginalTotal , basketItems }) => {
     let { FiTag, Down, Location, TagTwo, TabloDelete, Add_Bin } = Images;
     const dispatch = useDispatch();
     const items = useSelector(state => state.cart.items);
 
     const [selectedItems, setSelectedItems] = useState({});
 
-    const groupedData = items.reduce((acc, item) => {
-        if (!acc[item.category]) {
-            acc[item.category] = [];
+    const groupedData = basketItems.reduce((acc, item) => {
+        if (!acc[item.productType.description]) {
+            acc[item.productType.description] = [];
         }
-        acc[item.category].push(item);
+        acc[item.productType.description].push(item);
         return acc;
     }, {});
 

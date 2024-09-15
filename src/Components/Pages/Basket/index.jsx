@@ -3,9 +3,11 @@ import './style.scss';
 import Images from '../../../Assets/images/js/Images';
 import BasketItems from '../../Elements/BasketItem/index';
 import { useSelector } from 'react-redux';
+import {useNavigate} from "react-router-dom";
 import {BasketApi} from "../../../api/basket.api";
 
 const Basket = () => {
+    const navigate = useNavigate()
     const [open, setOpen] = useState(false);
     const [totalPrice, setTotalPrice] = useState(0);
     const [originalTotalPrice, setOriginalTotalPrice] = useState(0);
@@ -15,8 +17,9 @@ const Basket = () => {
     useEffect(()=>{
         BasketApi.GetListByCurrent().then((items)=>{
             console.log(items)
+            setBasketItems(items.basketDetailList)
         })
-    })
+    }, [])
 
 
     const handleButtonClick = () => {
@@ -34,7 +37,7 @@ const Basket = () => {
     let { Box, CarOrder, down, Liner } = Images;
 
     const items = useSelector(state => state.cart.items);
-    if (items.length === 0) {
+    if (basketItems.length === 0) {
         return <div className="empty-basket">Səbət boşdur</div>;
     }
     return (
@@ -50,7 +53,7 @@ const Basket = () => {
             <div className="container-fluid d-flex justify-content-center mt-5">
                 <div className="myRow d-flex align-items-start justify-content-between">
                     <div className="myContainer w-75 position-relative rounded" style={{ padding: "0rem 0rem 0.8rem 0rem" }}>
-                        <BasketItems onUpdateTotal={handleUpdateTotal} onUpdateOriginalTotal={handleUpdateOriginalTotal} />
+                        <BasketItems basketItems={basketItems} onUpdateTotal={handleUpdateTotal} onUpdateOriginalTotal={handleUpdateOriginalTotal} />
                     </div>
 
                     <div className="myContainer2 rounded">
@@ -136,7 +139,9 @@ const Basket = () => {
                             </div>
 
                             <div className="row mt-5 mb-5">
-                                <div className="col d-flex align-items-center justify-content-center">
+                                <div onClick={()=>{
+                                    navigate('/Orders')
+                                }} className="col d-flex align-items-center justify-content-center">
                                     <button className="ProductEvaluate2">Təsdiqəyin və Tamamlayın</button>
                                 </div>
                             </div>
