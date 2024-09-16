@@ -114,7 +114,7 @@ const BasketItems = ({ onUpdateTotal, onUpdateOriginalTotal , basketItems }) => 
                                     <div className="checkbox">
                                         <input
                                             type="checkbox"
-                                            id={`checkbox${categoryIndex}-${index}`}
+                                            id={Data.idHash}
                                             checked={!!selectedItems[category]?.[Data.id]}
                                             onChange={() => handleCheckboxChange(Data.id, category)}
                                         />
@@ -124,21 +124,21 @@ const BasketItems = ({ onUpdateTotal, onUpdateOriginalTotal , basketItems }) => 
                                 <div className="col d-flex justify-content-between">
                                     <div className="d-flex">
                                         <div className="col-1 ms-3 d-flex align-items-center">
-                                            <img src="https://limonoto.com/wp-content/uploads/2023/04/11144-61YG.jpeg" width="47px" height="43px" alt="" />
+                                            <img src={Data.product.defaultContent} width="47px" height="43px" alt="" />
                                         </div>
                                         <div className="col-2 mt-3 ms-4" style={{ width: "74%" }}>
                                             <div className="col w-100 d-flex justify-content-between">
                                                 <div className='d-flex'>
-                                                    <img src={FiTag} alt="" />
+                                                    <img style={{height:'20px'}} src={FiTag} alt="" />
                                                     <p className="OemNo text-44 ms-2">
-                                                        {Data.tag_name}
+                                                        {Data.product.name}
                                                     </p>
                                                 </div>
                                                 <div className="d-flex">
                                                     <p className="Oem">
                                                         OEM № :
                                                         <span className="OemNo">
-                                                            {Data.tag_name}
+                                                            {Data.product.oemCode}
                                                         </span>
                                                     </p>
                                                 </div>
@@ -170,9 +170,9 @@ const BasketItems = ({ onUpdateTotal, onUpdateOriginalTotal , basketItems }) => 
                                             </div>
                                             <div className="col mt-2">
                                                 <h3 className="BrandingName">
-                                                    {Data.brand_name}
+                                                    {Data.product.manufacturerName}
                                                     <span className="BrandingNameTwo">
-                                                        {Data.brand_title}
+                                                        {'   '} {Data.product.code}
                                                     </span>
                                                 </h3>
                                             </div>
@@ -193,10 +193,10 @@ const BasketItems = ({ onUpdateTotal, onUpdateOriginalTotal , basketItems }) => 
                                                 <img width="24px" className='' src={TabloDelete} alt="" />
                                             </button>
                                             <div className="prices2 mt-2">
-                                                {Data.indirimliFiyat ? (
+                                                {Data.salesPrice ? (
                                                     <>
                                                         <p className="Price fb-800">
-                                                            {Data.indirimliFiyat} AZN
+                                                            {Data.salesPrice.formattedPrice}   {Data.salesPrice.currencyName}
                                                         </p>
                                                         {Data.price !== Data.indirimliFiyat && (
                                                             <del>
@@ -210,7 +210,7 @@ const BasketItems = ({ onUpdateTotal, onUpdateOriginalTotal , basketItems }) => 
                                                     </>
                                                 ) : (
                                                     <p className="OriginalPrice">
-                                                        {Data.price} AZN
+                                                        {Data.salesPrice.formattedPrice}   {Data.salesPrice.currencyName}
                                                     </p>
                                                 )}
                                                 {Data.del_price && (
