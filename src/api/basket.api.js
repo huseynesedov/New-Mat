@@ -24,7 +24,8 @@ export const BasketApi = {
         return BaseApi.delete(apiRoutes.basket.deleteBasketDetailById, { ...params });
     },
     DeleteByIds(params) {
-        return BaseApi.delete(apiRoutes.basket.deleteBasketDetailByIds, { ...params });
+        console.log(params)
+        return BaseApi.deleteNew(apiRoutes.basket.deleteBasketDetailByIds, params);
     },
     EncryptBasketDetail(params) {
         return BaseApi.get(apiRoutes.basket.encryptBasketDetail, { ...params });
@@ -42,7 +43,7 @@ export const BasketApi = {
         return BaseApi.get(apiRoutes.basket.basketDetailTest, { ...params });
     },
     UpdateQuantity(data) {
-        return BaseApi.post(apiRoutes.basket.updateQuantity, data);
+        return BaseApi.post(apiRoutes.basket.updateQuantity, data, data);
     },
     UpdateStatus(params) {
         return BaseApi.delete(apiRoutes.basket.updateStatus, { ...params });

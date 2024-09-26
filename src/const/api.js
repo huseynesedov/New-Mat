@@ -76,9 +76,7 @@ export const BaseApi = {
         let config = createJsonConfig();
         return axios.delete(fullUrl , {
             ...config,
-            data: {
-                ...params
-            }
+            data: params
         }).then(response => response.data);
     },
     put(url, params) {

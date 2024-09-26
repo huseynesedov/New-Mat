@@ -15,7 +15,7 @@ const BrandList = () => {
     const [list , setList] = useState([])
 
     useEffect(() => {
-        CatalogApi.GetVehicleBrandListAsync().then((res) =>    {
+        CatalogApi.GetManufacturerList().then((res) =>    {
             let arr = res.map((r)=>{
                 return {
                     ...r,
@@ -30,7 +30,7 @@ const BrandList = () => {
     return <div className="Container h-100">
         <div className="myRow h-auto line">
             <div className="text-start w-100 mt-4">
-                <h3 className={'font-weight-bold text-44'}>Ən çox axtarılan brendlər</h3>
+                <h3 className={'font-weight-bold text-44'}>Ən çox axtarılan istehsalçılar</h3>
             </div>
             <div className="BredsSlide">
                 <div className="slider-container">

@@ -2,6 +2,7 @@ export const apiRoutes = {
     // Manufacturer
     manufacturer: {
         getManufacturerListByProductType: '/catalog/v1/Manufacturer/GetManufacturerListByProductType',
+        getManufacturerList: '/catalog/v1/Manufacturer/GetManufacturerList',
         test: '/catalog/v1/Manufacturer/Test',
     },
 

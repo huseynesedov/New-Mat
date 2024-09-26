@@ -109,15 +109,15 @@ const CardItem = ({d, classes}) => {
 
             <div className="PriceCounter">
                 <div className="prices">
-                    {d.discount ? (
+                    {d.price.formattedDiscountPrice > 0 ? (
                         <p className="DelPrice">
                             <del>
-                                {(d.prices[0].value * d.discount) / 100} {d.prices[0].currencyName}
+                                {d.price?.formattedDiscountedPrice} {d.price?.currencyName}
                             </del>
                         </p>
                     ) : ''}
                     <p className="Price fb-800">
-                        {d.prices[0].value} {d.prices[0].currencyName}
+                        {d.price.value} {d.price?.currencyName}
                     </p>
                 </div>
 

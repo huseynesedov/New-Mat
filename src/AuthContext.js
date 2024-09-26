@@ -10,6 +10,7 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [loading, setLoading] = useState(false);
+  let [loginLoading, setLoginLoading] = useState(false);
 
   const openNotification = (message, description , error) => {
     if(error){
@@ -41,13 +42,10 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = (userCode , customerCode , passwordHash) => {
-    setLoading(true);
-
+    setLoginLoading(true);
     AccountApi.Login({userCode, customerCode, passwordHash}).then((res) => {
-      // 000000001
-      // 000000001
-      // admin123!!!
       console.log(res)
+      setLoading(true)
       setLoggedIn(true);
       localStorage.setItem('loggedIn', true);
       localStorage.setItem('token', res.accessToken);
@@ -55,9 +53,13 @@ export const AuthProvider = ({ children }) => {
     }).catch((error)=>{
       setLoading(false);
       setLoggedIn(false)
+      setLoginLoading(false)
       openNotification('Xəta baş verdi', error.response.data.message , true)
     }).finally(()=>{
-      setLoading(false);
+      setTimeout(()=>{
+        setLoading(false);
+      }, 1000)
+      setLoginLoading(false)
     })
   };
 
@@ -71,7 +73,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ loggedIn, loading, login, logout , openNotification }}>
+    <AuthContext.Provider value={{ loggedIn, loading, loginLoading,  login, logout , openNotification }}>
       {children}
     </AuthContext.Provider>
   );

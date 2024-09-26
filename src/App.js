@@ -4,9 +4,9 @@ import Layout from './Components/Layout/MainLayout/Layout';
 import Login from './Components/Pages/Login/Login';
 import { AuthProvider, useAuth } from './AuthContext';
 import SkeletonScreen from './Loader/index';
-
+import  {Spin} from 'antd'
 function App() {
-  const { loggedIn, loading } = useAuth();
+  const { loggedIn, loading , loginLoading } = useAuth();
 
   if (loading) {
     return <SkeletonScreen />;
@@ -19,7 +19,9 @@ function App() {
           <RouteList />
         </Layout>
       ) : (
-        <Login />
+          <Spin  spinning={loginLoading} tip="Loading...">
+            <Login />
+          </Spin>
       )}
     </>
   );

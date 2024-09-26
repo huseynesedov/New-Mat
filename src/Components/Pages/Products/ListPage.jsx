@@ -42,7 +42,7 @@ function Home() {
         <>
             <Helmet>
                 <meta charSet="utf-8" />
-                <title>MAT Software - Home</title>
+                <title>MAT Software - Filter</title>
             </Helmet>
 
             {/*<div className="container-fluid d-flex justify-content-center mt-5">*/}

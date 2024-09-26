@@ -31,14 +31,7 @@ const ShoppingCards = () => {
 
 
     const newData = data.map(item => {
-        if (item.prices[0].value && item.discountTitle) {
-            const price = parseFloat(item.prices[0].value);
-            const discountTitle = parseFloat(item.discountTitle);
-            const indirimliFiyat = price - (price * (discountTitle / 100));
-            return { ...item, indirimliFiyat: indirimliFiyat.toFixed(2) };
-        } else {
-            return { ...item, indirimliFiyat: item.prices[0].value };
-        }
+        return { ...item};
     });
 
     return (

@@ -6,6 +6,9 @@ export const CatalogApi = {
     GetManufacturerListByProductType(params) {
         return BaseApi.get(apiRoutes.manufacturer.getManufacturerListByProductType, { ...params });
     },
+    GetManufacturerList(params) {
+        return BaseApi.get(apiRoutes.manufacturer.getManufacturerList, { ...params });
+    },
     ManufacturerTest(params) {
         return BaseApi.get(apiRoutes.manufacturer.test, { ...params });
     },

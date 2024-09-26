@@ -134,10 +134,8 @@
 }
 
 .OemNo {
-    width: 136px !important;
     font-weight: 600;
-    margin-left: 4px;
-    width: 20px;
+    margin-left: 10px;
     white-space: nowrap; /* Metnin tek satırda kalmasını sağlar */
     overflow: hidden; /* Taşan metni gizler */
     text-overflow: ellipsis; /* Metnin sonunda üç nokta ekler */
