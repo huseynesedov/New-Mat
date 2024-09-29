@@ -15,6 +15,7 @@ export const apiRoutes = {
         getShipmentTypeList: '/catalog/v1/Order/GetShipmentTypeList',
         test: '/catalog/v1/Order/Test',
         add: '/order/v1/Order/Add',
+        getSearchTable: '/order/v1/Order/GetSearchTable',
         baseTest: '/order/v1/Base/Test',
     },
 

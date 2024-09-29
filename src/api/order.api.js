@@ -6,10 +6,12 @@ export const OrderApi = {
     BaseTest(params) {
         return BaseApi.get(apiRoutes.order.baseTest, { ...params });
     },
-
     // Order
     AddOrder(data) {
         return BaseApi.post(apiRoutes.order.add, data);
+    },
+    GetSearchTable(data) {
+        return BaseApi.post(apiRoutes.order.getSearchTable, data);
     },
     OrderTest(params) {
         return BaseApi.get(apiRoutes.order.test, { ...params });

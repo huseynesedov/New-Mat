@@ -77,7 +77,7 @@ const Orders = () => {
                             <div className="d-flex align-items-center">
                                 <div className="col-1 d-flex align-items-center justify-content-center" style={{ width: "180px", height: "145px" }}>
                                     <div className="col-1 rounded" style={{ width: "76px", height: "76px" }}>
-                                        <img className="w-100 h-100 img-thumbnail" src="https://m.media-amazon.com/images/I/61Jb7TOqaeL._SL1500_.jpg" alt="" />
+                                        <img className="w-100 h-100 img-thumbnail" src="" alt="" />
                                     </div>
                                 </div>
                                 <div className="col-1 d-flex flex-column justify-content-between mt-3" style={{ width: "80%" }}>
