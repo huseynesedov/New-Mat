@@ -74,6 +74,19 @@ export const apiRoutes = {
         refreshToken: '/account/v1/Account/RefreshToken',
         test: '/account/v1/Account/Test',
     },
+    // user
+    user: {
+        addCustomerUser: '/admin/v1/User/AddCustomerUser',
+        addSalesmanUser: '/admin/v1/User/AddSalesmanUser',
+        deleteUser: '/admin/v1/User/Delete',
+        getUserById: '/admin/v1/User/GetById',
+        getForUpdateById: '/admin/v1/User/GetForUpdateById',
+        getUserTable: '/admin/v1/User/GetTable',
+        getUserPersonalInformationById: '/admin/v1/User/GetUserPersonalInformationById',
+        updateUser: '/admin/v1/User/Update',
+        updateUserPassword: '/admin/v1/User/UpdatePassword',
+        test: '/admin/v1/User/Test',
+    },
     // Catalog
     catalog: {
         baseTest: '/catalog/v1/Base/Test',
