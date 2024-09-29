@@ -4,6 +4,7 @@ import { Table } from "react-bootstrap";
 import '@progress/kendo-theme-default/dist/all.css';
 import "./style.scss";
 import Images from "../../../Assets/images/js/Images";
+import {CatalogApi} from "../../../api/catalog.api";
 
 const statusColors = {
   'Tesdiqlendi': '#48BB78',
@@ -32,20 +33,37 @@ const ProductStatus = ({ status }) => {
 const Orders = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [products, setProducts] = useState([]);
+  const [orderStatusList, setOrderStatusList] = useState([]);
+
+  const getOrdersByStatus = () =>{
+
+  }
+
+  const getOrderStatusList = () =>{
+      CatalogApi.GetOrderStatusList().then((s) =>{
+        console.log(s);
+      })
+  }
+
+
 
   useEffect(() => {
     // API çağrısını burada yapın ve ürünleri ayarlayın
-    const fetchProducts = async () => {
-      const fetchedProducts = [
-        { id: 1, status: 'Tesdiqlendi'  , price: 234.2  , date:'13.09.2024'},
-        { id: 2, status: 'Birleshdir'  , price:  343.1 , date:'14.09.2024'},
-        { id: 3, status: 'Legv Edilibdir' , price: 235.1 , date:'13.09.2024'},
-        { id: 4, status: 'Legv Edilibdir'  , price: 432.1 , date:'13.09.2024'},
-      ];
-      setProducts(fetchedProducts);
-    };
+    // const fetchProducts = async () => {
+    //   const fetchedProducts = [
+    //     { id: 1, status: 'Tesdiqlendi'  , price: 234.2  , date:'13.09.2024'},
+    //     { id: 2, status: 'Birleshdir'  , price:  343.1 , date:'14.09.2024'},
+    //     { id: 3, status: 'Legv Edilibdir' , price: 235.1 , date:'13.09.2024'},
+    //     { id: 4, status: 'Legv Edilibdir'  , price: 432.1 , date:'13.09.2024'},
+    //   ];
+    //   setProducts(fetchedProducts);
+    // };
+    //
+    // fetchProducts();
 
-    fetchProducts();
+    getOrderStatusList()
+
+
   }, []);
 
   const handlePageClick = (page) => {

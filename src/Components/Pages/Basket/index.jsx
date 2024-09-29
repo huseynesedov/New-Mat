@@ -19,6 +19,10 @@ const Basket = () => {
     const [totalPrice, setTotalPrice] = useState({});
     const [basketItems, setBasketItems] = useState([]);
     const [basketItemStatus, setBasketItemStatus] = useState([]);
+    const [shipmentTypeList, setShipmentTypeList] = useState([]);
+    const [paymentTypeList, setPaymentTypeList] = useState([]);
+    const [paymentTypeIdHash, setPaymentTypeIdHash] = useState('');
+    const [shipmentTypeIdHash, setShipmentTypeIdHash] = useState('');
     const [note, setNote] = useState('');
 
 
@@ -66,40 +70,31 @@ const Basket = () => {
     }
 
 
-    const getOrderTypeList = ( ) => {
-        CatalogApi.GetOrderTypeList().then((res) => {
-            console.log(res)
+    const getShipmentTypeList = ( ) => {
+        CatalogApi.GetShipmentTypeList().then((res)=>{
+            setShipmentTypeList(res)
         })
     }
 
     const getPaymentTypeList = ( ) => {
-        console.log('payment')
-    }
-
-    const getShipmentTypeList = ( ) => {
-        CatalogApi.GetShipmentTypeList().then((res)=>{
-            console.log(res)
+        CatalogApi.GetPaymentTypeList().then((res)=>{
+            setPaymentTypeList(res)
         })
     }
 
-    const getStorageList = ( ) => {
-        CatalogApi.GetShipmentTypeList().then((res) => {
-            console.log(res)
-        })
-    }
 
     const createOrder = () => {
         setLoading(true)
         OrderApi.AddOrder({
-            orderTypeIdHash: "string",
-            paymentTypeIdHash: "string",
-            shipmentTypeIdHash: "string",
-            storageIdHash: "string",
+            paymentTypeIdHash,
+            shipmentTypeIdHash,
             note,
-            salesmanNote: ""
+            salesmanNote: " "
         }).then(() => {
             openNotification('Uğurlu əməliyyat' , 'Sifariş yaradıldı'  , false)
-            navigate('/orders')
+            setTimeout(()=>{
+                navigate('/orders')
+            } , 1000)
         }).catch((err)=>{
             openNotification('Xəta baş verdi' , err.response.data.message  , true )
             if(err?.response?.status === 401){
@@ -116,10 +111,8 @@ const Basket = () => {
     useEffect(()=>{
         getBasketItems()
         getTotalPrice()
-        getOrderTypeList()
         getPaymentTypeList()
         getShipmentTypeList()
-        getStorageList()
         GetBasketDetailStatusList()
     }, [])
 
@@ -167,15 +160,52 @@ const Basket = () => {
                                                     <Select
                                                         size={'large'}
                                                         placeholder={'Çatdırılma növü'}
-                                                        style={{width: '100%'}}
-                                                        dropdownStyle={{borderRadius: '8px'}}
+                                                        style={{ width: '100%' }}
+                                                        dropdownStyle={{ borderRadius: '8px' }}
                                                         className="custom-select mx-5"
-                                                        suffixIcon={<img className='me-2' src={down} alt=""/>}
+                                                        showSearch // Enables the search functionality
+                                                        optionFilterProp="children" // Search will be based on the option's displayed text
+                                                        filterOption={(input, option) =>
+                                                            (option?.children?.props?.children ?? '').toLowerCase().includes(input.toLowerCase())
+                                                        } // Custom filter logic (optional)
+                                                        allowClear // Optional: Allows clearing the selection
+                                                        suffixIcon={<img className='me-2' src={down} alt="" />}
+                                                        onChange={(event, value) => {
+                                                            setShipmentTypeIdHash(value.value)
+                                                        }}
                                                     >
-
-                                                        <Option value="location">
-                                                            <span style={{marginLeft: '8px'}}>Çatdırılma növü</span>
-                                                        </Option>
+                                                        {shipmentTypeList.map((shipmentType) => (
+                                                            <Option key={shipmentType.valueHash} value={shipmentType.valueHash}>
+                                                                <span style={{ marginLeft: '8px' }}>{shipmentType.displayText}</span>
+                                                            </Option>
+                                                        ))}
+                                                    </Select>
+                                                </div>
+                                            </div>
+                                            <div className="row mt-3 ">
+                                                <div className="myRow2">
+                                                    <Select
+                                                        size={'large'}
+                                                        placeholder={'Ödəniş növü'}
+                                                        style={{ width: '100%' }}
+                                                        dropdownStyle={{ borderRadius: '8px' }}
+                                                        className="custom-select mx-5"
+                                                        showSearch // Enables the search functionality
+                                                        optionFilterProp="children" // Search will be based on the option's displayed text
+                                                        filterOption={(input, option) =>
+                                                            (option?.children?.props?.children ?? '').toLowerCase().includes(input.toLowerCase())
+                                                        } // Custom filter logic (optional)
+                                                        allowClear // Optional: Allows clearing the selection
+                                                        suffixIcon={<img className='me-2' src={down} alt="" />}
+                                                        onChange={(event, value) => {
+                                                            setPaymentTypeIdHash(value.value)
+                                                        }}
+                                                    >
+                                                        {paymentTypeList.map((orderType) => (
+                                                            <Option key={orderType.valueHash} value={orderType.valueHash}>
+                                                                <span style={{ marginLeft: '8px' }}>{orderType.displayText}</span>
+                                                            </Option>
+                                                        ))}
                                                     </Select>
                                                 </div>
                                             </div>

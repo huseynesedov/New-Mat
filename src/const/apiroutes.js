@@ -95,6 +95,7 @@ export const apiRoutes = {
         getProductTypeList: '/catalog/v1/Product/GetProductTypeList',
         productTest: '/catalog/v1/Product/Test',
         getBasketDetailStatusList: '/catalog/v1/BasketDetailStatus/GetBasketDetailStatusList',
+        getPaymentTypeList: '/catalog/v1/PaymentType/GetPaymentTypeList',
     },
     storage:{
         storageGetList: '/catalog/v1/Storage/GetList',
