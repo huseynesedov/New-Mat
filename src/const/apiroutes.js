@@ -81,5 +81,9 @@ export const apiRoutes = {
         getProductGroupListByProductType: '/catalog/v1/Product/GetProductGroupListByProductType',
         getProductTypeList: '/catalog/v1/Product/GetProductTypeList',
         productTest: '/catalog/v1/Product/Test',
-    }
+        getBasketDetailStatusList: '/catalog/v1/BasketDetailStatus/GetBasketDetailStatusList',
+    },
+    storage:{
+        storageGetList: '/catalog/v1/Storage/GetList',
+    },
 };

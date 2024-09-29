@@ -46,9 +46,9 @@ export const BasketApi = {
         return BaseApi.post(apiRoutes.basket.updateQuantity, data, data);
     },
     UpdateStatus(params) {
-        return BaseApi.delete(apiRoutes.basket.updateStatus, { ...params });
+        return BaseApi.put(`${apiRoutes.basket.updateStatus}?statusId=${params.statusId}&id=${params.id}`);
     },
     UpdateStatusByProductTypeId(params) {
-        return BaseApi.delete(apiRoutes.basket.updateStatusByProductTypeId, { ...params });
+        return BaseApi.put(apiRoutes.basket.updateStatusByProductTypeId, { ...params });
     }
 };

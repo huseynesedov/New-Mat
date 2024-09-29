@@ -18,6 +18,7 @@ const Basket = () => {
     const [loading, setLoading] = useState(false);
     const [totalPrice, setTotalPrice] = useState({});
     const [basketItems, setBasketItems] = useState([]);
+    const [basketItemStatus, setBasketItemStatus] = useState([]);
     const [note, setNote] = useState('');
 
 
@@ -27,6 +28,21 @@ const Basket = () => {
             console.log(items)
             setBasketItems(items.basketDetailList ? items.basketDetailList : [])
         }).catch((error)=>{
+            if(error?.response?.status === 401){
+                logout()
+            }
+        }).finally(function(){
+            setLoading(false)
+        })
+    }
+
+    const GetBasketDetailStatusList = () => {
+        console.log('GetBasketDetailStatusList')
+        setLoading(true)
+        CatalogApi.GetBasketDetailStatusList().then((items)=>{
+            setBasketItemStatus(items)
+        }).catch((error)=>{
+            console.log(error)
             if(error?.response?.status === 401){
                 logout()
             }
@@ -104,6 +120,7 @@ const Basket = () => {
         getPaymentTypeList()
         getShipmentTypeList()
         getStorageList()
+        GetBasketDetailStatusList()
     }, [])
 
     const { openNotification }= useAuth()

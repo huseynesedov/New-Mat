@@ -131,14 +131,28 @@
     display: flex;
     color: black !important;
     font-weight: 300;
+    width: 200px;
 }
 
 .OemNo {
+    width: 60%;
     font-weight: 600;
     margin-left: 10px;
+    display:box;
     white-space: nowrap; /* Metnin tek satırda kalmasını sağlar */
     overflow: hidden; /* Taşan metni gizler */
     text-overflow: ellipsis; /* Metnin sonunda üç nokta ekler */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+}
+
+
+.OemNo.product {
+    width:60%;
 }
 
 

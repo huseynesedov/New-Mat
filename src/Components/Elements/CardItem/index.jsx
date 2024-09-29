@@ -43,20 +43,22 @@ const CardItem = ({d, classes}) => {
                             <img style={{objectFit: "contain"}} src={`${d.defaultContent}`} alt="Product"/>
                         </div>
                         <div className="TitleCenter ms-3">
-                                                <span className="Tag">
-                                                    <img src={FiTag} alt="FiTag"/>
-                                                    <p className="OemNo text-44">
-                                                        {d.code}
-                                                    </p>
-                                                </span>
-                            <span className="TagTwo">
-                                                    <div className="ImgCenters">
-                                                        <img src={`${d.manufacturerContent}`} alt="Product"/>
-                                                    </div>
-                                                    <p className="brendNo">
-                                                        {d.tag_Title}
-                                                    </p>
-                                                </span>
+                                <span className="Tag">
+                                    <img src={FiTag} alt="FiTag"/>
+                                    <p className="OemNo product text-44">
+                                        {d.code}
+                                    </p>
+                                </span>
+                                {d.vehicleBrands.map((s)=> {
+                                     return <span className="TagTwo">
+                                            <div className="ImgCenters">
+                                                <img src={`${s.vehicleBrandContent}`} alt="Product"/>
+                                            </div>
+                                            {/*<p className="brendNo">*/}
+                                            {/*    {s.vehicleBrandIdName}*/}
+                                            {/*</p>*/}
+                                        </span>
+                                })}
                         </div>
                     </div>
                     <div className="OemTextCenter">

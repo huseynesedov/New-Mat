@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { removeFromCart, removeCategoryFromCart, removeSelectedItemsFromCart, incrementQuantity, decrementQuantity } from '../../../Redux/actions/index';
+import { useDispatch } from 'react-redux';
 import Images from "../../../Assets/images/js/Images";
 import { Select } from 'antd';
-import { EnvironmentOutlined } from '@ant-design/icons';
 import {BasketApi} from "../../../api/basket.api";
 import {useAuth} from "../../../AuthContext";
 import { Spin } from  'antd'
@@ -77,13 +75,37 @@ const BasketItems = ({ basketItems , getBasketItems, getTotalPrice  , setBasketI
 
     const handleCheckboxChange = (id) => {
         if(selectedItems.includes(id)){
-            setSelectedItems(selectedItems.filter(selectedItem => selectedItem !== id))
+            setLoading(true)
+            BasketApi.UpdateStatus({
+                id,
+                statusId:2
+            }).then(() => {
+                setSelectedItems(selectedItems.filter(selectedItem => selectedItem !== id))
+                getBasketItems()
+                getTotalPrice()
+            }).catch((err) => {
+                openNotification('Xəta baş verdi' , err.response.data.message  , true )
+            }).finally(()=>{
+                setLoading(false)
+            })
         }
         else{
-            setSelectedItems([
-                ...selectedItems,
-                id
-            ])
+            setLoading(true)
+            BasketApi.UpdateStatus({
+                id,
+                statusId:1
+            }).then(() => {
+                setSelectedItems([
+                    ...selectedItems,
+                    id
+                ])
+                getBasketItems()
+                getTotalPrice()
+            }).catch((err) => {
+                openNotification('Xəta baş verdi' , err.response.data.message  , true )
+            }).finally(()=>{
+                setLoading(false)
+            })
         }
     };
 
@@ -111,23 +133,51 @@ const BasketItems = ({ basketItems , getBasketItems, getTotalPrice  , setBasketI
     };
 
 
+    useEffect(()=>{
+      if(basketItems.length > 0){
+          let arr =  basketItems.map((item) =>  {
+              if(item.basketDetailStatus === 1){
+                  return item.idHash
+              }
+          } )
+
+          console.log(arr)
+          setSelectedItems(
+             arr
+          )
+      }
+    },[basketItems.length])
+
     return (
         <>
             <Spin spinning={loading}>
                 {Object.keys(groupedData).map((category, categoryIndex) => (
                     <div className="w-100 position-relative gy-4 rounded" style={{ padding: "0rem 0rem 0.8rem 0rem" }} key={categoryIndex}>
                         <div className="d-flex pe-3 justify-content-between ms-4 mt-3">
-                            <div className="text-44 fb-600">
-                                {category}
+                            <div className={'d-flex align-items-center'}>
+                                <div className="checkbox me-2">
+                                    <input
+                                        type="checkbox"
+                                        id={category.idHash}
+                                        checked={groupedData[category].some((s) => s.basketDetailStatus === 1)}
+                                        onChange={() => {
+                                            console.log(category)
+                                        }}
+                                    />
+                                    <label htmlFor={category.idHash} className="checkmark"/>
+                                </div>
+                                <div className="text-44 fb-600">
+                                    {category}
+                                </div>
                             </div>
                             {categoryIndex === 0 && (
                                 <div className="d-flex">
                                     <button className="AllDel me-3" onClick={() => handleDeleteAll(category)}>
-                                        <img src={Add_Bin} alt="" />
+                                        <img src={Add_Bin} alt=""/>
                                         <p className='ms-2'>Hamısını Sil</p>
                                     </button>
                                     <button className="AllDel" onClick={() => handleDeleteSelected(category)}>
-                                        <img src={Add_Bin} alt="" />
+                                        <img src={Add_Bin} alt=""/>
                                         <p className='ms-2'>Seçilmişləri Sil</p>
                                     </button>
                                 </div>
@@ -136,7 +186,8 @@ const BasketItems = ({ basketItems , getBasketItems, getTotalPrice  , setBasketI
 
                         <div className="myContainer">
                             {groupedData[category].map((Data, index) => (
-                                <div className="row align-items-center rounded bg-white ms-3 mt-4 me-3" key={index} style={{ height: "120px" }}>
+                                <div className="row align-items-center rounded bg-white ms-3 mt-4 me-3" key={index}
+                                     style={{height: "120px"}}>
                                     <div className="col-2 d-flex justify-content-between align-items-center">
                                         <div className="ms-2 checkbox">
                                             <input
@@ -152,7 +203,7 @@ const BasketItems = ({ basketItems , getBasketItems, getTotalPrice  , setBasketI
                                     </div>
                                     <div className="col-7 mt-3">
                                         <div className="w-100 d-flex justify-content-between">
-                                            <div className='d-flex pe-2'>
+                                            <div className='d-flex w-75 pe-2'>
                                                 <img style={{height: '20px'}} src={FiTag} alt=""/>
                                                 <p className="OemNo text-44 ms-2">
                                                     {Data.product.code}
@@ -204,14 +255,20 @@ const BasketItems = ({ basketItems , getBasketItems, getTotalPrice  , setBasketI
                                                     </p>
                                                 </div>
                                             </div>
-                                            {/*<div className="d-flex align-items-center me-5">*/}
-                                            {/*    <div className="ImgCenters">*/}
-                                            {/*        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/BMW.svg/900px-BMW.svg.png" alt="" />*/}
-                                            {/*    </div>*/}
-                                            {/*    <p className="brendNo ms-2">*/}
-                                            {/*        {Data.tag_Title}*/}
-                                            {/*    </p>*/}
-                                            {/*</div>*/}
+                                            <div className="d-flex align-items-center me-5">
+                                                {Data.product.vehicleBrands.map((d) =>{
+                                                    return <React.Fragment key={d.vehicleBrandIdHash}>
+                                                        <div className="ImgCenters">
+                                                            <img
+                                                                src={d.vehicleBrandContent}
+                                                                alt=""/>
+                                                        </div>
+                                                        <p className="brendNo ms-2">
+                                                            {d.vehicleBrandIdName}
+                                                        </p>
+                                                    </React.Fragment>
+                                                })}
+                                            </div>
                                         </div>
                                         <div className="mt-2">
                                             <h3 className="BrandingName">
@@ -225,13 +282,13 @@ const BasketItems = ({ basketItems , getBasketItems, getTotalPrice  , setBasketI
                                     <div className="col-3 d-flex align-items-center">
                                                 <div className="counterCenter">
                                                     <button className="del"
-                                                            onClick={() => handleQuantityUpdate(Data.idHash, Data.quantity, false)}>
+                                                            onClick={() => handleQuantityUpdate(Data.product.idHash, Data.quantity, false)}>
                                                         -
                                                     </button>
                                                     <input type="text" name="" id="" className="counter"
                                                            value={Data.quantity} readOnly/>
                                                     <button className="plus"
-                                                            onClick={() => handleQuantityUpdate(Data.idHash, Data.quantity, true)}>
+                                                            onClick={() => handleQuantityUpdate(Data.product.idHash, Data.quantity, true)}>
                                                         +
                                                     </button>
                                                 </div>

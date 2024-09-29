@@ -46,12 +46,17 @@ export const CatalogApi = {
     ProductTest(params) {
         return BaseApi.get(apiRoutes.catalog.productTest, { ...params });
     },
-
     // VehicleBrand
     GetVehicleBrandListAsync(params) {
         return BaseApi.get(apiRoutes.vehicleBrand.getListAsync, { ...params });
     },
     VehicleBrandTest(params) {
         return BaseApi.get(apiRoutes.vehicleBrand.test, { ...params });
+    },
+    storageGetList(params) {
+        return BaseApi.get(apiRoutes.storage.storageGetList, { ...params });
+    },
+    GetBasketDetailStatusList(params) {
+        return BaseApi.get(apiRoutes.catalog.getBasketDetailStatusList, { ...params });
     },
 };
