@@ -9,7 +9,9 @@ const CardItem = ({d, classes}) => {
     let [quantity , setQuantity] = useState(1)
     const [loading, setLoading] = useState(false);
     const { logout  , openNotification }= useAuth()
-
+    useEffect(() => {
+        setQuantity(d.minOrderAmount)
+    }, []);
     const handleAddToCart = async (product) => {
         setLoading(true)
         await  BasketApi.AddToBasket( {
@@ -125,14 +127,17 @@ const CardItem = ({d, classes}) => {
 
                 <div className="counterCenter">
                     <button className="del" onClick={() => {
-                        if (quantity > 0) {
+                        if (quantity > d.minOrderAmount) {
                             setQuantity(  quantity -= 1)
+                        }
+                        else {
+                            openNotification('Məhsul sayı düzgün deyil' , `Minimal sifariş sayı ${d.minOrderAmount} olmalıdır.` , false )
                         }
                     }}>
                         -
                     </button>
                     <input
-                        type="text"
+                        type="number"
                         value={quantity}
                         onChange={(e) => {
                             setQuantity(e.target.value)

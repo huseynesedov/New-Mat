@@ -49,6 +49,6 @@ export const BasketApi = {
         return BaseApi.put(`${apiRoutes.basket.updateStatus}?statusId=${params.statusId}&id=${params.id}`);
     },
     UpdateStatusByProductTypeId(params) {
-        return BaseApi.put(apiRoutes.basket.updateStatusByProductTypeId, { ...params });
+        return BaseApi.put(`${apiRoutes.basket.updateStatusByProductTypeId}?statusId=${params.statusId}&productTypeId=${params.productTypeId}` , { ...params });
     }
 };

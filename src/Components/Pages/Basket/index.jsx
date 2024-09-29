@@ -157,7 +157,7 @@ const Basket = () => {
                                 <div className="myRow d-flex align-items-start justify-content-between">
                                     <div className="myContainer w-75 position-relative rounded"
                                          style={{padding: "0rem 0rem 0.8rem 0rem"}}>
-                                        <BasketItems setBasketItems={setBasketItems} getBasketItems={getBasketItems} getTotalPrice={getTotalPrice}  basketItems={basketItems} />
+                                        <BasketItems basketItemStatus={basketItemStatus} setBasketItems={setBasketItems} getBasketItems={getBasketItems} getTotalPrice={getTotalPrice}  basketItems={basketItems} />
                                     </div>
 
                                     <div className="myContainer2 rounded">

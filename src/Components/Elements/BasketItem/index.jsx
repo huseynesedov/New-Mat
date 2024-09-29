@@ -7,11 +7,10 @@ import {useAuth} from "../../../AuthContext";
 import { Spin } from  'antd'
 const { Option } = Select;
 
-const BasketItems = ({ basketItems , getBasketItems, getTotalPrice  , setBasketItems}) => {
+const BasketItems = ({ basketItems , getBasketItems, getTotalPrice  , setBasketItems , basketItemStatus}) => {
     let { FiTag, Down, Location, TagTwo, TabloDelete, Add_Bin } = Images;
     const dispatch = useDispatch();
     const { openNotification }= useAuth()
-
     const [selectedItems, setSelectedItems] = useState([]);
     const [loading, setLoading] = useState(false);
 
@@ -78,7 +77,7 @@ const BasketItems = ({ basketItems , getBasketItems, getTotalPrice  , setBasketI
             setLoading(true)
             BasketApi.UpdateStatus({
                 id,
-                statusId:2
+                statusId:basketItemStatus[1].valueHash
             }).then(() => {
                 setSelectedItems(selectedItems.filter(selectedItem => selectedItem !== id))
                 getBasketItems()
@@ -93,12 +92,45 @@ const BasketItems = ({ basketItems , getBasketItems, getTotalPrice  , setBasketI
             setLoading(true)
             BasketApi.UpdateStatus({
                 id,
-                statusId:1
+                statusId:basketItemStatus[0].valueHash
             }).then(() => {
                 setSelectedItems([
                     ...selectedItems,
                     id
                 ])
+                getBasketItems()
+                getTotalPrice()
+            }).catch((err) => {
+                openNotification('Xəta baş verdi' , err.response.data.message  , true )
+            }).finally(()=>{
+                setLoading(false)
+            })
+        }
+    };
+
+
+    const handleCategoryChange = (checked , id) => {
+        console.log(checked, id)
+        if(checked){
+            setLoading(true)
+            BasketApi.UpdateStatusByProductTypeId({
+                productTypeId:id,
+                statusId:basketItemStatus[1].valueHash
+            }).then(() => {
+                getBasketItems()
+                getTotalPrice()
+            }).catch((err) => {
+                openNotification('Xəta baş verdi' , err.response.data.message  , true )
+            }).finally(()=>{
+                setLoading(false)
+            })
+        }
+        else{
+            setLoading(true)
+            BasketApi.UpdateStatusByProductTypeId({
+                productTypeId:id,
+                statusId:basketItemStatus[0].valueHash
+            }).then(() => {
                 getBasketItems()
                 getTotalPrice()
             }).catch((err) => {
@@ -161,7 +193,7 @@ const BasketItems = ({ basketItems , getBasketItems, getTotalPrice  , setBasketI
                                         id={category.idHash}
                                         checked={groupedData[category].some((s) => s.basketDetailStatus === 1)}
                                         onChange={() => {
-                                            console.log(category)
+                                            handleCategoryChange(groupedData[category].some((s) => s.basketDetailStatus === 1) , category.idHash)
                                         }}
                                     />
                                     <label htmlFor={category.idHash} className="checkmark"/>
