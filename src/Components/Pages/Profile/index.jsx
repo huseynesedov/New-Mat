@@ -34,13 +34,18 @@ const Profile = () => {
             setDecodedToken(decoded); // Dekod olunmuş məlumatı state-ə yazırıq
             setIdHash(decoded?.id); // Token'den gelen id'yi idHash olaraq belirliyoruz
             console.log('Dekod olunmuş token:', decoded); // Tokeni konsola yazdırırıq
+            setTimeout(()=>{
+                UserData(decoded.UserIdHash); // idH
+            } , 1000)
         }
+
     }, []);
 
-    const UserData = async () => {
+    const UserData = async (idHash) => {
+        console.log(idHash)
         if (idHash) {
             try {
-                const response = await AdminApi.GetOemByProductId({ id: idHash }); // idHash istifadə olunur
+                const response = await AdminApi.GetUserPersonalInformationById(idHash); // idHash istifadə olunur
                 console.log("API response:", response);
                 setData({ ...response, idHash }); // response ilə birlikdə idHash-i də saxlayırıq
             } catch (error) {
@@ -51,12 +56,6 @@ const Profile = () => {
             }
         }
     };
-
-    useEffect(() => {
-        if (idHash) {
-            UserData(); // idHash tanımlandığında API isteğini yapıyoruz
-        }
-    }, [idHash]); // idHash dəyişəndə yenidən işə düşəcək
 
     const handleClick = () => {
         setShowNewAddres(true);
