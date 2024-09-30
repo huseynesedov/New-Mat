@@ -10,6 +10,9 @@ export const OrderApi = {
     AddOrder(data) {
         return BaseApi.post(apiRoutes.order.add, data);
     },
+    GetByOrderId(data) {
+        return BaseApi.get(`${apiRoutes.order.getByOrderId}?id=${data.id}`);
+    },
     GetSearchTable(data) {
         return BaseApi.post(apiRoutes.order.getSearchTable, data);
     },

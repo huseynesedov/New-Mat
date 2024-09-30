@@ -8,6 +8,7 @@ export const apiRoutes = {
 
     // Order
     order: {
+        getByOrderId: '/order/v1/OrderDetail/GetByOrderId',
         getOrderDetailStatusList: '/catalog/v1/Order/GetOrderDetailStatusList',
         getOrderStatusList: '/catalog/v1/Order/GetOrderStatusList',
         getOrderTypeList: '/catalog/v1/Order/GetOrderTypeList',
