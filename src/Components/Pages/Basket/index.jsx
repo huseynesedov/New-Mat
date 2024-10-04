@@ -6,6 +6,7 @@ import BasketItems from '../../Elements/BasketItem/index';
 import {useNavigate} from "react-router-dom";
 import {BasketApi} from "../../../api/basket.api";
 import {useAuth} from "../../../AuthContext";
+import { useTranslation } from 'react-i18next';
 import {OrderApi} from "../../../api/order.api";
 import { Select } from "antd";
 import {CatalogApi} from "../../../api/catalog.api";
@@ -13,6 +14,7 @@ const { Option } = Select
 const Basket = () => {
     const { logout} = useAuth()
     const { Down } = Images;
+    const { t } = useTranslation();
     const navigate = useNavigate()
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -125,7 +127,7 @@ const Basket = () => {
 
 
 
-    let { Box, CarOrder, down, Liner } = Images;
+    let { down, Liner } = Images;
 
     // const items = useSelector(state => state.cart.items);
     // if (basketItems.length === 0) {
@@ -136,7 +138,7 @@ const Basket = () => {
             <div className="container-fluid d-flex justify-content-center">
                 <div className="myRow mt-5">
                     <p className="text-44 f-24 fb-600">
-                        Sifariş Səbəti
+                        {t("Basket.order")}
                     </p>
                 </div>
             </div>
@@ -217,13 +219,13 @@ const Basket = () => {
                                             <div className="row">
                                                 <div className="myRow3">
                                                     <p className="text-44 mt-3 fb-600">
-                                                        Sifariş Qeydi
+                                                        {t("Basket.table2.record")}
                                                     </p>
                                                     <textarea onChange={(e)=>{
                                                         setNote(e.target.value);
                                                     }} className="OrderTextarea rounded mt-4 textarea"
                                                               id="exampleFormControlTextarea1"
-                                                              placeholder="Sifaris Qeydi"></textarea>
+                                                              placeholder={t("Basket.table2.record")}></textarea>
                                                 </div>
                                             </div>
 
@@ -233,12 +235,12 @@ const Basket = () => {
                                             <div className="row">
                                                 <div className="myRow3">
                                                     <p className="text-44 mt-5 fb-600">
-                                                        Sifariş Xülasə
+                                                        {t("Basket.table2.summary")}
                                                     </p>
                                                     <div
                                                         className="d-flex align-items-center mt-4 justify-content-between">
                                                         <p className="text-44 fb-500">
-                                                            Ümumi Dəyər
+                                                            {t("Basket.table2.delivery")}
                                                         </p>
                                                         <p className="t-8F fb-500">
                                                             {totalPrice?.basketDetailTotalPrice?.formattedTotalPrice } {' '}
@@ -248,7 +250,7 @@ const Basket = () => {
                                                     <div
                                                         className="d-flex align-items-center mt-2 justify-content-between">
                                                         <p className="text-44 fb-500">
-                                                            Endirim
+                                                            {t("Basket.table2.discount")}
                                                         </p>
                                                         <p className="t-8F fb-500">
                                                             {totalPrice?.basketDetailTotalPrice?.formattedTotalDiscountPrice } {' '}
@@ -258,7 +260,7 @@ const Basket = () => {
                                                     <div
                                                         className="d-flex align-items-center mt-4 justify-content-between">
                                                         <p className="text-44 fb-600">
-                                                            Tam Dəyər
+                                                            {t("Basket.table2.value")}
                                                         </p>
                                                         <p className="t-8F fb-500">
                                                             {totalPrice?.basketDetailTotalPrice?.formattedTotalDiscountedPrice } {' '}
@@ -272,7 +274,7 @@ const Basket = () => {
                                                 <div onClick={() => {
                                                     createOrder()
                                                 }} className="col d-flex align-items-center justify-content-center">
-                                                    <button className="ProductEvaluate2">Təsdiqəyin və Tamamlayın
+                                                    <button className="ProductEvaluate2">  {t("Basket.table2.confirim")}
                                                     </button>
                                                 </div>
                                             </div>

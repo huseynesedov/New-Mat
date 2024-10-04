@@ -8,6 +8,7 @@ import {CatalogApi} from "../../../api/catalog.api";
 import {OrderApi} from "../../../api/order.api";
 import  { Spin } from "antd"
 import moment from "moment";
+import { useTranslation } from "react-i18next";
 
 const statusColors = {
   '3LlDuXpKEl0=': '#48BB78', //beklemede
@@ -19,6 +20,7 @@ const statusColors = {
 
 const ProductStatus = ({ status , orderStatusName,  orderStatusIdHash }) => {
   const bgColor = statusColors[orderStatusIdHash] || 'white';
+
   console.log(bgColor);
   const style = {
     marginBottom: '50px',
@@ -37,6 +39,7 @@ const ProductStatus = ({ status , orderStatusName,  orderStatusIdHash }) => {
 };
 
 const Orders = () => {
+  const { t } = useTranslation();
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [products, setProducts] = useState([]);
@@ -89,10 +92,10 @@ const Orders = () => {
       <div className="container-fluid d-flex justify-content-center mt-4">
         <div className="myRow align-items-start flex-column">
           <p className="text-44 f-14 d-flex fb-600">
-            Ana sayfa
+            {t("Global.home")}
             <img src={chrevron_right} alt=""/>
             <p className="t-01">
-              Sifarisler
+              {t("Orders.view.order-name")}
             </p>
           </p>
           <div className="border-bottom-line mt-4" style={{width: '100%'}}></div>
@@ -121,15 +124,15 @@ const Orders = () => {
               <Table className="OrderTable">
                 <thead>
                 <tr>
-                  <th>Nomre</th>
-                  <th>Sifaris tarixi</th>
-                  <th>Tesdiq tarixi</th>
-                  <th>Status</th>
-                  <th>Sifariş qeydleri</th>
-                  <th>Çatdirma qeydleri</th>
-                  <th>izahat</th>
-                  <th>Anbar</th>
-                  <th>Ümumi cəm</th>
+                  <th>{t("Orders.table.number")}</th>
+                  <th>{t("Orders.table.date")}</th>
+                  <th>{t("Orders.table.date2")}</th>
+                  <th>{t("Orders.table.status")}</th>
+                  <th>{t("Orders.table.record")}</th>
+                  <th>{t("Orders.table.deliveriy")}</th>
+                  <th>{t("Orders.table.explanation")}</th>
+                  <th>{t("Orders.table.warehouse")}</th>
+                  <th>{t("Orders.table.total")}</th>
                   <th></th>
                 </tr>
                 </thead>
@@ -150,7 +153,7 @@ const Orders = () => {
                       <td className="d-flex align-items-center">
                         <Link className="text-decoration-none mb-5" to={`/Orders/OrderDetail/${product.idHash}`}>
                           <div className="view mb-5">
-                            <p>view</p>
+                            <p>{t("Orders.view.view-name")}</p>
                           </div>
                         </Link>
                       </td>

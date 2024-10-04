@@ -222,7 +222,6 @@
 }
 
 .LocationBrend {
-    width: 300px;
     height: 23px;
     display: flex;
     align-items: center;
@@ -248,7 +247,7 @@
 }
 
 .Returun {
-    width: 200.52px;
+    padding: 1px 6px;
     height: 70%;
     display: flex;
     border: 1px solid #E53E3E;
