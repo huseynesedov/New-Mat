@@ -7,6 +7,7 @@ import {ProductApi} from "../../../api/product.api";
 import {useParams} from "react-router-dom";
 import {useAuth} from "../../../AuthContext";
 import { useTranslation } from 'react-i18next';
+import moment from "moment";
 
 const Index = () => {
     let { chrevron_right, ShareSosial } = Images;
@@ -25,6 +26,7 @@ const Index = () => {
     const [oemData, setOemData] = useState([]); // Ürün bilgilerini saklayacak state
     const [crossList, setCrossList] = useState([]); // Ürün bilgilerini saklayacak state
     const [vehicleList, setVehicleList] = useState([]); // Ürün bilgilerini saklayacak state
+    const [productStockMovements, setProductStockMovements] = useState([]); // Ürün bilgilerini saklayacak state
     const [selectedImage, setSelectedImage] = useState(''); // Default şəkil
 
     const fetchOem = async () => {
@@ -34,6 +36,34 @@ const Index = () => {
                 const response = await ProductApi.GetOemByProductId({ id: idHash });
                 console.log("API response: fetchOem", response);
                 setOemData(response);
+                setLoading(false)
+                setError(false)
+            } catch (error) {
+                if(error.response.status === 401){
+                    logout()
+                }
+                setError(true)
+                setLoading(false)
+                console.error("Error fetching product data:", error);
+            }
+        }
+    };
+
+
+    const GetProductStockMovements = async () => {
+        setLoading(true)
+        if (id) {
+            try {
+                const response = await ProductApi.GetProductStockMovements({
+                    productIdHash: idHash,
+                    pagingRequest: {
+                    page: 0,
+                        pageSize: 100,
+                        filters: [
+                     ]
+                  }
+                });
+                setProductStockMovements(response.data);
                 setLoading(false)
                 setError(false)
             } catch (error) {
@@ -91,6 +121,7 @@ const Index = () => {
         fetchOem();
         fetchVehicleList();
         fetchCrossList();
+        GetProductStockMovements()
     }, [idHash]);
 
 
@@ -264,12 +295,12 @@ const Index = () => {
                                     scope="col">{t("Product-Detail.stock.sales")}</th>
                             </tr>
 
-                            {vehicleList.map((d, i) => {
+                            {productStockMovements.map((d, i) => {
                                 return <tr key={i}>
-                                    <td style={{padding: "12px 27px 5px 19px"}}>Mercedes Benz</td>
-                                    <td style={{padding: "12px 27px 5px 19px"}} colSpan={2}>@mdo</td>
-                                    <td style={{padding: "12px 27px 5px 19px"}} colSpan={2}>@mdo</td>
-                                    <td style={{padding: "12px 27px 5px 19px"}} colSpan={2}>@mdo</td>
+                                    <td style={{padding: "12px 27px 5px 19px"}}>{moment(d.confirmDate).format('DD-MM-YYYY HH:MM')}</td>
+                                    <td style={{padding: "12px 27px 5px 19px"}} colSpan={2}>{d.quantityOfProduct}</td>
+                                    <td style={{padding: "12px 27px 5px 19px"}} colSpan={2}>{d.orderNumber}</td>
+                                    <td style={{padding: "12px 27px 5px 19px"}} colSpan={2}>{d.salesPrice} AZN</td>
                                 </tr>
                             })}
                             </tbody>
