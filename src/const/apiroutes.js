@@ -40,6 +40,7 @@ export const apiRoutes = {
         getVehicleListByProductId: '/product/v1/Product/GetVehicleListByProductId',
         getBestSeller: '/product/v1/Product/GetBestSeller',
         getVehicleModelById: '/product/v1/Product/GetVehicleModelById',
+        getProductStockMovements: '/product/v1/Product/GetProductStockMovements',
     },
 
     // VehicleBrand

@@ -4,7 +4,9 @@ import Images from '../../../Assets/images/js/Images';
 import { useAuth } from "../../../AuthContext"
 import {Space, Spin} from "antd";
 import {BasketApi} from "../../../api/basket.api";
+import { useTranslation } from 'react-i18next';
 const CardItem = ({d, classes}) => {
+    const {t} = useTranslation()
     const { FiTag, Location, Down, Return, TagTwo, Vector2, Heart, Endirim } = Images;
     let [quantity , setQuantity] = useState(1)
     const [loading, setLoading] = useState(false);
@@ -94,7 +96,7 @@ const CardItem = ({d, classes}) => {
                     <Link className="text-decoration-none" to="/">
                         <img src={Return} alt="Return"/>
                         <p className="ReturunTitle">
-                            return
+                            {t("Global.return")}
                         </p>
                     </Link>
                 </div>
@@ -157,7 +159,7 @@ const CardItem = ({d, classes}) => {
                     {loading ? <Spin className="custom-spin"  size={'small'}/> : ''}
                     <img src={Vector2} alt="Add to Basket"/>
                     <p className="BasketTitle">
-                        Səbətə at
+                        {t("Global.basket")}
                     </p>
                 </button>
                 <div className="Heart">
