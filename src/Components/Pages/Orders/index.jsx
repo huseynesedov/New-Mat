@@ -6,7 +6,7 @@ import "./style.scss";
 import Images from "../../../Assets/images/js/Images";
 import {CatalogApi} from "../../../api/catalog.api";
 import {OrderApi} from "../../../api/order.api";
-import  { Spin } from "antd"
+import {Pagination, Spin} from "antd"
 import moment from "moment";
 import { useTranslation } from "react-i18next";
 
@@ -40,16 +40,20 @@ const ProductStatus = ({ status , orderStatusName,  orderStatusIdHash }) => {
 
 const Orders = () => {
   const { t } = useTranslation();
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState('xFsQPkFTRN0=');
+  const [currentDataPage, setCurrentDataPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [products, setProducts] = useState([]);
   const [orderStatusList, setOrderStatusList] = useState([]);
+  const [count, setCount] = useState();
 
-  const getOrdersByStatus = (value) =>{
+
+
+  const getOrdersByStatus = (value, page) =>{
       setLoading(true)
       OrderApi.GetSearchTable({
-        page: 0,
-        pageSize: 20,
+        page,
+        pageSize: 2,
         filters: [
           {
             value,
@@ -60,15 +64,26 @@ const Orders = () => {
       }).then((res) => {
         console.log(res)
         setProducts(res.data)
+        setCount(res.count)
       }).finally(()=>{
         setLoading(false)
       })
   }
 
+  // it is for pagination
+  const handlePageChange = (page) => {
+    setCurrentDataPage(page);
+    setTimeout(() => {
+      getOrdersByStatus(currentPage , page-1)
+    })
+  };
+
+
+
   const getOrderStatusList = () =>{
       CatalogApi.GetOrderStatusList().then((s) =>{
         setOrderStatusList(s)
-        getOrdersByStatus(s[0].valueHash)
+        getOrdersByStatus(s[0].valueHash, 0)
       }).finally(()=>{
         setLoading(false)
       })
@@ -80,9 +95,10 @@ const Orders = () => {
     getOrderStatusList()
   }, []);
 
-  const handlePageClick = (page, id) => {
-    setCurrentPage(page);
-    getOrdersByStatus(id)
+  // it is for tabpanes
+  const handlePageClick = (id) => {
+    setCurrentPage(id);
+    getOrdersByStatus(id ,  0)
   };
 
   const { chrevron_right } = Images;
@@ -107,8 +123,8 @@ const Orders = () => {
           <div className="mat-TwoPage">
             {orderStatusList?.map((d, index) => {
               return <button key={d.valueHash}
-                             className={`mat-ButtonInfo me-4 fb-500 ${currentPage === index + 1 ? 'Active' : ''}`}
-                             onClick={() => handlePageClick(index + 1, d.valueHash)}>
+                             className={`mat-ButtonInfo me-4 fb-500 ${currentPage === d.valueHash ? 'Active' : ''}`}
+                             onClick={() => handlePageClick(d.valueHash)}>
                 {d.displayText}
               </button>
             })}
@@ -140,7 +156,7 @@ const Orders = () => {
                 {products?.map((product, i) => (
                     <tr key={product.id}>
                       <td>{product.orderNumber}</td>
-                      <td>{moment(product.createdDate).format('DD-MM-YYYY hh:mm')}</td>
+                      <td>{moment(product.createdDate).format('DD-MM-YYYY HH:MM')}</td>
                       <td>{product.confirmDate}</td>
                       <td className="d-flex">
                         <ProductStatus orderStatusName={product.orderStatusName} orderStatusIdHash={product.orderStatusIdHash}/>
@@ -148,8 +164,8 @@ const Orders = () => {
                       <td style={{textAlign: "center"}}>{product.note}</td>
                       <td style={{textAlign: "center"}}>{product.shipmentNote}</td>
                       <td>{product.causeOfDeletion}</td>
-                      <td>-------</td>
-                      <td>{product.total} AZN</td>
+                      <td>{product.storageCode}</td>
+                      <td>{product.total} {product.currencyName}</td>
                       <td className="d-flex align-items-center">
                         <Link className="text-decoration-none mb-5" to={`/Orders/OrderDetail/${product.idHash}`}>
                           <div className="view mb-5">
@@ -161,6 +177,15 @@ const Orders = () => {
                 ))}
                 </tbody>
               </Table>
+
+
+              <div className="d-flex  w-100 justify-content-center mt-4">
+                <Pagination   current={currentDataPage}
+                              total={count}
+                              onChange={handlePageChange}
+                              pageSize={2}
+                />
+              </div>
             </div>
           </div>
         </Spin>

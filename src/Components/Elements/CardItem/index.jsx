@@ -2,11 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Images from '../../../Assets/images/js/Images';
 import { useAuth } from "../../../AuthContext"
-import {Space, Spin} from "antd";
+import {Tooltip, Spin ,List,  Modal} from "antd";
+
+import { InfoCircleOutlined } from '@ant-design/icons'
 import {BasketApi} from "../../../api/basket.api";
 import { useTranslation } from 'react-i18next';
 const CardItem = ({d, classes}) => {
     const {t} = useTranslation()
+    const [isModalVisible, setIsModalVisible] = useState(false);
     const { FiTag, Location, Down, Return, TagTwo, Vector2, Heart, Endirim } = Images;
     let [quantity , setQuantity] = useState(1)
     const [loading, setLoading] = useState(false);
@@ -28,6 +31,19 @@ const CardItem = ({d, classes}) => {
         })
     };
 
+    const showModal = () => {
+        setIsModalVisible(true);
+    };
+
+    const handleOk = () => {
+        setIsModalVisible(false);
+    };
+
+    const handleCancel = () => {
+        setIsModalVisible(false);
+    };
+
+
     return <div className={`d-block text-decoration-none position-relative ${classes}`}
                 key={d.idHash}>
         <div className="CartCenterMain">
@@ -40,21 +56,26 @@ const CardItem = ({d, classes}) => {
                 </div>
             ) : ''}
 
-            <Link to={`/detail/${d.idHash}`}>
+
                 <div className="ImgTitleMain">
                     <div className="ImgBrendingTitle">
-                        <div className="ImgFocus">
-                            <img style={{objectFit: "contain"}} src={`${d.defaultContent}`} alt="Product"/>
-                        </div>
+                        <Link to={`/detail/${d.idHash}`}>
+                            <div className="ImgFocus">
+                                <img style={{objectFit: "contain"}} src={`${d.defaultContent}`} alt="Product"/>
+                            </div>
+                        </Link>
                         <div className="TitleCenter ms-3">
-                                <span className="Tag">
-                                    <img src={FiTag} alt="FiTag"/>
-                                    <p className="OemNo product text-44">
-                                        {d.code}
-                                    </p>
-                                </span>
-                                {d.vehicleBrands.map((s)=> {
-                                     return <span className="TagTwo">
+                                <Link to={`/detail/${d.idHash}`}>
+                                    <span className="Tag">
+                                        <img src={FiTag} alt="FiTag"/>
+                                        <p className="OemNo product text-44">
+                                            {d.code}
+                                        </p>
+                                    </span>
+                                </Link>
+                                <div className={'d-flex'}>
+                                    {d.vehicleBrands.map((s)=> {
+                                        return <span className="TagTwo">
                                             <div className="ImgCenters">
                                                 <img src={`${s.vehicleBrandContent}`} alt="Product"/>
                                             </div>
@@ -62,19 +83,27 @@ const CardItem = ({d, classes}) => {
                                             {/*    {s.vehicleBrandIdName}*/}
                                             {/*</p>*/}
                                         </span>
-                                })}
+                                    })}
+
+                                    <Tooltip onClick={()=>{
+                                        setIsModalVisible(true)
+                                    }} placement={'topRight'} title={'Models'}>
+                                        <InfoCircleOutlined className={'text-dark ms-2'}  />
+                                    </Tooltip>
+                                </div>
                         </div>
                     </div>
-                    <div className="OemTextCenter">
-                        <p className="Oem">
-                            OEM № :
-                            <p className="OemNo text-44">
-                                {d.oemCode}
+                    <Link to={`/detail/${d.idHash}`}>
+                        <div className="OemTextCenter">
+                            <p className="Oem">
+                                OEM № :
+                                <p className="OemNo text-44">
+                                    {d.oemCode}
+                                </p>
                             </p>
-                        </p>
-                    </div>
+                        </div>
+                    </Link>
                 </div>
-            </Link>
 
             <div className="LocationBrendNameCenter">
                 <div className="LocationBrend">
@@ -167,6 +196,23 @@ const CardItem = ({d, classes}) => {
                 </div>
             </div>
         </div>
+
+
+
+        <Modal
+            title="Models"
+            visible={isModalVisible}
+            onOk={handleOk}
+            onCancel={handleCancel}
+        >
+            <List size="large" bordered style={{ marginTop: 20 }}>
+                {d.vehicleModels.map((item, index) => (
+                    <List.Item key={index}>{item.vehicleModelIdName}</List.Item>
+                ))}
+            </List>
+        </Modal>
+
+
     </div>
 }
 

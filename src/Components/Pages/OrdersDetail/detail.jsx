@@ -89,7 +89,7 @@ const Orders = () => {
                                     <div className="col-1 justify-content-between ms-4 d-flex  align-items-center"
                                          style={{width: "68%", height: "24px"}}>
                                         <p className="text-44">
-                                            {t("Orders.view.table.order")} {detail.idHash}
+                                            {t("Orders.view.table.order")} {detail?.order?.orderIdHash}
                                         </p>
                                         <p className="text-44">
                                             {detail?.order?.companyName}
