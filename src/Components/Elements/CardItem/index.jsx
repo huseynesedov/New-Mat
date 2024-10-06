@@ -115,7 +115,7 @@ const CardItem = ({d, classes}) => {
                         <img src={Down} alt="Down"/>
                     </div>
                     <div className="Brend">
-                        <img src={TagTwo} alt="TagTwo"/>
+                        <img height={'18px'} src={d.manufacturerContent} alt="TagTwo"/>
                         <p className="BrendTitle">
                             {d.manufacturerName}
                         </p>
