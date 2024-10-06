@@ -7,6 +7,8 @@ import { toast } from "react-toastify";
 // import i18n from "../../../i18n";
 import { useAuth } from "../../../AuthContext";
 import { useTranslation } from "react-i18next";
+import { useSearchParams , useNavigate } from 'react-router-dom';
+
 
 const dillerTablo = [
   { name: "AZ", code: "az", flag: "https://upload.wikimedia.org/wikipedia/commons/d/dd/Flag_of_Azerbaijan.svg" },
@@ -16,6 +18,8 @@ const dillerTablo = [
 
 function Header() {
   const location = useLocation();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [isLanguageDropdownOpen, setLanguageDropdownOpen] = useState(false);
   const [currentLanguage, setCurrentLanguage] = useState(dillerTablo[0]);
@@ -36,7 +40,9 @@ function Header() {
     Language,
   } = Images;
 
+
   useEffect(() => {
+    setTranscript(searchParams.get('search'))
     const savedLanguageCode = localStorage.getItem('language');
     if (savedLanguageCode) {
       const savedLanguage = dillerTablo.find(dil => dil.code === savedLanguageCode);
@@ -100,6 +106,7 @@ function Header() {
   };
 
   const handleInputChange = (event) => {
+    setSearchParams('search', event.target.value)
     setTranscript(event.target.value);
   };
 
@@ -126,6 +133,11 @@ function Header() {
 
   const { t, i18n } = useTranslation();
 
+  const handleSearch = () => {
+    navigate(`/products?search=${transcript}`)
+  };
+
+
   return (
       <>
         <div className="Container">
@@ -151,12 +163,14 @@ function Header() {
                           alt=""
                           className='Voice'
                       />
-                      <Link to="/products" className="text-decoration-none">
+                      <div onClick={()=>{
+                        handleSearch()
+                      }} className="text-decoration-none">
                         <div className="glasBar">
                           <img src={Glass} alt="" className='' />
                           {t("Nav.search")}
                         </div>
-                      </Link>
+                      </div>
                     </div>
                   </div>
                 </label>
