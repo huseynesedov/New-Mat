@@ -42,7 +42,9 @@ function Header() {
 
 
   useEffect(() => {
-    setTranscript(searchParams.get('search'))
+    if(searchParams.get('search')){
+      setTranscript(searchParams.get('search'))
+    }
     const savedLanguageCode = localStorage.getItem('language');
     if (savedLanguageCode) {
       const savedLanguage = dillerTablo.find(dil => dil.code === savedLanguageCode);

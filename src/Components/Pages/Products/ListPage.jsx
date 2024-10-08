@@ -27,6 +27,8 @@ function Home() {
     const [vehicleBrands, setVehicleBrands] = useState([]);
     const [filterData, setFilterData] = useState([]);
     const [storageData, setStorageData] = useState([]);
+    const [manufacturerId, setManufacturerId] = useState('');
+    const [productTypeId , setProductTypeId] = useState('');
     const [productGroupData, setProductGroupData] = useState([]);
     const [productTypeData, setProductTypeData] = useState([]);
     const [productBrendData, setProductBrendData] = useState([]);
@@ -74,14 +76,11 @@ function Home() {
         arr.forEach(filter => {
             // fieldName: "name",
             //     value: "Contains"
-            if((filter.value !== filterValue.value)
-                &&
-                (filterValue.fieldName !== filter.fieldName)
+            if((filter.value !== filterValue.value) && (filterValue.fieldName !== filter.fieldName)
             ){
                 arr.push(filterValue)
             }
-
-            if((filterValue.fieldName === filter.fieldName) && (filter.value !== filterValue.value)){
+            else if((filterValue.fieldName === filter.fieldName) && (filter.value !== filterValue.value)){
                 filter['value'] = filterValue.value
             }
         })
@@ -90,6 +89,10 @@ function Home() {
 
     }
 
+
+    useEffect(() => {
+        getProductGroupData()
+    }, [manufacturerId, productTypeId]);
 
     useEffect(() => {
         setLoading(true)
@@ -144,8 +147,21 @@ function Home() {
         })
     }
     const getProductGroupData = () => {
-        CatalogApi.GetProductTypeList()
-        CatalogApi.GetProductGroupListByProductType()
+      if(!manufacturerId && productTypeId){
+          CatalogApi.GetProductGroupListByProductType({
+              typeId: productTypeId,
+          }).then(res => {
+              setProductGroupData(res)
+          })
+      }
+      else if(manufacturerId && productTypeId) {
+          CatalogApi.GetProductGroupList({
+              typeId: productTypeId,
+              manufacturerId
+          }).then(res => {
+              setProductGroupData(res)
+          })
+      }
     }
 
     const handlePageChange = (page) => {
@@ -158,7 +174,6 @@ function Home() {
         getStorageData()
         getProductTypeData()
         getVehicleBrandData()
-        // getProductGroupData()
     }, [reset]);
 
 
@@ -259,8 +274,8 @@ function Home() {
                                                                 onChange={(e)=>{
                                                                     let obj =  {
                                                                         value:e.target.value,
-                                                                        fieldName: "storageIdHash",
-                                                                        equalityType: "Contains"
+                                                                        fieldName: "storages.storageIdHash",
+                                                                        equalityType: "Equal"
                                                                     }
                                                                     updateFilteration(obj)
                                                                 }}
@@ -305,6 +320,7 @@ function Home() {
                                                         <div className="checkbox4">
                                                             <input
                                                                 onChange={(e)=>{
+                                                                    setProductTypeId(e.target.value)
                                                                     let obj =  {
                                                                         value:e.target.value,
                                                                         fieldName: "productTypeIdHash",
@@ -355,6 +371,7 @@ function Home() {
                                                 return <button className='picup2'>
                                                     <li onClick={
                                                         () =>{
+                                                            setManufacturerId(b.valueHash);
                                                             let obj =  {
                                                                 value:b.valueHash,
                                                                 fieldName: "manufacturerIdHash",
@@ -445,12 +462,16 @@ function Home() {
 
 
                                             </div>
-                                            {/*<button className='picup2'>*/}
-                                            {/*    <li className='d-flex'>*/}
-                                            {/*        <p className="t-79 ms-2 mb-1">Brand A</p>*/}
-                                            {/*    </li>*/}
-                                            {/*</button>*/}
-
+                                            {productGroupData.map((data) => {
+                                                return  <button className='picup2'>
+                                                    <li className='d-flex align-items-center'>
+                                                        <div style={{width: "27px", height: "27px"}}>
+                                                            <img className="w-100" src={data.content} alt=""/>
+                                                        </div>
+                                                        <p className="t-79 ms-2 mt-2 mb-1">{data.displayText}</p>
+                                                    </li>
+                                                </button>
+                                            })}
                                         </ul>
                                     </div>
                                 )}
