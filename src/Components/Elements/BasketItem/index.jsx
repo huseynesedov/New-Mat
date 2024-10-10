@@ -342,7 +342,7 @@ const BasketItems = ({ basketItems, getBasketItems, getTotalPrice, setBasketItem
                                                 onClick={() => handleQuantityUpdate(Data.product.idHash, Data.quantity, false)}>
                                                 -
                                             </button>
-                                            <input type="text" name="" id="" className="counter"
+                                            <input type="text" name="" id="" className="counter mx-3"
                                                 value={Data.quantity} readOnly />
                                             <button className="plus"
                                                 onClick={() => handleQuantityUpdate(Data.product.idHash, Data.quantity, true)}>

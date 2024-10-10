@@ -4,9 +4,9 @@ import { Table } from "react-bootstrap";
 import '@progress/kendo-theme-default/dist/all.css';
 import "./style.scss";
 import Images from "../../../Assets/images/js/Images";
-import {CatalogApi} from "../../../api/catalog.api";
-import {OrderApi} from "../../../api/order.api";
-import {Pagination, Spin} from "antd"
+import { CatalogApi } from "../../../api/catalog.api";
+import { OrderApi } from "../../../api/order.api";
+import { Pagination, Spin } from "antd"
 import moment from "moment";
 import { useTranslation } from "react-i18next";
 
@@ -18,7 +18,7 @@ const statusColors = {
   'TdxqvP8RuFw=': '#E53E3E', // Havuzda birleshdirildi
 };
 
-const ProductStatus = ({ status , orderStatusName,  orderStatusIdHash }) => {
+const ProductStatus = ({ status, orderStatusName, orderStatusIdHash }) => {
   const bgColor = statusColors[orderStatusIdHash] || 'white';
 
   console.log(bgColor);
@@ -49,44 +49,44 @@ const Orders = () => {
 
 
 
-  const getOrdersByStatus = (value, page) =>{
-      setLoading(true)
-      OrderApi.GetSearchTable({
-        page,
-        pageSize: 2,
-        filters: [
-          {
-            value,
-            fieldName: "orderStatusIdHash",
-            equalityType: "Equal"
-          }
-        ]
-      }).then((res) => {
-        console.log(res)
-        setProducts(res.data)
-        setCount(res.count)
-      }).finally(()=>{
-        setLoading(false)
-      })
+  const getOrdersByStatus = (value, page) => {
+    setLoading(true)
+    OrderApi.GetSearchTable({
+      page,
+      pageSize: 2,
+      filters: [
+        {
+          value,
+          fieldName: "orderStatusIdHash",
+          equalityType: "Equal"
+        }
+      ]
+    }).then((res) => {
+      console.log(res)
+      setProducts(res.data)
+      setCount(res.count)
+    }).finally(() => {
+      setLoading(false)
+    })
   }
 
   // it is for pagination
   const handlePageChange = (page) => {
     setCurrentDataPage(page);
     setTimeout(() => {
-      getOrdersByStatus(currentPage , page-1)
+      getOrdersByStatus(currentPage, page - 1)
     })
   };
 
 
 
-  const getOrderStatusList = () =>{
-      CatalogApi.GetOrderStatusList().then((s) =>{
-        setOrderStatusList(s)
-        getOrdersByStatus(s[0].valueHash, 0)
-      }).finally(()=>{
-        setLoading(false)
-      })
+  const getOrderStatusList = () => {
+    CatalogApi.GetOrderStatusList().then((s) => {
+      setOrderStatusList(s)
+      getOrdersByStatus(s[0].valueHash, 0)
+    }).finally(() => {
+      setLoading(false)
+    })
   }
 
 
@@ -98,23 +98,27 @@ const Orders = () => {
   // it is for tabpanes
   const handlePageClick = (id) => {
     setCurrentPage(id);
-    getOrdersByStatus(id ,  0)
+    getOrdersByStatus(id, 0)
   };
 
   const { chrevron_right } = Images;
 
   return (
-      <>
+    <>
       <div className="container-fluid d-flex justify-content-center mt-4">
         <div className="myRow align-items-start flex-column">
           <p className="text-44 f-14 d-flex fb-600">
-            {t("Global.home")}
-            <img src={chrevron_right} alt=""/>
+            <Link to={"/"}>
+              <span className="text-44">
+                {t("Global.home")}
+              </span>
+            </Link>
+            <img src={chrevron_right} alt="" />
             <p className="t-01">
               {t("Orders.view.order-name")}
             </p>
           </p>
-          <div className="border-bottom-line mt-4" style={{width: '100%'}}></div>
+          <div className="border-bottom-line mt-4" style={{ width: '100%' }}></div>
         </div>
       </div>
 
@@ -123,8 +127,8 @@ const Orders = () => {
           <div className="mat-TwoPage">
             {orderStatusList?.map((d, index) => {
               return <button key={d.valueHash}
-                             className={`mat-ButtonInfo me-4 fb-500 ${currentPage === d.valueHash ? 'Active' : ''}`}
-                             onClick={() => handlePageClick(d.valueHash)}>
+                className={`mat-ButtonInfo me-4 fb-500 ${currentPage === d.valueHash ? 'Active' : ''}`}
+                onClick={() => handlePageClick(d.valueHash)}>
                 {d.displayText}
               </button>
             })}
@@ -139,30 +143,30 @@ const Orders = () => {
             <div className="myRow mt-5">
               <Table className="OrderTable">
                 <thead>
-                <tr>
-                  <th>{t("Orders.table.number")}</th>
-                  <th>{t("Orders.table.date")}</th>
-                  <th>{t("Orders.table.date2")}</th>
-                  <th>{t("Orders.table.status")}</th>
-                  <th>{t("Orders.table.record")}</th>
-                  <th>{t("Orders.table.deliveriy")}</th>
-                  <th>{t("Orders.table.explanation")}</th>
-                  <th>{t("Orders.table.warehouse")}</th>
-                  <th>{t("Orders.table.total")}</th>
-                  <th></th>
-                </tr>
+                  <tr>
+                    <th>{t("Orders.table.number")}</th>
+                    <th>{t("Orders.table.date")}</th>
+                    <th>{t("Orders.table.date2")}</th>
+                    <th>{t("Orders.table.status")}</th>
+                    <th>{t("Orders.table.record")}</th>
+                    <th>{t("Orders.table.deliveriy")}</th>
+                    <th>{t("Orders.table.explanation")}</th>
+                    <th>{t("Orders.table.warehouse")}</th>
+                    <th>{t("Orders.table.total")}</th>
+                    <th></th>
+                  </tr>
                 </thead>
                 <tbody>
-                {products?.map((product, i) => (
+                  {products?.map((product, i) => (
                     <tr key={product.id}>
                       <td>{product.orderNumber}</td>
                       <td>{moment(product.createdDate).format('DD-MM-YYYY HH:MM')}</td>
                       <td>{product.confirmDate}</td>
                       <td className="d-flex">
-                        <ProductStatus orderStatusName={product.orderStatusName} orderStatusIdHash={product.orderStatusIdHash}/>
+                        <ProductStatus orderStatusName={product.orderStatusName} orderStatusIdHash={product.orderStatusIdHash} />
                       </td>
-                      <td style={{textAlign: "center"}}>{product.note}</td>
-                      <td style={{textAlign: "center"}}>{product.shipmentNote}</td>
+                      <td style={{ textAlign: "center" }}>{product.note}</td>
+                      <td style={{ textAlign: "center" }}>{product.shipmentNote}</td>
                       <td>{product.causeOfDeletion}</td>
                       <td>{product.storageCode}</td>
                       <td>{product.total} {product.currencyName}</td>
@@ -174,16 +178,16 @@ const Orders = () => {
                         </Link>
                       </td>
                     </tr>
-                ))}
+                  ))}
                 </tbody>
               </Table>
 
 
               <div className="d-flex  w-100 justify-content-center mt-4">
-                <Pagination   current={currentDataPage}
-                              total={count}
-                              onChange={handlePageChange}
-                              pageSize={2}
+                <Pagination current={currentDataPage}
+                  total={count}
+                  onChange={handlePageChange}
+                  pageSize={2}
                 />
               </div>
             </div>
@@ -191,9 +195,9 @@ const Orders = () => {
         </Spin>
       </div>
 
-</>
-)
-  ;
+    </>
+  )
+    ;
 };
 
 export default Orders;

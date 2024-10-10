@@ -135,13 +135,15 @@
 }
 
 .OemNo {
-    width: 60%;
     font-weight: 600;
     margin-left: 10px;
-    display:box;
-    white-space: nowrap; /* Metnin tek satırda kalmasını sağlar */
-    overflow: hidden; /* Taşan metni gizler */
-    text-overflow: ellipsis; /* Metnin sonunda üç nokta ekler */
+    display: box;
+    white-space: nowrap;
+    /* Metnin tek satırda kalmasını sağlar */
+    overflow: hidden;
+    /* Taşan metni gizler */
+    text-overflow: ellipsis;
+    /* Metnin sonunda üç nokta ekler */
     display: -webkit-box;
     -webkit-box-orient: vertical;
     overflow: hidden !important;
@@ -151,9 +153,9 @@
 }
 
 
-.OemNo.product {
+/* .OemNo.product {
     width:45%;
-}
+} */
 
 
 .ImgFocus {
@@ -170,6 +172,7 @@
 }
 
 .TitleCenter {
+    width: 53%;
     height: 75.5%;
     display: flex;
     justify-content: space-between;
@@ -180,7 +183,8 @@
 .Tag {
     display: flex;
     align-items: center;
-    word-wrap: break-word; /* veya */
+    word-wrap: break-word;
+    /* veya */
     overflow-wrap: break-word;
     white-space: normal;
 }
@@ -304,12 +308,15 @@ a {
 }
 
 .PriceCounter {
-    border-bottom: 2px solid #E2E8F0;
+    width: 90%;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
+.sss{
+    border-bottom: 2px solid #E2E8F0;
+}
 .prices {
     display: flex;
     justify-content: space-between;
@@ -342,11 +349,9 @@ a {
 }
 
 .counterCenter {
-    width: 86px;
+    /* width: 86px; */
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    margin-right: 30px;
 }
 
 .del {
@@ -365,8 +370,11 @@ a {
 }
 
 .counter {
-    width: 30px;
+    width: 30px ;
     height: 24px;
+    padding: 0px 0px;
+    overflow: hidden;
+    text-overflow: ellipsis;
     border: 1.5px solid #E2E8F0;
     text-align: center;
     font-size: 12px;
