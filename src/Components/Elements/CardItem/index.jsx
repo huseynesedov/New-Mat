@@ -2,11 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Images from '../../../Assets/images/js/Images';
 import { useAuth } from "../../../AuthContext"
-import {Tooltip, Spin ,List,  Modal} from "antd";
+import {Tooltip, Spin, List, Modal, Select} from "antd";
 
 import { InfoCircleOutlined } from '@ant-design/icons'
 import {BasketApi} from "../../../api/basket.api";
 import { useTranslation } from 'react-i18next';
+
+
+const {Option} = Select
 const CardItem = ({d, classes}) => {
     const {t} = useTranslation()
     const [isModalVisible, setIsModalVisible] = useState(false);
@@ -107,13 +110,33 @@ const CardItem = ({d, classes}) => {
 
             <div className="LocationBrendNameCenter">
                 <div className="LocationBrend">
-                    <div className="Location">
-                        <img src={Location} alt="Location"/>
-                        <p className="LocationName">
-                            {d.storages && d.storages.length > 0 ? d.storages[0].storageCode : ' '}
-                        </p>
-                        <img src={Down} alt="Down"/>
-                    </div>
+                    {d?.storages?.length ?
+
+                        <div className="Location">
+                            <p className="LocationName ms-5 d-flex">
+                                <img src={Location} alt="Location"/>
+                                <Select
+                                    size={'small'}
+                                    style={{width: '100px'}}
+                                    dropdownStyle={{borderRadius: '20px', background: 'transparent'}}
+                                    className="custom-select"
+                                    defaultValue={d?.storages[0]?.storageIdHash}
+                                    showSearch // Enables the search functionality
+                                    optionFilterProp="children" // Search will be based on the option's displayed text
+                                    filterOption={(input, option) =>
+                                        (option?.children?.props?.children ?? '').toLowerCase().includes(input.toLowerCase())
+                                    } // Custom filter logic (optional)
+                                >
+                                    {d?.storages?.map((s) => (
+                                        <Option key={s.valueHash} value={s.storageIdHash}>
+                                            <span style={{marginLeft: '8px'}}>{s.storageCode}</span>
+                                        </Option>
+                                    ))}
+                                </Select>
+                            </p>
+                        </div>
+                        :''
+                    }
                     <div className="Brend">
                         <img height={'18px'} src={d.manufacturerContent} alt="TagTwo"/>
                         <p className="BrendTitle">
