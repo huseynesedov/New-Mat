@@ -1,75 +1,17 @@
 import axios from "axios";
 import siteUrl from "./const";
-import {AccountApi} from "../api/account.api";
-import {useAuth} from "../AuthContext"; // Assuming this has the refresh token logic
-const BASE_URL = siteUrl;
-
-// Axios instance
-const axiosInstance = axios.create({
-    baseURL: BASE_URL,
-    headers: {
-        "Content-Type": "application/json;charset=UTF-8"
-    }
-});
-
-// Add a request interceptor to add the Authorization header to each request
-axiosInstance.interceptors.request.use(
-    (config) => {
-        const token = localStorage.getItem("token");
-        if (token) {
-            config.headers.Authorization = `Bearer ${token}`;
-        }
-        return config;
-    },
-    (error) => {
-        return Promise.reject(error);
-    }
-);
-
-// Add a response interceptor to handle token expiration (401 error)
-axiosInstance.interceptors.response.use(
-    (response) => {
-        // If the response is successful, just return the response
-        return response;
-    },
-    async (error) => {
-        const originalRequest = error.config;
-        const {logout} = useAuth()
-        if (error.response.status === 401 && !originalRequest._retry) {
-            // Mark request as retry to avoid infinite loops
-            originalRequest._retry = true;
-            try {
-                // Call your refresh token API
-                let refreshToken = localStorage.getItem('refreshToken');
-                const newToken = await AccountApi.RefreshToken({refreshToken}); // Assumes you have a refreshToken function in AccountApi
-
-                if (newToken) {
-                    // Update local storage with the new token
-                    localStorage.setItem("token", newToken);
-
-                    // Update the Authorization header for the original request
-                    originalRequest.headers.Authorization = `Bearer ${newToken}`;
-
-                    // Retry the original request with the new token
-                    return axiosInstance(originalRequest);
-                }
-            } catch (err) {
-                console.error("Failed to refresh token", err);
-                logout();
-                // Optionally handle logout or redirect to login if token refresh fails
-                return Promise.reject(err);
-            }
-        }
-        return Promise.reject(error);
-    }
-);
+const BASE_URL = siteUrl
 
 const createConfig = (params, contentType) => {
+    let token = localStorage.getItem('token')
+
     let config = {};
     if (params) {
         config["params"] = params;
     }
-    config["headers"] = {"Content-Type": contentType};
+    if (token) {
+        config["headers"] = {"Content-Type": contentType, "Authorization": `Bearer ${token}`};
+    }
     return config;
 }
 
@@ -83,40 +25,69 @@ const createFormDataConfig = (params) => {
 
 export const BaseApi = {
     get(url, params) {
-        return axiosInstance.get(url, createJsonConfig(params)).then(response => response.data);
+
+        let fullUrl = `${BASE_URL}${url}`;
+        let config = createJsonConfig(params)
+
+        return axios.get(fullUrl, config).then(response => response.data);
     },
-    post(url, params, queryParams) {
-        return axiosInstance.post(url, params, createJsonConfig(queryParams)).then(response => response.data);
+    post(url, params , queryParams) {
+        let fullUrl = `${BASE_URL}${url}`;
+        let config = createJsonConfig(queryParams);
+
+        return axios.post(fullUrl, params, config).then(response => response.data);
     },
-    postFormData(url, params, queryParams) {
-        const formData = new FormData();
+    postFormData(url, params , queryParams) {
+
+        let fullUrl = `${BASE_URL}${url}`;
+
+        let formData = new FormData();
         Object.keys(params).forEach(key => {
             let value = params[key];
             formData.append(key, value);
         });
-        return axiosInstance.post(url, formData, createFormDataConfig(queryParams)).then(response => response.data);
+        let config = createFormDataConfig();
+        return axios.post(fullUrl, formData, config).then(response => response.data);
     },
     postFormDataFile(url, params) {
-        const formData = new FormData();
+
+        let fullUrl = `${BASE_URL}${url}`;
+
+        let formData = new FormData();
         Object.keys(params).forEach(key => {
             let value = params[key];
             formData.append(key, value);
         });
-        return axiosInstance.post(url, formData, createFormDataConfig()).then(response => response.data);
+        /* formData.delete('files');
+         for(let i = 0; i < params.files.length; i++) {
+             formData.append(`files[${i}]`, params.files[i]);
+         }*/
+        let config = createFormDataConfig();
+        return axios.post(fullUrl, formData, config).then(response => response.data);
     },
     delete(url, params) {
-        return axiosInstance.delete(url, createJsonConfig(params)).then(response => response.data);
+        let fullUrl = `${BASE_URL}${url}`;
+        let config = createJsonConfig(params);
+
+        return axios.delete(fullUrl, config).then(response => response.data);
     },
     deleteNew(url, params) {
-        return axiosInstance.delete(url, {
-            ...createJsonConfig(),
+        let fullUrl = `${BASE_URL}${url}`;
+        let config = createJsonConfig();
+        return axios.delete(fullUrl , {
+            ...config,
             data: params
         }).then(response => response.data);
     },
     put(url, params) {
-        return axiosInstance.put(url, params, createJsonConfig()).then(response => response.data);
+
+        let fullUrl = `${BASE_URL}${url}`;
+        let config = createJsonConfig();
+
+        return axios.put(fullUrl, params, config).then(response => response.data);
     },
     getBaseUrl() {
         return BASE_URL;
     }
 };
+
