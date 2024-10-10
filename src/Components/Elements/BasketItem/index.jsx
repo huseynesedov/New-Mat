@@ -74,13 +74,17 @@ const BasketItems = ({ basketItems, getBasketItems, getTotalPrice, setBasketItem
             })
     };
 
+    function encodeQueryParam(param) {
+        return encodeURIComponent(param);
+    }
 
     const handleCheckboxChange = (id) => {
-        debugger;
+        console.log(basketItemStatus , id)
+          console.log(encodeQueryParam(id))
         if (selectedItems.includes(id)) {
             setLoading(true)
             BasketApi.UpdateStatus({
-                id,
+                id:encodeQueryParam(id),
                 statusId: basketItemStatus[1].valueHash
             }).then(() => {
                 setSelectedItems(selectedItems.filter(selectedItem => selectedItem !== id))
@@ -95,7 +99,7 @@ const BasketItems = ({ basketItems, getBasketItems, getTotalPrice, setBasketItem
         else {
             setLoading(true)
             BasketApi.UpdateStatus({
-                id,
+                id:encodeQueryParam(id),
                 statusId: basketItemStatus[0].valueHash
             }).then(() => {
                 setSelectedItems([

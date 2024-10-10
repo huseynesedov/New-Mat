@@ -230,13 +230,8 @@
 }
 
 .Location {
-    width: 59px;
     height: 100%;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 6px;
-    background-color: #F5F5F5;
 }
 
 
@@ -259,12 +254,11 @@
 
 .ReturunTitle {
     color: #E53E3E;
-
+    font-size: 10px;
     margin-left: 5px;
 }
 
 .Brend {
-    margin-left: 60px;
     height: 15.62px;
     display: flex;
     align-items: center;
@@ -371,7 +365,7 @@ a {
 }
 
 .counter {
-    width: 23px;
+    width: 30px;
     height: 24px;
     border: 1.5px solid #E2E8F0;
     text-align: center;

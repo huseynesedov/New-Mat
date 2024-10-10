@@ -47,13 +47,7 @@ const ShoppingCards = () => {
                 {!loading ?
                     <>
                         {newData.map(d => <CardItem classes={'col-lg-3 col-md-6'} d={d}/>)}
-                        <div className="d-flex  w-100 justify-content-center mt-4">
-                            <Pagination current={page}
-                                        total={count}
-                                        onChange={handlePageChange}
-                                        pageSize={20}
-                            />
-                        </div>
+
                     </>
                     : <>
                         <div className={'w-100 d-flex justify-content-center'}>

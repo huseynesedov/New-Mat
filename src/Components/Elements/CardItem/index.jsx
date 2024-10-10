@@ -109,17 +109,23 @@ const CardItem = ({d, classes}) => {
                 </div>
 
             <div className="LocationBrendNameCenter">
-                <div className="LocationBrend">
+                <div className="d-flex LocationBrend">
                     {d?.storages?.length ?
 
                         <div className="Location">
-                            <p className="LocationName ms-5 d-flex">
-                                <img src={Location} alt="Location"/>
+                            <p className="LocationName d-flex">
                                 <Select
                                     size={'small'}
-                                    style={{width: '100px'}}
-                                    dropdownStyle={{borderRadius: '20px', background: 'transparent'}}
-                                    className="custom-select"
+                                    style={{
+                                        backgroundColor: '#f0f0f0', // Your desired background color
+                                        border: 'none',             // No border
+                                        borderRadius: '30px',       // 30px border radius
+                                        padding: '5px 0px'         // Padding for a better look
+                                    }}
+                                    dropdownStyle={{
+                                        backgroundColor: '#f0f0f0'  // Same background color for the dropdown
+                                    }}
+                                    className="custom-select2"
                                     defaultValue={d?.storages[0]?.storageIdHash}
                                     showSearch // Enables the search functionality
                                     optionFilterProp="children" // Search will be based on the option's displayed text
@@ -129,6 +135,7 @@ const CardItem = ({d, classes}) => {
                                 >
                                     {d?.storages?.map((s) => (
                                         <Option key={s.valueHash} value={s.storageIdHash}>
+                                            <img src={Location} alt="Location"/>
                                             <span style={{marginLeft: '8px'}}>{s.storageCode}</span>
                                         </Option>
                                     ))}
@@ -191,10 +198,16 @@ const CardItem = ({d, classes}) => {
                         -
                     </button>
                     <input
-                        type="number"
                         value={quantity}
+                        pattern="[0-9]*"
                         onChange={(e) => {
-                            setQuantity(e.target.value)
+                         let q =   e.target.value.replace(/[^1-9]/g, '');
+                           if(Number(q)< d.minOrderAmount)  {
+                               setQuantity(d.minOrderAmount);
+                           }
+                           else {
+                               setQuantity(Number(q));
+                           }
                         }}
                         className="counter"
                     />

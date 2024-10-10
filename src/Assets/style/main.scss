@@ -61,3 +61,31 @@ p{
   display: flex;
   align-items: center;
 }
+
+
+
+
+
+.custom-select2 {
+  width: 110px;
+  background-color: #f0f0f0; /* Your desired background color */
+  border: none;
+  border-radius: 30px;
+  margin-right:10px;
+}
+
+.custom-select2 .ant-select-selector {
+  background-color: #f0f0f0 !important; /* Apply the background color to the selector */
+  border: none !important;              /* Remove the border */
+  border-radius: 30px !important;        /* Add border-radius */
+}
+
+.custom-select2 .ant-select-dropdown {
+  background-color: #f0f0f0; /* Same background color for the dropdown */
+}
+
+.custom-select2 .ant-select-item-option {
+  width: 300px !important;
+  font-size:10px !important;
+
+}
