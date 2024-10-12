@@ -111,6 +111,7 @@ const CardItem = ({ d, classes }) => {
             </div>
 
             <div className="LocationBrendNameCenter">
+                
                 <div className="d-flex LocationBrend">
                     {d?.storages?.length ?
 
@@ -225,6 +226,8 @@ const CardItem = ({ d, classes }) => {
             </div>
 
             <div className="BasketLikeCenter my-2">
+
+
                 <button className="Basket" onClick={() => handleAddToCart(d)}>
                     {loading ? <Spin className="custom-spin" size={'small'} /> : ''}
                     <img src={Vector2} alt="Add to Basket" />
@@ -232,6 +235,8 @@ const CardItem = ({ d, classes }) => {
                         {t("Global.basket")}
                     </p>
                 </button>
+
+
                 <div className="Heart" style={{display:"none"}}>
                     <img src={Heart} alt="Favorite" />
                 </div>
