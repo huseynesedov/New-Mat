@@ -69,6 +69,8 @@ import printsvg from "../MdReceiptLong.svg"
 // Home
 import Endirim from "../endirim.svg"
 
+import okey from "../okey2.svg"
+
 
 
 
@@ -150,5 +152,6 @@ export default {
      CarAccessories,
      printsvg,
      Endirim,
-     Vector2
+     Vector2,
+     okey
 }

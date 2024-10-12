@@ -83,6 +83,11 @@ export const az = {
             "value": "Tam Dəyər",
             "confirim": "Təsdiqəyin və Tamamlayın",
         },
+        "modal":{
+            "order":"Sifarişiniz verildi!",
+            "confirim-des":"Satın aldığınız üçün təşəkkür edirik, indi göndərməyə hazırlaşırıq..",
+            "ok":"OK!"
+        }
     },
     "Orders": {
         "order": "Sifarişlər",
