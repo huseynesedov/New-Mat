@@ -184,7 +184,8 @@ const Orders = () => {
 
 
               <div className="d-flex  w-100 justify-content-center mt-4">
-                <Pagination current={currentDataPage}
+                <Pagination 
+              current={currentDataPage}
                   total={count}
                   onChange={handlePageChange}
                   pageSize={2}

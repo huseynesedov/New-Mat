@@ -232,7 +232,7 @@ const CardItem = ({ d, classes }) => {
                         {t("Global.basket")}
                     </p>
                 </button>
-                <div className="Heart">
+                <div className="Heart" style={{display:"none"}}>
                     <img src={Heart} alt="Favorite" />
                 </div>
             </div>
