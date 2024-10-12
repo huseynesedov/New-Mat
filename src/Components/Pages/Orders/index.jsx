@@ -6,9 +6,13 @@ import "./style.scss";
 import Images from "../../../Assets/images/js/Images";
 import { CatalogApi } from "../../../api/catalog.api";
 import { OrderApi } from "../../../api/order.api";
-import { Pagination, Spin } from "antd"
 import moment from "moment";
 import { useTranslation } from "react-i18next";
+import { DatePicker, Button, Row, Col ,  Pagination, Spin, Input} from 'antd';
+import {useAuth} from "../../../AuthContext";
+
+
+
 
 const statusColors = {
   '3LlDuXpKEl0=': '#48BB78', //beklemede
@@ -20,7 +24,6 @@ const statusColors = {
 
 const ProductStatus = ({ status, orderStatusName, orderStatusIdHash }) => {
   const bgColor = statusColors[orderStatusIdHash] || 'white';
-
   console.log(bgColor);
   const style = {
     marginBottom: '50px',
@@ -41,16 +44,39 @@ const ProductStatus = ({ status, orderStatusName, orderStatusIdHash }) => {
 const Orders = () => {
   const { t } = useTranslation();
   const [currentPage, setCurrentPage] = useState('xFsQPkFTRN0=');
+  const { logout } = useAuth()
+
+  const [fromDate, setFromDate] = useState('');
+  const [toDate, setToDate] = useState('');
+  const [orderNumber, setOrderNumber] = useState('');
+
   const [currentDataPage, setCurrentDataPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [products, setProducts] = useState([]);
   const [orderStatusList, setOrderStatusList] = useState([]);
   const [count, setCount] = useState();
 
+  const disableFromDate = (current) => {
+    return toDate ? current && current > toDate : false;
+  };
 
+  // Disable dates before the selected "From Date" for the "To Date" picker
+  const disableToDate = (current) => {
+    return fromDate ? current && current < fromDate : false;
+  };
+  const clearFilter = () => {
+    setFromDate(null)
+    setToDate(null)
+    setOrderNumber(null)
+  }
 
-  const getOrdersByStatus = (value, page) => {
+  const getOrdersByStatus = (value, page, filter) => {
     setLoading(true)
+    let arr = []
+
+    if(filter) {
+
+    }
     OrderApi.GetSearchTable({
       page,
       pageSize: 2,
@@ -59,7 +85,8 @@ const Orders = () => {
           value,
           fieldName: "orderStatusIdHash",
           equalityType: "Equal"
-        }
+        },
+        ...arr
       ]
     }).then((res) => {
       console.log(res)
@@ -84,6 +111,10 @@ const Orders = () => {
     CatalogApi.GetOrderStatusList().then((s) => {
       setOrderStatusList(s)
       getOrdersByStatus(s[0].valueHash, 0)
+    }).catch((error)=>{
+      if(error.response.status === 401){
+        logout()
+      }
     }).finally(() => {
       setLoading(false)
     })
@@ -100,6 +131,7 @@ const Orders = () => {
     setCurrentPage(id);
     getOrdersByStatus(id, 0)
   };
+
 
   const { chrevron_right } = Images;
 
@@ -133,6 +165,38 @@ const Orders = () => {
               </button>
             })}
           </div>
+        </div>
+      </div>
+
+      <div className="container-fluid  mt-5">
+        <div className="myRow ps-5 mt-2 ms-1 align-items-start flex-column">
+          <Row gutter={16}>
+            <Col>
+              <DatePicker  disabledDate={disableFromDate}  value={fromDate} onChange={(e)=>{
+                setFromDate(e)
+              }} placeholder="From Date" style={{ width: 150 }} />
+            </Col>
+            <Col>
+              <DatePicker   disabledDate={disableToDate}  value={toDate} onChange={(e)=>{
+                setToDate(e)
+              }} placeholder="To Date" style={{ width: 150 }} />
+            </Col>
+            <Col>
+                <Input value={orderNumber} onChange={(e)=>{
+                  setOrderNumber(e.target.value)
+                } } placeholder="Search by order number" style={{ width: 200 }} />
+            </Col>
+            <Col>
+              <Button onClick={()=>{
+                clearFilter()
+              }} style={{ marginRight: 8 }}>Sil</Button>
+              <Button onClick={
+                () =>{
+                  getOrdersByStatus(currentPage, 0 , true)
+                }
+              } type="primary">Ara</Button>
+            </Col>
+          </Row>
         </div>
       </div>
 
