@@ -13,6 +13,8 @@ import Detail from "../../Pages/ProductDetail/index";
 import Orders from "../../Pages/Orders";
 import OrderDetail from "../../Pages/OrdersDetail/detail";
 
+import Return from "../../Pages/Return";
+
 
 const RouteList = () => {
     return <>
@@ -23,6 +25,7 @@ const RouteList = () => {
             <Route path="/Orders" element={<Orders />} />
             <Route path="/BusinesProfil" element={<BusinesProfil />} />
             <Route path="/Basket" element={<Basket />} />
+            <Route path="/Return" element={<Return />} />
             <Route path="/detail/:id" element={<Detail />} />
             <Route path="/Orders/OrderDetail/:id" element={<OrderDetail />} />
         </Routes>
