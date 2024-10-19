@@ -130,14 +130,10 @@ const CardItem = ({ d, classes }) => {
                                     }}
                                     className="custom-select2"
                                     defaultValue={d?.storages[0]?.storageIdHash}
-                                    showSearch // Enables the search functionality
                                     optionFilterProp="children" // Search will be based on the option's displayed text
-                                    filterOption={(input, option) =>
-                                        (option?.children?.props?.children ?? '').toLowerCase().includes(input.toLowerCase())
-                                    } // Custom filter logic (optional)
                                 >
                                     {d?.storages?.map((s) => (
-                                        <Option key={s.valueHash} value={s.storageIdHash}>
+                                        <Option disabled key={s.valueHash} value={s.storageIdHash}>
                                             <img src={Location} alt="Location" />
                                             <span style={{ marginLeft: '8px' }}>{s.storageCode}</span>
                                         </Option>
