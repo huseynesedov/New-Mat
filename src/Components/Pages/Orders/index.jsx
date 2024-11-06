@@ -45,6 +45,7 @@ const Orders = () => {
   const { t } = useTranslation();
   const [currentPage, setCurrentPage] = useState('xFsQPkFTRN0=');
   const { logout } = useAuth()
+  const [pageSize, setPageSize] = useState(20);
 
   const [fromDate, setFromDate] = useState('');
   const [toDate, setToDate] = useState('');
@@ -75,11 +76,38 @@ const Orders = () => {
     let arr = []
 
     if(filter) {
+      if(fromDate){
+        arr.push(
+            {
+              value: fromDate,
+              fieldName: "createdDate",
+              equalityType: "GreaterOrEqual"
+            }
+        )
+      }
 
+      if(toDate){
+        arr.push(
+            {
+              value: toDate,
+              fieldName: "createdDate",
+              equalityType: "LessOrEqual"
+            }
+        )
+      }
+      if(orderNumber){
+        arr.push(
+            {
+              value: orderNumber.trim(),
+              fieldName: "orderNumber",
+              equalityType: "Contains"
+            }
+        )
+      }
     }
     OrderApi.GetSearchTable({
       page,
-      pageSize: 2,
+      pageSize,
       filters: [
         {
           value,
@@ -101,7 +129,7 @@ const Orders = () => {
   const handlePageChange = (page) => {
     setCurrentDataPage(page);
     setTimeout(() => {
-      getOrdersByStatus(currentPage, page - 1)
+      getOrdersByStatus(currentPage, page - 1, true)
     })
   };
 
@@ -110,6 +138,7 @@ const Orders = () => {
   const getOrderStatusList = () => {
     CatalogApi.GetOrderStatusList().then((s) => {
       setOrderStatusList(s)
+      clearFilter()
       getOrdersByStatus(s[0].valueHash, 0)
     }).catch((error)=>{
       if(error.response.status === 401){
@@ -120,7 +149,9 @@ const Orders = () => {
     })
   }
 
-
+  const handlePageSizeChange = (current, size) => {
+    setPageSize(size);
+  };
 
   useEffect(() => {
     getOrderStatusList()
@@ -129,7 +160,7 @@ const Orders = () => {
   // it is for tabpanes
   const handlePageClick = (id) => {
     setCurrentPage(id);
-    getOrdersByStatus(id, 0)
+    getOrdersByStatus(id, 0, true)
   };
 
 
@@ -251,7 +282,10 @@ const Orders = () => {
                 <Pagination current={currentDataPage}
                   total={count}
                   onChange={handlePageChange}
-                  pageSize={2}
+                  pageSize={pageSize}
+                  onShowSizeChange={handlePageSizeChange}
+                  showSizeChanger={true}
+                  pageSizeOptions={[ '5', '10','20', '40', '50', '100']} // Opt
                 />
               </div>
             </div>

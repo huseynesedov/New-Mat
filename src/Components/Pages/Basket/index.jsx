@@ -1,19 +1,23 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import './style.scss';
-import  { Spin } from 'antd'
+import { Spin } from 'antd'
 import Images from '../../../Assets/images/js/Images';
 import BasketItems from '../../Elements/BasketItem/index';
-import {useNavigate} from "react-router-dom";
-import {BasketApi} from "../../../api/basket.api";
-import {useAuth} from "../../../AuthContext";
+import { useNavigate } from "react-router-dom";
+import { BasketApi } from "../../../api/basket.api";
+import { useAuth } from "../../../AuthContext";
 import { useTranslation } from 'react-i18next';
-import {OrderApi} from "../../../api/order.api";
+import { OrderApi } from "../../../api/order.api";
 import { Select } from "antd";
-import {CatalogApi} from "../../../api/catalog.api";
+import { CatalogApi } from "../../../api/catalog.api";
+
+import { Modal, Button } from "antd";
+
+
 const { Option } = Select
 const Basket = () => {
-    const { logout} = useAuth()
-    const { Down } = Images;
+    const { logout } = useAuth()
+    const { okey } = Images;
     const { t } = useTranslation();
     const navigate = useNavigate()
     const [open, setOpen] = useState(false);
@@ -30,14 +34,14 @@ const Basket = () => {
 
     const getBasketItems = () => {
         setLoading(true)
-        BasketApi.GetListByCurrent().then((items)=>{
+        BasketApi.GetListByCurrent().then((items) => {
             console.log(items)
             setBasketItems(items.basketDetailList ? items.basketDetailList : [])
-        }).catch((error)=>{
-            if(error?.response?.status === 401){
+        }).catch((error) => {
+            if (error?.response?.status === 401) {
                 logout()
             }
-        }).finally(function(){
+        }).finally(function () {
             setLoading(false)
         })
     }
@@ -45,41 +49,41 @@ const Basket = () => {
     const GetBasketDetailStatusList = () => {
         console.log('GetBasketDetailStatusList')
         setLoading(true)
-        CatalogApi.GetBasketDetailStatusList().then((items)=>{
+        CatalogApi.GetBasketDetailStatusList().then((items) => {
             setBasketItemStatus(items)
-        }).catch((error)=>{
+        }).catch((error) => {
             console.log(error)
-            if(error?.response?.status === 401){
+            if (error?.response?.status === 401) {
                 logout()
             }
-        }).finally(function(){
+        }).finally(function () {
             setLoading(false)
         })
     }
 
     const getTotalPrice = () => {
         setLoading(true)
-        BasketApi.GetTotalPrice().then((items)=>{
-            console.log(items , "Total")
+        BasketApi.GetTotalPrice().then((items) => {
+            console.log(items, "Total")
             setTotalPrice(items[0])
-        }).catch((error)=>{
-            if(error?.response?.status === 401){
+        }).catch((error) => {
+            if (error?.response?.status === 401) {
                 logout()
             }
-        }).finally(function(){
+        }).finally(function () {
             setLoading(false)
         })
     }
 
 
-    const getShipmentTypeList = ( ) => {
-        CatalogApi.GetShipmentTypeList().then((res)=>{
+    const getShipmentTypeList = () => {
+        CatalogApi.GetShipmentTypeList().then((res) => {
             setShipmentTypeList(res)
         })
     }
 
-    const getPaymentTypeList = ( ) => {
-        CatalogApi.GetPaymentTypeList().then((res)=>{
+    const getPaymentTypeList = () => {
+        CatalogApi.GetPaymentTypeList().then((res) => {
             setPaymentTypeList(res)
         })
     }
@@ -87,22 +91,24 @@ const Basket = () => {
 
     const createOrder = () => {
         setLoading(true)
+        setIsModalVisible(true); // Modalı aç
+
         OrderApi.AddOrder({
             paymentTypeIdHash,
             shipmentTypeIdHash,
             note,
             salesmanNote: " "
         }).then(() => {
-            openNotification('Uğurlu əməliyyat' , 'Sifariş yaradıldı'  , false)
-            setTimeout(()=>{
+            openNotification('Uğurlu əməliyyat', 'Sifariş yaradıldı', false)
+            setTimeout(() => {
                 navigate('/orders')
-            } , 1000)
-        }).catch((err)=>{
-            openNotification('Xəta baş verdi' , err.response.data.message  , true )
-            if(err?.response?.status === 401){
+            }, 1000)
+        }).catch((err) => {
+            openNotification('Xəta baş verdi', err.response.data.message, true)
+            if (err?.response?.status === 401) {
                 logout()
             }
-        }).finally(()=>{
+        }).finally(() => {
             setLoading(false)
         })
     }
@@ -110,7 +116,7 @@ const Basket = () => {
 
 
 
-    useEffect(()=>{
+    useEffect(() => {
         getBasketItems()
         getTotalPrice()
         getPaymentTypeList()
@@ -118,7 +124,7 @@ const Basket = () => {
         GetBasketDetailStatusList()
     }, [])
 
-    const { openNotification }= useAuth()
+    const { openNotification } = useAuth()
 
 
     const handleButtonClick = () => {
@@ -133,6 +139,20 @@ const Basket = () => {
     // if (basketItems.length === 0) {
     //     return <div className="empty-basket">Səbət boşdur</div>;
     // }
+
+
+    const [isModalVisible, setIsModalVisible] = useState(false);
+
+
+
+    const handleOk = () => {
+        setIsModalVisible(false); // Onayla butonuna basıldığında modalı kapat
+    };
+
+    const handleCancel = () => {
+        setIsModalVisible(false); // Kapat butonuna basıldığında modalı kapat
+    };
+
     return (
         <>
             <div className="container-fluid d-flex justify-content-center">
@@ -147,12 +167,12 @@ const Basket = () => {
                 <Spin className={'w-100'} spinning={loading}>
                     {
                         basketItems.length === 0 ?
-                            <div style={{height:'60vh'}} className="d-flex justify-content-center align-items-center empty-basket">Səbət boşdur</div>
+                            <div style={{ height: '60vh' }} className="d-flex justify-content-center align-items-center empty-basket">Səbət boşdur</div>
                             : <div className="container-fluid d-flex justify-content-center mt-5">
                                 <div className="myRow d-flex align-items-start justify-content-between">
                                     <div className="myContainer w-75 position-relative rounded"
-                                         style={{padding: "0rem 0rem 0.8rem 0rem"}}>
-                                        <BasketItems basketItemStatus={basketItemStatus} setBasketItems={setBasketItems} getBasketItems={getBasketItems} getTotalPrice={getTotalPrice}  basketItems={basketItems} />
+                                        style={{ padding: "0rem 0rem 0.8rem 0rem" }}>
+                                        <BasketItems basketItemStatus={basketItemStatus} setBasketItems={setBasketItems} getBasketItems={getBasketItems} getTotalPrice={getTotalPrice} basketItems={basketItems} />
                                     </div>
 
                                     <div className="myContainer2 rounded">
@@ -213,7 +233,7 @@ const Basket = () => {
                                             </div>
 
                                             {/* Line */}
-                                            <img className='mt-4 w-100' src={Liner} alt=""/>
+                                            <img className='mt-4 w-100' src={Liner} alt="" />
 
                                             {/* TextArea */}
                                             <div className="row">
@@ -221,16 +241,16 @@ const Basket = () => {
                                                     <p className="text-44 mt-3 fb-600">
                                                         {t("Basket.table2.record")}
                                                     </p>
-                                                    <textarea onChange={(e)=>{
+                                                    <textarea onChange={(e) => {
                                                         setNote(e.target.value);
                                                     }} className="OrderTextarea rounded mt-4 textarea"
-                                                              id="exampleFormControlTextarea1"
-                                                              placeholder={t("Basket.table2.record")}></textarea>
+                                                        id="exampleFormControlTextarea1"
+                                                        placeholder={t("Basket.table2.record")}></textarea>
                                                 </div>
                                             </div>
 
                                             {/* Line */}
-                                            <img className='mt-4 w-100' src={Liner} alt=""/>
+                                            <img className='mt-4 w-100' src={Liner} alt="" />
 
                                             <div className="row">
                                                 <div className="myRow3">
@@ -243,8 +263,8 @@ const Basket = () => {
                                                             {t("Basket.table2.delivery")}
                                                         </p>
                                                         <p className="t-8F fb-500">
-                                                            {totalPrice?.basketDetailTotalPrice?.formattedTotalPrice } {' '}
-                                                            {totalPrice?.currency?.name }
+                                                            {totalPrice?.basketDetailTotalPrice?.formattedTotalPrice} {' '}
+                                                            {totalPrice?.currency?.name}
                                                         </p>
                                                     </div>
                                                     <div
@@ -253,8 +273,8 @@ const Basket = () => {
                                                             {t("Basket.table2.discount")}
                                                         </p>
                                                         <p className="t-8F fb-500">
-                                                            {totalPrice?.basketDetailTotalPrice?.formattedTotalDiscountPrice } {' '}
-                                                            {totalPrice?.currency?.name }
+                                                            {totalPrice?.basketDetailTotalPrice?.formattedTotalDiscountPrice} {' '}
+                                                            {totalPrice?.currency?.name}
                                                         </p>
                                                     </div>
                                                     <div
@@ -263,21 +283,48 @@ const Basket = () => {
                                                             {t("Basket.table2.value")}
                                                         </p>
                                                         <p className="t-8F fb-500">
-                                                            {totalPrice?.basketDetailTotalPrice?.formattedTotalDiscountedPrice } {' '}
-                                                            {totalPrice?.currency?.name }
+                                                            {totalPrice?.basketDetailTotalPrice?.formattedTotalDiscountedPrice} {' '}
+                                                            {totalPrice?.currency?.name}
                                                         </p>
                                                     </div>
                                                 </div>
                                             </div>
 
                                             <div className="row mt-5 mb-5">
-                                                <div onClick={() => {
-                                                    createOrder()
-                                                }} className="col d-flex align-items-center justify-content-center">
-                                                    <button className="ProductEvaluate2">  {t("Basket.table2.confirim")}
+                                                <div
+                                                    onClick={createOrder}
+                                                    className="col d-flex align-items-center justify-content-center"
+                                                >
+                                                    <button className="ProductEvaluate2">
+                                                        {t("Basket.table2.confirim")}
                                                     </button>
                                                 </div>
                                             </div>
+
+                                            <Modal
+                                                visible={isModalVisible}
+                                                footer={null}
+                                                onCancel={handleCancel}
+                                            >
+                                                <div className="d-flex flex-column align-items-center justify-content-center mt-5">
+                                                    <img src={Images.okey} alt="" />
+                                                    <span className='text-44 mt-4' style={{ fontSize: "18px", fontWeight: "700" }}>
+                                                        {t("Basket.modal.order")}
+                                                    </span>
+                                                    <span className="mt-4 text-44" style={{ fontSize: "16px" }}>
+                                                        {t("Basket.modal.confirim-des")}
+
+                                                    </span>
+
+                                                    <button
+                                                        onClick={handleOk}
+                                                        className='mt-4 basket-ok'
+                                                    >
+                                                    {t("Basket.modal.ok")}
+                                                        
+                                                    </button>
+                                                </div>
+                                            </Modal>
                                         </div>
                                     </div>
 
