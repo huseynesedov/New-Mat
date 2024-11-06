@@ -50,5 +50,13 @@ export const BasketApi = {
     },
     UpdateStatusByProductTypeId(params) {
         return BaseApi.put(`${apiRoutes.basket.updateStatusByProductTypeId}?statusId=${params.statusId}&productTypeId=${params.productTypeId}` , { ...params });
+    },
+    ReturnProduct(data) {
+        // Added API method for /ReturnProductCardDetail/ReturnProduct
+        return BaseApi.post(apiRoutes.basket.returnProduct, data);
+    },
+    AddReturnProductCard(data) {
+        // Method for /ReturnProductCardDetail/Add
+        return BaseApi.post(apiRoutes.basket.addReturnProductCard, data);
     }
 };

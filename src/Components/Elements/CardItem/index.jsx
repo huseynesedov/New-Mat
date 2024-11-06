@@ -6,32 +6,21 @@ import { Tooltip, Spin, List, Modal, Select, Table, Button , InputNumber } from 
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { BasketApi } from "../../../api/basket.api";
 import { useTranslation } from 'react-i18next';
+import moment from "moment";
 
 const { Option } = Select;
 
 const CardItem = ({ d, classes }) => {
-    const { navigate } = useNavigate()
+    const navigate = useNavigate();
     const { t } = useTranslation();
     const [quantity, setQuantity] = useState(d.minOrderAmount || 1);
     const [isModelModalVisible, setIsModelModalVisible] = useState(false);
     const [isReturnModalVisible, setIsReturnModalVisible] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [responseData, setResponseData] = useState([
-        // {
-        //     productIdHash: 'FAKE1',
-        //     productName: 'Fake Product 1',
-        //     productCode: 'FP001',
-        //     customerIdHash: 'CUST001',
-        //     customerName: 'Fake Customer 1',
-        //     quantity: 2,
-        //     price: 20,
-        //     totalPrice: 40,
-        // },
-    ]);
+    const [responseData, setResponseData] = useState([]);
     const { FiTag, Location, Return, Vector2, Heart, Endirim } = Images;
     const { openNotification  ,  updateReturnData , returnData} = useAuth();
 
-    // Set initial quantity based on minOrderAmount
     useEffect(() => {
         setQuantity(d.minOrderAmount);
     }, [d.minOrderAmount]);
@@ -79,10 +68,13 @@ const CardItem = ({ d, classes }) => {
                 openNotification('Əlavə edildi', 'Məhsul kartı geri bildirməyə əlavə edildi', false);
                 setIsReturnModalVisible(false);
                 updateReturnData(res)
-                navigate('/return')
+                setTimeout(()=>{
+                    navigate('/return')
+                })
             })
             .catch((error) => {
-                openNotification('Xəta baş verdi', error.response?.data?.message || 'Server xətası', true);
+                console.error('error' , error)
+                openNotification('Xəta baş verdi', error.response?.data?.message, true);
             })
             .finally(() => {
                 setLoading(false);
@@ -120,6 +112,11 @@ const CardItem = ({ d, classes }) => {
         { title: 'Product ID', dataIndex: 'productIdHash', key: 'productIdHash' },
         { title: 'Product Name', dataIndex: 'productName', key: 'productName' },
         { title: 'Product Code', dataIndex: 'productCode', key: 'productCode' },
+        { title: 'Invoice Date', dataIndex: 'invoiceDate', key: 'invoiceDate',
+            render: (text, record) => (
+              <>{ moment(text).format('DD.MM.YYYY HH:MM') }</>
+            ),
+        },
         { title: 'Customer ID', dataIndex: 'customerIdIdHash', key: 'customerIdHash' },
         { title: 'Customer Name', dataIndex: 'customerName', key: 'customerName' },
         {
@@ -136,7 +133,7 @@ const CardItem = ({ d, classes }) => {
         },
         { title: 'Price', dataIndex: 'price', key: 'price' },
         { title: 'Total Price', dataIndex: 'totalPrice', key: 'totalPrice' },
-        { title: 'Product ID', dataIndex: 'productIdHash', key: 'productIdHash' ,
+        { title: '', dataIndex: 'productIdHash', key: 'productIdHash' ,
             render: (text, record) => (
                 <Button key="submit" type="primary" loading={loading} onClick={()=>{
                     handleAddReturnProductCard(text, record)
@@ -300,7 +297,7 @@ const CardItem = ({ d, classes }) => {
 
             {/* Return Product Modal */}
             <Modal
-                width="90vw" // Extra-large width
+                width="95vw" // Extra-large width
                 style={{ top: 20 }}
                 title="Return Product Details"
                 visible={isReturnModalVisible}

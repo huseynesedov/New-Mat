@@ -16,7 +16,8 @@ import { Modal, Button } from "antd";
 
 const { Option } = Select
 const Return = () => {
-    const { logout } = useAuth()
+    const { openNotification  ,  updateReturnData , returnData , logout} = useAuth();
+
     const { okey } = Images;
     const { t } = useTranslation();
     const navigate = useNavigate()
@@ -117,14 +118,12 @@ const Return = () => {
 
 
     useEffect(() => {
-        getBasketItems()
-        getTotalPrice()
+        console.log(returnData)
         getPaymentTypeList()
         getShipmentTypeList()
         GetBasketDetailStatusList()
     }, [])
 
-    const { openNotification } = useAuth()
 
 
     const handleButtonClick = () => {
@@ -158,7 +157,7 @@ const Return = () => {
             <div className="container-fluid d-flex justify-content-center">
                 <div className="myRow mt-5">
                     <p className="text-44 f-24 fb-600">
-                        {t("Basket.order")}
+                       Geri bildirmə səbəti
                     </p>
                 </div>
             </div>

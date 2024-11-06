@@ -67,6 +67,8 @@ export const apiRoutes = {
         updateQuantity: '/basket/v1/BasketDetail/UpdateQuantity',
         updateStatus: '/basket/v1/BasketDetail/UpdateStatus',
         updateStatusByProductTypeId: '/basket/v1/BasketDetail/UpdateStatusByProductTypeId',
+        returnProduct: '/basket/v1/ReturnProductCardDetail/ReturnProduct',
+        addReturnProductCard: '/basket/v1/ReturnProductCardDetail/Add',
     },
     // account
     account: {
