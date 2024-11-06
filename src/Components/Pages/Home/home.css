@@ -218,11 +218,17 @@
 
 
 .LocationBrendNameCenter {
-    height: 40px;
+    padding: 10px 2px;
     border-bottom: 2px solid #E2E8F0;
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+.LocationBrendName {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 2px;
 }
 
 .LocationBrend {
@@ -314,10 +320,11 @@ a {
     justify-content: space-between;
 }
 
-.sss{
+.sss {
     padding: 6px 0;
     border-bottom: 2px solid #E2E8F0;
 }
+
 .prices {
     display: flex;
     justify-content: space-between;
@@ -371,7 +378,7 @@ a {
 }
 
 .counter {
-    width: 30px ;
+    width: 30px;
     height: 24px;
     padding: 0px 0px;
     overflow: hidden;
@@ -412,7 +419,8 @@ a {
 }
 
 .Basket {
-    width: 76%;
+    width: 100%;
+    margin: 0 16px;
     height: 23px;
     display: flex;
     align-items: center;
