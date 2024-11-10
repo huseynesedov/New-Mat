@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './style.scss';
 import { Spin } from 'antd'
 import Images from '../../../Assets/images/js/Images';
-import BasketItems from '../../Elements/BasketItem/index';
+import ReturnItems from '../../Elements/ReturnItem/index';
 import { useNavigate } from "react-router-dom";
 import { BasketApi } from "../../../api/basket.api";
 import { useAuth } from "../../../AuthContext";
@@ -34,9 +34,9 @@ const Return = () => {
 
     const getBasketItems = () => {
         setLoading(true)
-        BasketApi.GetListByCurrent().then((items) => {
+        BasketApi.GetListByCurrentCustomer().then((items) => {
             console.log(items)
-            setBasketItems(items.basketDetailList ? items.basketDetailList : [])
+            setBasketItems(items ? items : [])
         }).catch((error) => {
             if (error?.response?.status === 401) {
                 logout()
@@ -63,7 +63,7 @@ const Return = () => {
 
     const getTotalPrice = () => {
         setLoading(true)
-        BasketApi.GetTotalPrice().then((items) => {
+        BasketApi.GetTotalInfoByCurrentCustomer().then((items) => {
             console.log(items, "Total")
             setTotalPrice(items[0])
         }).catch((error) => {
@@ -93,7 +93,7 @@ const Return = () => {
         setLoading(true)
         setIsModalVisible(true); // Modalı aç
 
-        OrderApi.AddOrder({
+         BasketApi.AddReturnProductCard({
             paymentTypeIdHash,
             shipmentTypeIdHash,
             note,
@@ -171,8 +171,8 @@ const Return = () => {
                             : <div className="container-fluid d-flex justify-content-center mt-5">
                                 <div className="myRow d-flex align-items-start justify-content-between">
                                     <div className="myContainer w-75 position-relative rounded"
-                                        style={{ padding: "0rem 0rem 0.8rem 0rem" }}>
-                                        <BasketItems basketItemStatus={basketItemStatus} setBasketItems={setBasketItems} getBasketItems={getBasketItems} getTotalPrice={getTotalPrice} basketItems={basketItems} />
+                                         style={{ padding: "0rem 0rem 0.8rem 0rem" }}>
+                                        <ReturnItems basketItemStatus={basketItemStatus} setBasketItems={setBasketItems} getBasketItems={getBasketItems} getTotalPrice={getTotalPrice} basketItems={basketItems} />
                                     </div>
 
                                     <div className="myContainer2 rounded">
@@ -244,8 +244,8 @@ const Return = () => {
                                                     <textarea onChange={(e) => {
                                                         setNote(e.target.value);
                                                     }} className="OrderTextarea rounded mt-4 textarea"
-                                                        id="exampleFormControlTextarea1"
-                                                        placeholder={t("Basket.table2.record")}></textarea>
+                                                              id="exampleFormControlTextarea1"
+                                                              placeholder={t("Basket.table2.record")}></textarea>
                                                 </div>
                                             </div>
 
@@ -320,8 +320,8 @@ const Return = () => {
                                                         onClick={handleOk}
                                                         className='mt-4 basket-ok'
                                                     >
-                                                    {t("Basket.modal.ok")}
-                                                        
+                                                        {t("Basket.modal.ok")}
+
                                                     </button>
                                                 </div>
                                             </Modal>

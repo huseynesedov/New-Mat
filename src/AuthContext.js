@@ -11,6 +11,7 @@ export const AuthProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [loading, setLoading] = useState(false);
   let [loginLoading, setLoginLoading] = useState(false);
+  let [returnData, setReturnData] = useState({});
 
   const openNotification = (message, description , error) => {
     if(error){
@@ -73,8 +74,13 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('loggedIn');
   };
 
+
+  const updateReturnData = (d) => {
+    setReturnData(d)
+  };
+
   return (
-    <AuthContext.Provider value={{ loggedIn, loading, loginLoading,  login, logout , openNotification }}>
+    <AuthContext.Provider value={{ loggedIn, loading, loginLoading,  login, logout , openNotification , updateReturnData  , returnData}}>
       {children}
     </AuthContext.Provider>
   );

@@ -67,6 +67,19 @@ export const apiRoutes = {
         updateQuantity: '/basket/v1/BasketDetail/UpdateQuantity',
         updateStatus: '/basket/v1/BasketDetail/UpdateStatus',
         updateStatusByProductTypeId: '/basket/v1/BasketDetail/UpdateStatusByProductTypeId',
+        returnProduct: '/basket/v1/ReturnProductCardDetail/ReturnProduct',
+        addReturnProductCard: '/basket/v1/ReturnProductCardDetail/Add',
+        returnProductCardDetail: {
+            deleteById: '/basket/v1/ReturnProductCardDetail/DeleteById',
+            encrypt: '/basket/v1/ReturnProductCardDetail/Encrypt',
+            getListByCurrent: '/basket/v1/ReturnProductCardDetail/GetListByCurrent',
+            getTotalInfo: '/basket/v1/ReturnProductCardDetail/GetTotalInfo',
+            returnProduct: '/basket/v1/ReturnProductCardDetail/ReturnProduct',
+            test: '/basket/v1/ReturnProductCardDetail/Test',
+            updateNote: '/basket/v1/ReturnProductCardDetail/UpdateNote',
+            updateQuantity: '/basket/v1/ReturnProductCardDetail/UpdateQuantity',
+            updateStatusAndReturnProductId: '/basket/v1/ReturnProductCardDetail/UpdateStatusAndReturnProductId',
+        }
     },
     // account
     account: {
