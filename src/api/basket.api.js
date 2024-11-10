@@ -52,11 +52,29 @@ export const BasketApi = {
         return BaseApi.put(`${apiRoutes.basket.updateStatusByProductTypeId}?statusId=${params.statusId}&productTypeId=${params.productTypeId}` , { ...params });
     },
     ReturnProduct(data) {
-        // Added API method for /ReturnProductCardDetail/ReturnProduct
         return BaseApi.post(apiRoutes.basket.returnProduct, data);
     },
     AddReturnProductCard(data) {
-        // Method for /ReturnProductCardDetail/Add
         return BaseApi.post(apiRoutes.basket.addReturnProductCard, data);
-    }
+    },
+    GetListByCurrentCustomer(params) {
+        return BaseApi.get(apiRoutes.basket.returnProductCardDetail.getListByCurrent, { ...params });
+    },
+    GetTotalInfoByCurrentCustomer(params) {
+        return BaseApi.get(apiRoutes.basket.returnProductCardDetail.getTotalInfo, { ...params });
+    },
+    UpdateReturnProductNote(id, note) {
+        return BaseApi.put(`${apiRoutes.basket.returnProductCardDetail.updateNote}?id=${id}&note=${encodeURIComponent(note)}`);
+    },
+    UpdateReturnProductQuantity(id, quantity) {
+        return BaseApi.put(`${apiRoutes.basket.returnProductCardDetail.updateQuantity}?id=${id}&quantity=${quantity}`);
+    },
+    UpdateStatusAndReturnProductId(id, returnProductId) {
+        return BaseApi.put(`${apiRoutes.basket.returnProductCardDetail.updateStatusAndReturnProductId}?id=${id}&returnProductId=${returnProductId}`);
+    },
+    DeleteReturnProductById(id) {
+        return BaseApi.delete(apiRoutes.basket.returnProductCardDetail.deleteById, {
+            data: { id },
+        });
+    },
 };

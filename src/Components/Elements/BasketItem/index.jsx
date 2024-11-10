@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 
 const { Option } = Select;
 
-const BasketItems = ({ basketItems, getBasketItems, getTotalPrice, setBasketItems, basketItemStatus }) => {
+const ReturnItems = ({ basketItems, getBasketItems, getTotalPrice, setBasketItems, basketItemStatus }) => {
     let { FiTag, Down, Location, TagTwo, TabloDelete, Add_Bin } = Images;
     const dispatch = useDispatch();
     const { openNotification } = useAuth()
@@ -394,4 +394,4 @@ const BasketItems = ({ basketItems, getBasketItems, getTotalPrice, setBasketItem
     );
 };
 
-export default BasketItems;
+export default ReturnItems;
