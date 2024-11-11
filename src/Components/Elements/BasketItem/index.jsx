@@ -151,15 +151,13 @@ const ReturnItems = ({ basketItems, getBasketItems, getTotalPrice, setBasketItem
     };
 
     const handleQuantityUpdate = (productId, PQuantity, increment) => {
-        console.log(`Product ID: ${productId}`);
 
         let quantity = increment ? PQuantity + 1 : Math.max(PQuantity - 1, 0);
 
-        if (quantity === PQuantity) return; // No change in quantity, so exit early
+        if (quantity === PQuantity) return;
 
         setLoading(true);
 
-        // Do not encode the productId if it's already a Base-64 string
         BasketApi.UpdateQuantity({ quantity: `${quantity}`, productId })
             .then(() => {
                 getBasketItems();

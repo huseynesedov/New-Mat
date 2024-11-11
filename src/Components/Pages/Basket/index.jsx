@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './style.scss';
-import { Spin } from 'antd'
+import { Modal, Spin, notification } from 'antd'; // notification import edilmiştir
 import Images from '../../../Assets/images/js/Images';
 import BasketItems from '../../Elements/BasketItem/index';
 import { useNavigate } from "react-router-dom";
@@ -11,15 +11,12 @@ import { OrderApi } from "../../../api/order.api";
 import { Select } from "antd";
 import { CatalogApi } from "../../../api/catalog.api";
 
-import { Modal, Button } from "antd";
-
-
-const { Option } = Select
+const { Option } = Select;
 const Basket = () => {
-    const { logout } = useAuth()
+    const { logout } = useAuth();
     const { okey } = Images;
     const { t } = useTranslation();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
     const [totalPrice, setTotalPrice] = useState({});
@@ -30,68 +27,85 @@ const Basket = () => {
     const [paymentTypeIdHash, setPaymentTypeIdHash] = useState('');
     const [shipmentTypeIdHash, setShipmentTypeIdHash] = useState('');
     const [note, setNote] = useState('');
+    const [shipmentError, setShipmentError] = useState(false); // Error state for shipment
+    const [paymentError, setPaymentError] = useState(false); // Error state for payment
 
-
+    // Get basket items, total price, and other data
     const getBasketItems = () => {
-        setLoading(true)
+        setLoading(true);
         BasketApi.GetListByCurrent().then((items) => {
-            console.log(items)
-            setBasketItems(items.basketDetailList ? items.basketDetailList : [])
+            setBasketItems(items.basketDetailList || []);
         }).catch((error) => {
             if (error?.response?.status === 401) {
-                logout()
+                logout();
             }
-        }).finally(function () {
-            setLoading(false)
-        })
-    }
+        }).finally(() => {
+            setLoading(false);
+        });
+    };
 
     const GetBasketDetailStatusList = () => {
-        console.log('GetBasketDetailStatusList')
-        setLoading(true)
+        setLoading(true);
         CatalogApi.GetBasketDetailStatusList().then((items) => {
-            setBasketItemStatus(items)
+            setBasketItemStatus(items);
         }).catch((error) => {
-            console.log(error)
             if (error?.response?.status === 401) {
-                logout()
+                logout();
             }
-        }).finally(function () {
-            setLoading(false)
-        })
-    }
+        }).finally(() => {
+            setLoading(false);
+        });
+    };
 
     const getTotalPrice = () => {
-        setLoading(true)
+        setLoading(true);
         BasketApi.GetTotalPrice().then((items) => {
-            console.log(items, "Total")
-            setTotalPrice(items[0])
+            setTotalPrice(items[0]);
         }).catch((error) => {
             if (error?.response?.status === 401) {
-                logout()
+                logout();
             }
-        }).finally(function () {
-            setLoading(false)
-        })
-    }
-
+        }).finally(() => {
+            setLoading(false);
+        });
+    };
 
     const getShipmentTypeList = () => {
         CatalogApi.GetShipmentTypeList().then((res) => {
-            setShipmentTypeList(res)
-        })
-    }
+            setShipmentTypeList(res);
+        });
+    };
 
     const getPaymentTypeList = () => {
         CatalogApi.GetPaymentTypeList().then((res) => {
-            setPaymentTypeList(res)
-        })
-    }
-
+            setPaymentTypeList(res);
+        });
+    };
 
     const createOrder = () => {
         setLoading(true);
-        
+        if (!paymentTypeIdHash || !shipmentTypeIdHash) {
+            setShipmentError(!shipmentTypeIdHash); // Trigger error if shipment type is not selected
+            setPaymentError(!paymentTypeIdHash); // Trigger error if payment type is not selected
+
+            // Show notifications for missing fields
+            if (!shipmentTypeIdHash) {
+                notification.error({
+                    message: 'Çatdırılma növü seçilməyib',
+                    description: 'Çatdırılma növünü seçməlisiniz!',
+                });
+            }
+            if (!paymentTypeIdHash) {
+                notification.error({
+                    message: 'Ödəniş növü seçilməyib',
+                    description: 'Ödəniş növünü seçməlisiniz!',
+                });
+            }
+
+            setLoading(false);
+            return;
+        }
+
         OrderApi.AddOrder({
             paymentTypeIdHash,
             shipmentTypeIdHash,
@@ -100,7 +114,6 @@ const Basket = () => {
         }).then(() => {
             openNotification('Uğurlu əməliyyat', 'Sifariş yaradıldı', false);
             setIsModalVisible(true);
-    
             setTimeout(() => {
                 navigate('/orders');
             }, 1000);
@@ -113,36 +126,24 @@ const Basket = () => {
             setLoading(false);
         });
     };
-    
-
-
-
 
     useEffect(() => {
-        getBasketItems()
-        getTotalPrice()
-        getPaymentTypeList()
-        getShipmentTypeList()
-        GetBasketDetailStatusList()
-    }, [])
+        getBasketItems();
+        getTotalPrice();
+        getPaymentTypeList();
+        getShipmentTypeList();
+        GetBasketDetailStatusList();
+    }, []);
 
-    const { openNotification } = useAuth()
-
+    const { openNotification } = useAuth();
 
     const handleButtonClick = () => {
         setOpen(!open);
     };
 
-
-
     let { down, Liner } = Images;
 
-
-
-
     const [isModalVisible, setIsModalVisible] = useState(false);
-
-
 
     const handleOk = () => {
         setIsModalVisible(false); // Onayla butonuna basıldığında modalı kapat
@@ -176,23 +177,24 @@ const Basket = () => {
 
                                     <div className="myContainer2 rounded">
                                         <div className="col ">
-                                            <div className="row mt-5 ">
+                                            <div className="row mt-5">
                                                 <div className="myRow2">
                                                     <Select
                                                         size={'large'}
                                                         placeholder={'Çatdırılma növü'}
                                                         style={{ width: '100%' }}
                                                         dropdownStyle={{ borderRadius: '8px' }}
-                                                        className="custom-select mx-5"
-                                                        showSearch // Enables the search functionality
-                                                        optionFilterProp="children" // Search will be based on the option's displayed text
+                                                        className={`custom-select mx-5 ${shipmentError ? 'error-input' : ''}`} // Apply red border if error
+                                                        showSearch
+                                                        optionFilterProp="children"
                                                         filterOption={(input, option) =>
                                                             (option?.children?.props?.children ?? '').toLowerCase().includes(input.toLowerCase())
-                                                        } // Custom filter logic (optional)
-                                                        allowClear // Optional: Allows clearing the selection
+                                                        }
+                                                        allowClear
                                                         suffixIcon={<img className='me-2' src={down} alt="" />}
                                                         onChange={(event, value) => {
-                                                            setShipmentTypeIdHash(value.value)
+                                                            setShipmentTypeIdHash(value.value);
+                                                            setShipmentError(false); // Reset error on change
                                                         }}
                                                     >
                                                         {shipmentTypeList.map((shipmentType) => (
@@ -203,23 +205,25 @@ const Basket = () => {
                                                     </Select>
                                                 </div>
                                             </div>
-                                            <div className="row mt-3 ">
+
+                                            <div className="row mt-3">
                                                 <div className="myRow2">
                                                     <Select
                                                         size={'large'}
                                                         placeholder={'Ödəniş növü'}
                                                         style={{ width: '100%' }}
                                                         dropdownStyle={{ borderRadius: '8px' }}
-                                                        className="custom-select mx-5"
-                                                        showSearch // Enables the search functionality
-                                                        optionFilterProp="children" // Search will be based on the option's displayed text
+                                                        className={`custom-select mx-5 ${paymentError ? 'error-input' : ''}`} // Apply red border if error
+                                                        showSearch
+                                                        optionFilterProp="children"
                                                         filterOption={(input, option) =>
                                                             (option?.children?.props?.children ?? '').toLowerCase().includes(input.toLowerCase())
-                                                        } // Custom filter logic (optional)
-                                                        allowClear // Optional: Allows clearing the selection
+                                                        }
+                                                        allowClear
                                                         suffixIcon={<img className='me-2' src={down} alt="" />}
                                                         onChange={(event, value) => {
-                                                            setPaymentTypeIdHash(value.value)
+                                                            setPaymentTypeIdHash(value.value);
+                                                            setPaymentError(false); // Reset error on change
                                                         }}
                                                     >
                                                         {paymentTypeList.map((orderType) => (

@@ -12,7 +12,7 @@ export const BasketApi = {
         return BaseApi.get(apiRoutes.basket.baseTest, { ...params });
     },
     AddToBasket(data) {
-        return BaseApi.post(apiRoutes.basket.addToBasket, data , data);
+        return BaseApi.post(apiRoutes.basket.addToBasket, data, data);
     },
     DecryptBasketDetail(params) {
         return BaseApi.get(apiRoutes.basket.decryptBasketDetail, { ...params });
@@ -42,14 +42,14 @@ export const BasketApi = {
     BasketDetailTest(params) {
         return BaseApi.get(apiRoutes.basket.basketDetailTest, { ...params });
     },
-    UpdateQuantity(data) {
-        return BaseApi.post(apiRoutes.basket.updateQuantity, data, data);
+    UpdateQuantity(params) {
+        return BaseApi.put(`${apiRoutes.basket.updateQuantity}?productId=${params.productId}&quantity=${params.quantity}`);
     },
     UpdateStatus(params) {
         return BaseApi.put(`${apiRoutes.basket.updateStatus}?statusId=${params.statusId}&id=${params.id}`);
     },
     UpdateStatusByProductTypeId(params) {
-        return BaseApi.put(`${apiRoutes.basket.updateStatusByProductTypeId}?statusId=${params.statusId}&productTypeId=${params.productTypeId}` , { ...params });
+        return BaseApi.put(`${apiRoutes.basket.updateStatusByProductTypeId}?statusId=${params.statusId}&productTypeId=${params.productTypeId}`, { ...params });
     },
     ReturnProduct(data) {
         return BaseApi.post(apiRoutes.basket.returnProduct, data);
