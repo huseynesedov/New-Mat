@@ -51,6 +51,7 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem('loggedIn', true);
       localStorage.setItem('token', res.accessToken);
       localStorage.setItem('refreshToken', res.refreshToken);
+      openNotification('Giriş uğurlu !', 'Xoş gəldiniz!', false);
     }).catch((error)=>{
       setLoading(false);
       setLoggedIn(false)

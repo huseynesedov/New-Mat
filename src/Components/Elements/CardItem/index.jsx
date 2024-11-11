@@ -194,7 +194,6 @@ const CardItem = ({ d, classes }) => {
                             <div className="Location">
                                 <p className="LocationName d-flex">
                                     <Select
-                                        disabled={true}
                                         size="small"
                                         style={{
                                             backgroundColor: '#f0f0f0',
@@ -208,7 +207,9 @@ const CardItem = ({ d, classes }) => {
                                         optionFilterProp="children"
                                     >
                                         {d?.storages?.map((s) => (
-                                            <Option  key={s.valueHash} value={s.storageIdHash}>
+                                            <Option  key={s.valueHash} 
+                                            value={s.storageIdHash}
+                                            >
                                                 <img src={Location} alt="Location" />
                                                 <span style={{ marginLeft: '8px' }}>{s.storageCode}</span>
                                             </Option>

@@ -90,28 +90,30 @@ const Basket = () => {
 
 
     const createOrder = () => {
-        setLoading(true)
-        setIsModalVisible(true); // Modalı aç
-
+        setLoading(true);
+        
         OrderApi.AddOrder({
             paymentTypeIdHash,
             shipmentTypeIdHash,
             note,
             salesmanNote: " "
         }).then(() => {
-            openNotification('Uğurlu əməliyyat', 'Sifariş yaradıldı', false)
+            openNotification('Uğurlu əməliyyat', 'Sifariş yaradıldı', false);
+            setIsModalVisible(true);
+    
             setTimeout(() => {
-                navigate('/orders')
-            }, 1000)
+                navigate('/orders');
+            }, 1000);
         }).catch((err) => {
-            openNotification('Xəta baş verdi', err.response.data.message, true)
+            openNotification('Xəta baş verdi', err.response.data.message, true);
             if (err?.response?.status === 401) {
-                logout()
+                logout();
             }
         }).finally(() => {
-            setLoading(false)
-        })
-    }
+            setLoading(false);
+        });
+    };
+    
 
 
 
@@ -135,10 +137,7 @@ const Basket = () => {
 
     let { down, Liner } = Images;
 
-    // const items = useSelector(state => state.cart.items);
-    // if (basketItems.length === 0) {
-    //     return <div className="empty-basket">Səbət boşdur</div>;
-    // }
+
 
 
     const [isModalVisible, setIsModalVisible] = useState(false);
