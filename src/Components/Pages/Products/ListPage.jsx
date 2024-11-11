@@ -1,14 +1,14 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import './listStyle.scss'; // Stil dosyanızı burada dahil edin
 import { Helmet } from "react-helmet";
 import Images from "../../../Assets/images/js/Images";
 
 import ShoppingCards from "../../Elements/ShoppingCards/ProductsPage";
-import {CatalogApi} from "../../../api/catalog.api";
-import {ProductApi} from "../../../api/product.api";
-import {useAuth} from "../../../AuthContext";
-import {useSearchParams} from "react-router-dom";
-import {Pagination} from "antd";
+import { CatalogApi } from "../../../api/catalog.api";
+import { ProductApi } from "../../../api/product.api";
+import { useAuth } from "../../../AuthContext";
+import { useSearchParams } from "react-router-dom";
+import { Pagination } from "antd";
 
 function Home() {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -28,12 +28,12 @@ function Home() {
     const [filterData, setFilterData] = useState([]);
     const [storageData, setStorageData] = useState([]);
     const [manufacturerId, setManufacturerId] = useState('');
-    const [productTypeId , setProductTypeId] = useState('');
+    const [productTypeId, setProductTypeId] = useState('');
     const [productGroupData, setProductGroupData] = useState([]);
     const [productTypeData, setProductTypeData] = useState([]);
     const [productBrendData, setProductBrendData] = useState([]);
     const [loading, setLoading] = useState(false);
-    const { openNotification  , logout} = useAuth()
+    const { openNotification, logout } = useAuth()
 
     const [reset, setReset] = useState(false);
     const [open1, setOpen1] = useState(false);
@@ -76,11 +76,11 @@ function Home() {
         arr.forEach(filter => {
             // fieldName: "name",
             //     value: "Contains"
-            if((filter.value !== filterValue.value) && (filterValue.fieldName !== filter.fieldName)
-            ){
+            if ((filter.value !== filterValue.value) && (filterValue.fieldName !== filter.fieldName)
+            ) {
                 arr.push(filterValue)
             }
-            else if((filterValue.fieldName === filter.fieldName) && (filter.value !== filterValue.value)){
+            else if ((filterValue.fieldName === filter.fieldName) && (filter.value !== filterValue.value)) {
                 filter['value'] = filterValue.value
             }
         })
@@ -98,7 +98,7 @@ function Home() {
         setLoading(true)
         ProductApi.GetSearchTable(
             {
-                page: page > 0 ? page-1 : 0,
+                page: page > 0 ? page - 1 : 0,
                 pageSize,
                 filters
             }
@@ -106,15 +106,15 @@ function Home() {
             setData(res.data)
             setCount(res.count)
         }).catch((err) => {
-            if(err.response.status === 401){
+            if (err.response.status === 401) {
                 logout()
             }
-            openNotification('Xəta baş verdi' , err.response.data.message,  true)
+            openNotification('Xəta baş verdi', err.response.data.message, true)
         })
             .finally(() => {
                 setLoading(false)
             })
-    }, [filters , searchParams , page , pageSize]);
+    }, [filters, searchParams, page, pageSize]);
 
     const getBrendData = () => {
         CatalogApi.GetManufacturerList().then((manufacturerList) => {
@@ -142,26 +142,26 @@ function Home() {
     }
 
     const getVehicleBrandData = () => {
-        CatalogApi.GetVehicleBrandListAsync().then((vehicleBrands)=>{
+        CatalogApi.GetVehicleBrandListAsync().then((vehicleBrands) => {
             setVehicleBrands(vehicleBrands)
         })
     }
     const getProductGroupData = () => {
-      if(!manufacturerId && productTypeId){
-          CatalogApi.GetProductGroupListByProductType({
-              typeId: productTypeId,
-          }).then(res => {
-              setProductGroupData(res)
-          })
-      }
-      else if(manufacturerId && productTypeId) {
-          CatalogApi.GetProductGroupList({
-              typeId: productTypeId,
-              manufacturerId
-          }).then(res => {
-              setProductGroupData(res)
-          })
-      }
+        if (!manufacturerId && productTypeId) {
+            CatalogApi.GetProductGroupListByProductType({
+                typeId: productTypeId,
+            }).then(res => {
+                setProductGroupData(res)
+            })
+        }
+        else if (manufacturerId && productTypeId) {
+            CatalogApi.GetProductGroupList({
+                typeId: productTypeId,
+                manufacturerId
+            }).then(res => {
+                setProductGroupData(res)
+            })
+        }
     }
 
     const handlePageChange = (page) => {
@@ -184,19 +184,6 @@ function Home() {
                 <title>MAT Software - Filter</title>
             </Helmet>
 
-            {/*<div className="container-fluid d-flex justify-content-center mt-5">*/}
-            {/*    <div className="myRow mt-5 align-items-start flex-column">*/}
-            {/*        <p className="text-44 f-14 d-flex fb-600">*/}
-            {/*            Ana sayfa*/}
-            {/*            <img src={chrevron_right} alt="" />*/}
-            {/*            Yag*/}
-            {/*            <img src={chrevron_right} alt="" />*/}
-            {/*            Delphi Oil*/}
-            {/*            <img src={chrevron_right} alt="" />*/}
-            {/*            <span className="t-01">Shel oil 675347834</span>*/}
-            {/*        </p>*/}
-            {/*    </div>*/}
-            {/*</div>*/}
 
             <div className="container-fluid d-flex justify-content-center mt-5">
                 <div className="myRow flex-nowrap align-items-start mt-5 d-flex justify-content-between">
@@ -218,14 +205,14 @@ function Home() {
                                 {open1 && (
                                     <div className="dropdown2 mt-2 ms-3">
                                         <ul>
-                                            {filterData.map((d)=> {
+                                            {filterData.map((d) => {
                                                 return <button className='picup2'>
                                                     <li className='d-flex'>
                                                         <div className="checkbox2">
                                                             <input
-                                                                onChange={(e)=>{
-                                                                    let obj =  {
-                                                                        value:e.target.value,
+                                                                onChange={(e) => {
+                                                                    let obj = {
+                                                                        value: e.target.value,
                                                                         fieldName: "campaignTypeIdHash",
                                                                         equalityType: "Equal"
                                                                     }
@@ -234,7 +221,7 @@ function Home() {
                                                                 type="radio" name="filterData" value={d.valueHash}
                                                                 id={d.valueHash}
                                                             />
-                                                            <label htmlFor={d.valueHash} className="checkmark2"/>
+                                                            <label htmlFor={d.valueHash} className="checkmark2" />
                                                         </div>
                                                         <p className="t-79 ms-2 mb-1">{d.displayText} </p>
                                                     </li>
@@ -247,33 +234,33 @@ function Home() {
 
 
                             {/* Line */}
-                            <img className='mt-3 w-100' src={Liner} alt=""/>
+                            <img className='mt-3 w-100' src={Liner} alt="" />
 
                             <div className="myRow4 mt-3 ">
                                 <button
                                     className={`drop2 w-90 align-items-center d-flex justify-content-between ${open2 ? 'clicked' : 'down'}`}
                                     onClick={handleButtonClick2}>
                                     <div className="d-flex">
-                                        <img src={Stok} alt=""/>
+                                        <img src={Stok} alt="" />
                                         <p className='ms-2 text-black t-79'>
                                             Stok
                                         </p>
                                     </div>
                                     <div className="DownImg">
-                                        <img src={down} alt=""/>
+                                        <img src={down} alt="" />
                                     </div>
                                 </button>
                                 {open2 && (
                                     <div className="dropdown3 mt-2 ">
                                         <ul>
-                                            {storageData.map((d)=> {
+                                            {storageData.map((d) => {
                                                 return <button className='picup2'>
                                                     <li className='d-flex'>
                                                         <div className="checkmark3">
                                                             <input
-                                                                onChange={(e)=>{
-                                                                    let obj =  {
-                                                                        value:e.target.value,
+                                                                onChange={(e) => {
+                                                                    let obj = {
+                                                                        value: e.target.value,
                                                                         fieldName: "storages.storageIdHash",
                                                                         equalityType: "Equal"
                                                                     }
@@ -282,7 +269,7 @@ function Home() {
                                                                 type="radio" name="storageData" value={d.valueHash}
                                                                 id={d.valueHash}
                                                             />
-                                                            <label htmlFor={d.valueHash} className="checkmark3"/>
+                                                            <label htmlFor={d.valueHash} className="checkmark3" />
                                                         </div>
                                                         <p className="t-79 ms-2 mb-1">{d.displayText} </p>
                                                     </li>
@@ -314,15 +301,15 @@ function Home() {
                                 {open3 && (
                                     <div className="dropdown2 mt-2 ms-2">
                                         <ul>
-                                            {productTypeData.map((d)=> {
+                                            {productTypeData.map((d) => {
                                                 return <button className='picup2'>
                                                     <li className='d-flex'>
                                                         <div className="checkbox4">
                                                             <input
-                                                                onChange={(e)=>{
+                                                                onChange={(e) => {
                                                                     setProductTypeId(e.target.value)
-                                                                    let obj =  {
-                                                                        value:e.target.value,
+                                                                    let obj = {
+                                                                        value: e.target.value,
                                                                         fieldName: "productTypeIdHash",
                                                                         equalityType: "Equal"
                                                                     }
@@ -331,7 +318,7 @@ function Home() {
                                                                 type="radio" name="productTypeData" value={d.valueHash}
                                                                 id={d.valueHash}
                                                             />
-                                                            <label htmlFor={d.valueHash} className="checkmark4"/>
+                                                            <label htmlFor={d.valueHash} className="checkmark4" />
                                                         </div>
                                                         <p className="t-79 ms-2 mb-1">{d.displayText} </p>
                                                     </li>
@@ -364,16 +351,16 @@ function Home() {
                                         <ul>
                                             <div className="Searchİnput d-flex position-relative">
                                                 <img src={glass} className="position-absolute pos_px" alt="" />
-                                                <input  onClick={()=>{
-                                                }}  type="text" placeholder="Brend axtar..." />
+                                                <input onClick={() => {
+                                                }} type="text" placeholder="Brend axtar..." />
                                             </div>
-                                            {productBrendData.map((b)=> {
+                                            {productBrendData.map((b) => {
                                                 return <button className='picup2'>
                                                     <li onClick={
-                                                        () =>{
+                                                        () => {
                                                             setManufacturerId(b.valueHash);
-                                                            let obj =  {
-                                                                value:b.valueHash,
+                                                            let obj = {
+                                                                value: b.valueHash,
                                                                 fieldName: "manufacturerIdHash",
                                                                 equalityType: "Equal"
                                                             }
@@ -392,10 +379,10 @@ function Home() {
 
 
                             {/* Line */}
-                            <img className='mt-3 w-100' src={Liner} alt=""/>
+                            <img className='mt-3 w-100' src={Liner} alt="" />
 
                             <div className="myRow4 mt-3 ">
-                            <button className={`drop2 w-90 align-items-center d-flex justify-content-between ${open2 ? 'clicked' : 'down'}`} onClick={handleButtonClick5}>
+                                <button className={`drop2 w-90 align-items-center d-flex justify-content-between ${open2 ? 'clicked' : 'down'}`} onClick={handleButtonClick5}>
                                     <div className="d-flex">
                                         <img src={BiCar} alt="" />
                                         <p className='ms-2 text-black t-79'>
@@ -411,16 +398,16 @@ function Home() {
                                         <ul>
                                             <div className="Searchİnput d-flex position-relative">
                                                 <img src={glass} className="position-absolute pos_px" alt="" />
-                                                <input  onClick={()=>{
+                                                <input onClick={() => {
                                                     setReset(!reset)
-                                                }}  type="text" placeholder="Avtomobil Markasi axdar..." />
+                                                }} type="text" placeholder="Avtomobil Markasi axdar..." />
 
                                             </div>
                                             {vehicleBrands.map((vehicle) => {
-                                                return  <button className='picup2'>
+                                                return <button className='picup2'>
                                                     <li className='d-flex align-items-center'>
-                                                        <div style={{width: "27px", height: "27px"}}>
-                                                            <img className="w-100" src={vehicle.content} alt=""/>
+                                                        <div style={{ width: "27px", height: "27px" }}>
+                                                            <img className="w-100" src={vehicle.content} alt="" />
                                                         </div>
                                                         <p className="t-79 ms-2 mt-2 mb-1">{vehicle.displayText}</p>
                                                     </li>
@@ -435,14 +422,14 @@ function Home() {
 
 
                             {/* Line */}
-                            <img className='mt-3 w-100' src={Liner} alt=""/>
+                            <img className='mt-3 w-100' src={Liner} alt="" />
 
                             <div className="myRow4 mt-3 mb-2">
                                 <button
                                     className={`drop2 w-90 align-items-center d-flex justify-content-between ${open2 ? 'clicked' : 'down'}`}
                                     onClick={handleButtonClick6}>
                                     <div className="d-flex">
-                                    <img src={List24} alt="" />
+                                        <img src={List24} alt="" />
                                         <p className='ms-2 text-black t-79'>
                                             Mahsul Grup
                                         </p>
@@ -456,17 +443,17 @@ function Home() {
                                         <ul>
                                             <div className="Searchİnput d-flex position-relative">
                                                 <img src={glass} className="position-absolute pos_px" alt="" />
-                                                <input  onClick={()=>{
+                                                <input onClick={() => {
                                                     setReset(!reset)
-                                                }}  type="text" placeholder="Brend axdar..." />
+                                                }} type="text" placeholder="Brend axdar..." />
 
 
                                             </div>
                                             {productGroupData.map((data) => {
-                                                return  <button className='picup2'>
+                                                return <button className='picup2'>
                                                     <li className='d-flex align-items-center'>
-                                                        <div style={{width: "27px", height: "27px"}}>
-                                                            <img className="w-100" src={data.content} alt=""/>
+                                                        <div style={{ width: "27px", height: "27px" }}>
+                                                            <img className="w-100" src={data.content} alt="" />
                                                         </div>
                                                         <p className="t-79 ms-2 mt-2 mb-1">{data.displayText}</p>
                                                     </li>
@@ -483,16 +470,16 @@ function Home() {
 
                     <div className="myContainer1 rounded">
                         <div className="">
-                            <ShoppingCards loading={loading} data={data} reset={reset} setReset={setReset}/>
+                            <ShoppingCards loading={loading} data={data} reset={reset} setReset={setReset} />
                         </div>
                         <div className="d-flex  w-100 justify-content-center mt-4">
                             <Pagination current={page}
-                                        total={count}
-                                        pageSize={pageSize}
-                                        onShowSizeChange={handlePageSizeChange}
-                                        onChange={handlePageChange}
-                                        showSizeChanger={true}
-                                        pageSizeOptions={['20', '40', '50', '100']} // Options for page size
+                                total={count}
+                                pageSize={pageSize}
+                                onShowSizeChange={handlePageSizeChange}
+                                onChange={handlePageChange}
+                                showSizeChanger={true}
+                                pageSizeOptions={['20', '40', '50', '100']} // Options for page size
                             />
                         </div>
                     </div>
