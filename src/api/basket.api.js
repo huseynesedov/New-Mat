@@ -57,6 +57,9 @@ export const BasketApi = {
     AddReturnProductCard(data) {
         return BaseApi.post(apiRoutes.basket.addReturnProductCard, data);
     },
+    AddReturnProduct(note) {
+        return BaseApi.post(`${apiRoutes.basket.addReturnProduct}?note=${note}`);
+    },
     GetListByCurrentCustomer(params) {
         return BaseApi.get(apiRoutes.basket.returnProductCardDetail.getListByCurrent, { ...params });
     },
@@ -64,7 +67,7 @@ export const BasketApi = {
         return BaseApi.get(apiRoutes.basket.returnProductCardDetail.getTotalInfo, { ...params });
     },
     UpdateReturnProductNote(id, note) {
-        return BaseApi.put(`${apiRoutes.basket.returnProductCardDetail.updateNote}?id=${id}&note=${encodeURIComponent(note)}`);
+        return BaseApi.put(`${apiRoutes.basket.returnProductCardDetail.updateNote}?id=${encodeURIComponent(id)}&note=${encodeURIComponent(note)}`);
     },
     UpdateReturnProductQuantity(id, quantity) {
         return BaseApi.put(`${apiRoutes.basket.returnProductCardDetail.updateQuantity}?id=${id}&quantity=${quantity}`);
@@ -74,7 +77,7 @@ export const BasketApi = {
     },
     DeleteReturnProductById(id) {
         return BaseApi.delete(apiRoutes.basket.returnProductCardDetail.deleteById, {
-            data: { id },
+            data:id,
         });
     },
 };

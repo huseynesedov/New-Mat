@@ -1,164 +1,74 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import './style.scss';
-import { Spin } from 'antd'
+import { Spin, Modal, Button, Select } from 'antd';
 import Images from '../../../Assets/images/js/Images';
 import ReturnItems from '../../Elements/ReturnItem/index';
 import { useNavigate } from "react-router-dom";
 import { BasketApi } from "../../../api/basket.api";
 import { useAuth } from "../../../AuthContext";
 import { useTranslation } from 'react-i18next';
-import { OrderApi } from "../../../api/order.api";
-import { Select } from "antd";
 import { CatalogApi } from "../../../api/catalog.api";
 
-import { Modal, Button } from "antd";
+const { Option } = Select;
 
-
-const { Option } = Select
 const Return = () => {
-    const { logout } = useAuth()
-    const { okey } = Images;
-    const { t } = useTranslation();
-    const navigate = useNavigate()
-    const [open, setOpen] = useState(false);
+    const { logout, openNotification } = useAuth();
+
     const [loading, setLoading] = useState(false);
     const [totalPrice, setTotalPrice] = useState({});
-    const [basketItems, setBasketItems] = useState([]);
-    const [basketItemStatus, setBasketItemStatus] = useState([]);
-    const [shipmentTypeList, setShipmentTypeList] = useState([]);
-    const [paymentTypeList, setPaymentTypeList] = useState([]);
-    const [paymentTypeIdHash, setPaymentTypeIdHash] = useState('');
-    const [shipmentTypeIdHash, setShipmentTypeIdHash] = useState('');
-    const [note, setNote] = useState('');
+    const [returnItems, setReturnItems] = useState([]);
+    const [returnItemStatus, setReturnItemStatus] = useState([]);
 
+    const handleAPIError = (error) => {
+        openNotification('Xəta baş verdi', error?.response?.data?.message, true);
+        if (error?.response?.status === 401) {
+            logout();
+        }
+    };
 
-    const getBasketItems = () => {
-        setLoading(true)
-        BasketApi.GetListByCurrentCustomer().then((items) => {
-            console.log(items)
-            setBasketItems(items ? items : [])
-        }).catch((error) => {
-            if (error?.response?.status === 401) {
-                logout()
-            }
-        }).finally(function () {
-            setLoading(false)
-        })
-    }
+    const getReturnItems = useCallback(() => {
+        setLoading(true);
+        BasketApi.GetListByCurrentCustomer()
+            .then(items => setReturnItems(items || []))
+            .catch(handleAPIError)
+            .finally(() => setLoading(false));
+    }, [logout]);
 
-    const GetBasketDetailStatusList = () => {
-        console.log('GetBasketDetailStatusList')
-        setLoading(true)
-        CatalogApi.GetBasketDetailStatusList().then((items) => {
-            setBasketItemStatus(items)
-        }).catch((error) => {
-            console.log(error)
-            if (error?.response?.status === 401) {
-                logout()
-            }
-        }).finally(function () {
-            setLoading(false)
-        })
-    }
+    const GetReturnDetailStatusList = useCallback(() => {
+        setLoading(true);
+        CatalogApi.GetReturnProductStatusList()
+            .then(items => setReturnItemStatus(items))
+            .catch(handleAPIError)
+            .finally(() => setLoading(false));
+    }, [logout]);
 
-    const getTotalPrice = () => {
-        setLoading(true)
-        BasketApi.GetTotalInfoByCurrentCustomer().then((items) => {
-            console.log(items, "Total")
-            setTotalPrice(items[0])
-        }).catch((error) => {
-            if (error?.response?.status === 401) {
-                logout()
-            }
-        }).finally(function () {
-            setLoading(false)
-        })
-    }
-
-
-    const getShipmentTypeList = () => {
-        CatalogApi.GetShipmentTypeList().then((res) => {
-            setShipmentTypeList(res)
-        })
-    }
-
-    const getPaymentTypeList = () => {
-        CatalogApi.GetPaymentTypeList().then((res) => {
-            setPaymentTypeList(res)
-        })
-    }
-
-
-    const createOrder = () => {
-        setLoading(true)
-        setIsModalVisible(true); // Modalı aç
-
-         BasketApi.AddReturnProductCard({
-            paymentTypeIdHash,
-            shipmentTypeIdHash,
-            note,
-            salesmanNote: " "
-        }).then(() => {
-            openNotification('Uğurlu əməliyyat', 'Sifariş yaradıldı', false)
-            setTimeout(() => {
-                navigate('/orders')
-            }, 1000)
-        }).catch((err) => {
-            openNotification('Xəta baş verdi', err.response.data.message, true)
-            if (err?.response?.status === 401) {
-                logout()
-            }
-        }).finally(() => {
-            setLoading(false)
-        })
-    }
+    const getTotalPrice = useCallback(() => {
+        setLoading(true);
+        BasketApi.GetTotalInfoByCurrentCustomer()
+            .then(items => setTotalPrice(items))
+            .catch(handleAPIError)
+            .finally(() => setLoading(false));
+    }, [logout]);
 
 
 
 
     useEffect(() => {
-        getBasketItems()
-        getTotalPrice()
-        getPaymentTypeList()
-        getShipmentTypeList()
-        GetBasketDetailStatusList()
-    }, [])
-
-    const { openNotification } = useAuth()
-
-
-    const handleButtonClick = () => {
-        setOpen(!open);
-    };
+        getReturnItems();
+        getTotalPrice();
+        GetReturnDetailStatusList();
+    }, [getReturnItems, getTotalPrice, GetReturnDetailStatusList]);
 
 
 
-    let { down, Liner } = Images;
 
-    // const items = useSelector(state => state.cart.items);
-    // if (basketItems.length === 0) {
-    //     return <div className="empty-basket">Səbət boşdur</div>;
-    // }
-
-
-    const [isModalVisible, setIsModalVisible] = useState(false);
-
-
-
-    const handleOk = () => {
-        setIsModalVisible(false); // Onayla butonuna basıldığında modalı kapat
-    };
-
-    const handleCancel = () => {
-        setIsModalVisible(false); // Kapat butonuna basıldığında modalı kapat
-    };
 
     return (
         <>
             <div className="container-fluid d-flex justify-content-center">
                 <div className="myRow mt-5">
                     <p className="text-44 f-24 fb-600">
-                        {t("Basket.order")}
+                        Geri qaytarılma
                     </p>
                 </div>
             </div>
@@ -166,168 +76,14 @@ const Return = () => {
             <div className={'w-100'}>
                 <Spin className={'w-100'} spinning={loading}>
                     {
-                        basketItems.length === 0 ?
-                            <div style={{ height: '60vh' }} className="d-flex justify-content-center align-items-center empty-basket">Səbət boşdur</div>
+                        returnItems.length === 0 ?
+                            <div style={{ height: '60vh' }} className="d-flex justify-content-center align-items-center empty-return">Geri qaytarılma yoxdur</div>
                             : <div className="container-fluid d-flex justify-content-center mt-5">
                                 <div className="myRow d-flex align-items-start justify-content-between">
-                                    <div className="myContainer w-75 position-relative rounded"
+                                    <div className="w-100 position-relative rounded"
                                          style={{ padding: "0rem 0rem 0.8rem 0rem" }}>
-                                        <ReturnItems basketItemStatus={basketItemStatus} setBasketItems={setBasketItems} getBasketItems={getBasketItems} getTotalPrice={getTotalPrice} basketItems={basketItems} />
+                                        <ReturnItems totalPrice={totalPrice} returnItemStatus={returnItemStatus} setReturnItems={setReturnItems} getReturnItems={getReturnItems} getTotalPrice={getTotalPrice} returnItems={returnItems} />
                                     </div>
-
-                                    <div className="myContainer2 rounded">
-                                        <div className="col ">
-                                            <div className="row mt-5 ">
-                                                <div className="myRow2">
-                                                    <Select
-                                                        size={'large'}
-                                                        placeholder={'Çatdırılma növü'}
-                                                        style={{ width: '100%' }}
-                                                        dropdownStyle={{ borderRadius: '8px' }}
-                                                        className="custom-select mx-5"
-                                                        showSearch // Enables the search functionality
-                                                        optionFilterProp="children" // Search will be based on the option's displayed text
-                                                        filterOption={(input, option) =>
-                                                            (option?.children?.props?.children ?? '').toLowerCase().includes(input.toLowerCase())
-                                                        } // Custom filter logic (optional)
-                                                        allowClear // Optional: Allows clearing the selection
-                                                        suffixIcon={<img className='me-2' src={down} alt="" />}
-                                                        onChange={(event, value) => {
-                                                            setShipmentTypeIdHash(value.value)
-                                                        }}
-                                                    >
-                                                        {shipmentTypeList.map((shipmentType) => (
-                                                            <Option key={shipmentType.valueHash} value={shipmentType.valueHash}>
-                                                                <span style={{ marginLeft: '8px' }}>{shipmentType.displayText}</span>
-                                                            </Option>
-                                                        ))}
-                                                    </Select>
-                                                </div>
-                                            </div>
-                                            <div className="row mt-3 ">
-                                                <div className="myRow2">
-                                                    <Select
-                                                        size={'large'}
-                                                        placeholder={'Ödəniş növü'}
-                                                        style={{ width: '100%' }}
-                                                        dropdownStyle={{ borderRadius: '8px' }}
-                                                        className="custom-select mx-5"
-                                                        showSearch // Enables the search functionality
-                                                        optionFilterProp="children" // Search will be based on the option's displayed text
-                                                        filterOption={(input, option) =>
-                                                            (option?.children?.props?.children ?? '').toLowerCase().includes(input.toLowerCase())
-                                                        } // Custom filter logic (optional)
-                                                        allowClear // Optional: Allows clearing the selection
-                                                        suffixIcon={<img className='me-2' src={down} alt="" />}
-                                                        onChange={(event, value) => {
-                                                            setPaymentTypeIdHash(value.value)
-                                                        }}
-                                                    >
-                                                        {paymentTypeList.map((orderType) => (
-                                                            <Option key={orderType.valueHash} value={orderType.valueHash}>
-                                                                <span style={{ marginLeft: '8px' }}>{orderType.displayText}</span>
-                                                            </Option>
-                                                        ))}
-                                                    </Select>
-                                                </div>
-                                            </div>
-
-                                            {/* Line */}
-                                            <img className='mt-4 w-100' src={Liner} alt="" />
-
-                                            {/* TextArea */}
-                                            <div className="row">
-                                                <div className="myRow3">
-                                                    <p className="text-44 mt-3 fb-600">
-                                                        {t("Basket.table2.record")}
-                                                    </p>
-                                                    <textarea onChange={(e) => {
-                                                        setNote(e.target.value);
-                                                    }} className="OrderTextarea rounded mt-4 textarea"
-                                                              id="exampleFormControlTextarea1"
-                                                              placeholder={t("Basket.table2.record")}></textarea>
-                                                </div>
-                                            </div>
-
-                                            {/* Line */}
-                                            <img className='mt-4 w-100' src={Liner} alt="" />
-
-                                            <div className="row">
-                                                <div className="myRow3">
-                                                    <p className="text-44 mt-5 fb-600">
-                                                        {t("Basket.table2.summary")}
-                                                    </p>
-                                                    <div
-                                                        className="d-flex align-items-center mt-4 justify-content-between">
-                                                        <p className="text-44 fb-500">
-                                                            {t("Basket.table2.delivery")}
-                                                        </p>
-                                                        <p className="t-8F fb-500">
-                                                            {totalPrice?.basketDetailTotalPrice?.formattedTotalPrice} {' '}
-                                                            {totalPrice?.currency?.name}
-                                                        </p>
-                                                    </div>
-                                                    <div
-                                                        className="d-flex align-items-center mt-2 justify-content-between">
-                                                        <p className="text-44 fb-500">
-                                                            {t("Basket.table2.discount")}
-                                                        </p>
-                                                        <p className="t-8F fb-500">
-                                                            {totalPrice?.basketDetailTotalPrice?.formattedTotalDiscountPrice} {' '}
-                                                            {totalPrice?.currency?.name}
-                                                        </p>
-                                                    </div>
-                                                    <div
-                                                        className="d-flex align-items-center mt-4 justify-content-between">
-                                                        <p className="text-44 fb-600">
-                                                            {t("Basket.table2.value")}
-                                                        </p>
-                                                        <p className="t-8F fb-500">
-                                                            {totalPrice?.basketDetailTotalPrice?.formattedTotalDiscountedPrice} {' '}
-                                                            {totalPrice?.currency?.name}
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div className="row mt-5 mb-5">
-                                                <div
-                                                    onClick={createOrder}
-                                                    className="col d-flex align-items-center justify-content-center"
-                                                >
-                                                    <button className="ProductEvaluate2">
-                                                        {t("Basket.table2.confirim")}
-                                                    </button>
-                                                </div>
-                                            </div>
-
-                                            <Modal
-                                                visible={isModalVisible}
-                                                footer={null}
-                                                onCancel={handleCancel}
-                                            >
-                                                <div className="d-flex flex-column align-items-center justify-content-center mt-5">
-                                                    <img src={Images.okey} alt="" />
-                                                    <span className='text-44 mt-4' style={{ fontSize: "18px", fontWeight: "700" }}>
-                                                        {t("Basket.modal.order")}
-                                                    </span>
-                                                    <span className="mt-4 text-44" style={{ fontSize: "16px" }}>
-                                                        {t("Basket.modal.confirim-des")}
-
-                                                    </span>
-
-                                                    <button
-                                                        onClick={handleOk}
-                                                        className='mt-4 basket-ok'
-                                                    >
-                                                        {t("Basket.modal.ok")}
-
-                                                    </button>
-                                                </div>
-                                            </Modal>
-                                        </div>
-                                    </div>
-
                                 </div>
                             </div>
                     }

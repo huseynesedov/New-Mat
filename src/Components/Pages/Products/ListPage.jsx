@@ -104,6 +104,7 @@ function Home() {
             }
         ).then((res) => {
             setData(res.data)
+            console.log(res.data)
             setCount(res.count)
         }).catch((err) => {
             if (err.response.status === 401) {
@@ -351,8 +352,7 @@ function Home() {
                                         <ul>
                                             <div className="Searchİnput d-flex position-relative">
                                                 <img src={glass} className="position-absolute pos_px" alt="" />
-                                                <input onClick={() => {
-                                                }} type="text" placeholder="Brend axtar..." />
+                                                <input type="text" placeholder="Brend axtar..." />
                                             </div>
                                             {productBrendData.map((b) => {
                                                 return <button className='picup2'>
@@ -398,9 +398,7 @@ function Home() {
                                         <ul>
                                             <div className="Searchİnput d-flex position-relative">
                                                 <img src={glass} className="position-absolute pos_px" alt="" />
-                                                <input onClick={() => {
-                                                    setReset(!reset)
-                                                }} type="text" placeholder="Avtomobil Markasi axdar..." />
+                                                <input  type="text" placeholder="Avtomobil Markasi axdar..." />
 
                                             </div>
                                             {vehicleBrands.map((vehicle) => {
@@ -443,11 +441,7 @@ function Home() {
                                         <ul>
                                             <div className="Searchİnput d-flex position-relative">
                                                 <img src={glass} className="position-absolute pos_px" alt="" />
-                                                <input onClick={() => {
-                                                    setReset(!reset)
-                                                }} type="text" placeholder="Brend axdar..." />
-
-
+                                                <input type="text" placeholder="Brend axdar..." />
                                             </div>
                                             {productGroupData.map((data) => {
                                                 return <button className='picup2'>

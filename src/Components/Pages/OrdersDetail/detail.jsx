@@ -59,7 +59,7 @@ const Orders = () => {
                         </Link>
                         <img src={chrevron_right} alt="" />
                         
-                        <Link className={'text-dark'} to={'/orders'}>
+                        <Link className={'text-dark'} to={'/Orders'}>
                             {t("Orders.view.order-name")}
                         </Link>
                         <img src={chrevron_right} alt="" />
@@ -94,7 +94,7 @@ const Orders = () => {
                                     <div className="col-1 justify-content-between ms-4 d-flex  align-items-center"
                                         style={{ width: "68%", height: "24px" }}>
                                         <p className="text-44">
-                                            {t("Orders.view.table.order")} {detail?.order?.orderIdHash}
+                                            {t("Orders.view.table.order")} {detail?.order?.orderNumber}
                                         </p>
                                         <p className="text-44">
                                             {detail?.order?.companyName}
@@ -201,7 +201,7 @@ const Orders = () => {
                                             {t("Orders.view.amount")}
                                         </p>
                                         <p className="f-14 t-8F">
-                                            {detail.order?.totalPrice} AZN
+                                            {detail.order?.totalPrice.toFixed(2)} AZN
                                         </p>
                                     </div>
                                     <div className="col d-flex justify-content-between">

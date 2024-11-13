@@ -46,6 +46,7 @@ export const CatalogApi = {
     ProductTest(params) {
         return BaseApi.get(apiRoutes.catalog.productTest, { ...params });
     },
+
     // VehicleBrand
     GetVehicleBrandListAsync(params) {
         return BaseApi.get(apiRoutes.vehicleBrand.getListAsync, { ...params });
@@ -63,4 +64,27 @@ export const CatalogApi = {
         return BaseApi.get(apiRoutes.catalog.getPaymentTypeList, { ...params });
     },
 
+    // Product Health Status
+    GetProductHealthStatusList(params) {
+        return BaseApi.get(apiRoutes.productHealthStatus.getProductHealthStatusList, { ...params });
+    },
+    ProductHealthStatusTest(params) {
+        return BaseApi.get(apiRoutes.productHealthStatus.test, { ...params });
+    },
+
+    // Return Product Detail Status
+    GetReturnProductDetailStatusList(params) {
+        return BaseApi.get(apiRoutes.returnProductDetailStatus.getReturnProductDetailStatusList, { ...params });
+    },
+    ReturnProductDetailStatusTest(params) {
+        return BaseApi.get(apiRoutes.returnProductDetailStatus.test, { ...params });
+    },
+
+    // Return Product Status
+    GetReturnProductStatusList(params) {
+        return BaseApi.get(apiRoutes.returnProductStatus.getReturnProductStatusList, { ...params });
+    },
+    ReturnProductStatusTest(params) {
+        return BaseApi.get(apiRoutes.returnProductStatus.test, { ...params });
+    },
 };
