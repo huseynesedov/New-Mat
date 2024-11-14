@@ -39,7 +39,9 @@ const CardItem = ({ d, classes }) => {
                 openNotification('Xəta baş verdi', err.response?.data?.message || 'Server xətası', true);
             })
             .finally(() => {
-                setLoading(false);
+               setTimeout(()=>{
+                   setLoading(false);
+               }, 5000);
             });
     };
 
@@ -274,7 +276,7 @@ const CardItem = ({ d, classes }) => {
                 </div>
 
                 <div className="BasketLikeCenter my-2">
-                    <button className="Basket" onClick={() => handleAddToCart(d)}>
+                    <button disabled={loading} className="Basket" onClick={() => handleAddToCart(d)}>
                         {loading ? <Spin className="custom-spin" size="small" /> : ''}
                         <img src={Vector2} alt="Add to Basket" />
                         <p className="BasketTitle">{t("Global.basket")}</p>
