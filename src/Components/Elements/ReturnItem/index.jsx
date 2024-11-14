@@ -56,16 +56,20 @@ const ReturnItems = ({ totalPrice ,returnItems, getReturnItems, getTotalPrice, s
             .finally(() => setLoading(false));
     };
 
+    function encodeQueryParam(param) {
+        return encodeURIComponent(param);
+    }
+
     const handleQuantityUpdate = (productId, quantity, increment) => {
         const newQuantity = increment ? quantity + 1 : Math.max(quantity - 1, 0);
         if (newQuantity === quantity) return;
         setLoading(true);
-        BasketApi.UpdateReturnProductQuantity(encodeURIComponent(productId), newQuantity)
+        BasketApi.UpdateReturnProductQuantity(encodeQueryParam(productId), newQuantity)
             .then(() => {
                 getReturnItems();
                 getTotalPrice();
             })
-            .catch((err) => openNotification('Xəta baş verdi', err?.response?.data?.Message, true))
+            .catch((err) => openNotification('Xəta baş verdi', err?.response?.data?.message, true))
             .finally(() => setLoading(false));
     };
 
@@ -116,7 +120,7 @@ const ReturnItems = ({ totalPrice ,returnItems, getReturnItems, getTotalPrice, s
                 <Space>
                     <Button icon={<MinusOutlined />} onClick={() => handleQuantityUpdate(record.idHash, record.quantity, false)} />
                     <Input value={record.quantity} readOnly style={{ width: '40px', textAlign: 'center' }} />
-                    <Button icon={<PlusOutlined />} onClick={() => handleQuantityUpdate(record.productIdHash, record.quantity, true)} />
+                    <Button icon={<PlusOutlined />} onClick={() => handleQuantityUpdate(record.idHash, record.quantity, true)} />
                 </Space>
             ),
         },
