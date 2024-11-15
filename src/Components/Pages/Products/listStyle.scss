@@ -296,4 +296,16 @@
     width: 314px;
     margin-bottom: 1rem;
   }
-  
+
+
+
+.clamped-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 1; /* Limits text to 2 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.list-item {
+    overflow: hidden;
+}

@@ -9,6 +9,7 @@ import { useAuth } from "../../../AuthContext";
 import { useTranslation } from "react-i18next";
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Button, Dropdown } from "antd";
+import {AdminApi} from "../../../api/admin.api";
 
 
 const dillerTablo = [
@@ -77,6 +78,62 @@ function Header() {
   };
 
   const isActive = (path) => location.pathname === path;
+
+
+  const [data, setData] = useState([]); // Gələn məlumatları burada saxlayırıq
+  const [decodedToken, setDecodedToken] = useState(null); // Dekod olunmuş token-i saxlayırıq
+  const [idHash, setIdHash] = useState(null); // Token'den gelen id'yi saklamak için
+
+
+  const decodeJwt = (token) => {
+    try {
+      const payloadBase64 = token.split(".")[1]; // Token-in ikinci hissəsi payload hissəsidir
+      const decodedPayload = atob(payloadBase64); // Base64 formatından decode edirik
+      return JSON.parse(decodedPayload); // JSON formatına çeviririk
+    } catch (error) {
+      console.error("Token decoding error:", error); // Hata varsa konsolda göstəririk
+      return null;
+    }
+  };
+
+  useEffect(() => {
+    // localStorage-dən token almaq
+    const savedToken = localStorage.getItem("token"); // 'token' açarı ilə saxlanmış olanı götür
+    if (savedToken) {
+      const decoded = decodeJwt(savedToken); // Token-i decode edirik
+      setDecodedToken(decoded); // Dekod olunmuş məlumatı state-ə yazırıq
+      setTimeout(() => {
+        UserData(decoded.UserIdHash); // idH
+      }, 1000)
+      if (decoded) {
+        setDecodedToken(decoded); // Dekod olunmuş məlumatı state-ə yazırıq
+        setIdHash(decoded?.id); // Token'den gelen id'yi idHash olaraq belirliyoruz
+      }
+    }
+
+  }, []);
+
+  const UserData = async (idHash) => {
+    console.log(idHash);
+    if (idHash) {
+      try {
+        const response = await AdminApi.GetUserPersonalInformationById(idHash); // idHash kullanıyoruz
+        console.log("API response:", response); // API cevabını konsola yazdırıyoruz
+        setData({ ...response, idHash }); // response ile birlikte idHash'i de kaydediyoruz
+      } catch (error) {
+        if (error.response && error.response.status === 401) {
+          console.warn("Unauthorized access, logging out..."); // 401 hatasında çıkış yapılıyor
+          logout();
+        } else {
+          console.error("Error fetching user data:", error); // Diğer hatalar
+        }
+      }
+    }
+    console.log(data)
+  };
+
+
+
 
   const [listening, setListening] = useState(false);
   const [transcript, setTranscript] = useState('');
@@ -261,8 +318,8 @@ function Header() {
                           <img src={User} alt="" />
                         </div>
                         <div className='colum'>
-                          <p className='NameSurname'>Huseyn Esedov</p>
-                          <p className='mail'>asadof28@gmail.com</p>
+                          <p className='NameSurname'>{data.companyName}</p>
+                          <p className='mail'>{data.companyEmail}</p>
                         </div>
                       </div>
                     </Link>

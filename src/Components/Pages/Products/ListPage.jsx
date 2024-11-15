@@ -8,7 +8,7 @@ import { CatalogApi } from "../../../api/catalog.api";
 import { ProductApi } from "../../../api/product.api";
 import { useAuth } from "../../../AuthContext";
 import { useSearchParams } from "react-router-dom";
-import { Pagination } from "antd";
+import {Pagination, Tooltip} from "antd";
 
 function Home() {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -25,45 +25,60 @@ function Home() {
         },
     ]);
     const [vehicleBrands, setVehicleBrands] = useState([]);
+    const [vehicleBrandsFull, setVehicleBrandsFull] = useState([]);
     const [filterData, setFilterData] = useState([]);
     const [storageData, setStorageData] = useState([]);
     const [manufacturerId, setManufacturerId] = useState('');
     const [productTypeId, setProductTypeId] = useState('');
     const [productGroupData, setProductGroupData] = useState([]);
+    const [productGroupDataFull, setProductGroupDataFull] = useState([]);
     const [productTypeData, setProductTypeData] = useState([]);
     const [productBrendData, setProductBrendData] = useState([]);
+    const [productBrendDataFull, setProductBrendDataFull] = useState([]);
     const [loading, setLoading] = useState(false);
     const { openNotification, logout } = useAuth()
 
     const [reset, setReset] = useState(false);
     const [open1, setOpen1] = useState(false);
     const handleButtonClick1 = () => {
-        setOpen1(!open1);
+      if(!open1){
+          setOpen1(!open1);
+      }
     };
 
     const [open2, setOpen2] = useState(false);
     const handleButtonClick2 = () => {
-        setOpen2(!open2);
+       if(!open2){
+           setOpen2(!open2);
+       }
     };
 
     const [open3, setOpen3] = useState(false);
     const handleButtonClick3 = () => {
-        setOpen3(!open3);
+        if(!open3){
+            setOpen3(!open3);
+        }
     };
 
     const [open4, setOpen4] = useState(false);
     const handleButtonClick4 = () => {
-        setOpen4(!open4);
+        if(!open4){
+            setOpen4(!open4);
+        }
     };
 
     const [open5, setOpen5] = useState(false);
     const handleButtonClick5 = () => {
-        setOpen5(!open5);
+        if(!open5){
+            setOpen5(!open5);
+        }
     };
 
     const [open6, setOpen6] = useState(false);
     const handleButtonClick6 = () => {
-        setOpen6(!open6);
+        if(!open6){
+            setOpen6(!open6);
+        }
     };
 
     const handlePageSizeChange = (current, size) => {
@@ -120,6 +135,7 @@ function Home() {
     const getBrendData = () => {
         CatalogApi.GetManufacturerList().then((manufacturerList) => {
             setProductBrendData(manufacturerList)
+            setProductBrendDataFull(manufacturerList)
         })
     }
 
@@ -144,6 +160,7 @@ function Home() {
 
     const getVehicleBrandData = () => {
         CatalogApi.GetVehicleBrandListAsync().then((vehicleBrands) => {
+            setVehicleBrandsFull(vehicleBrands)
             setVehicleBrands(vehicleBrands)
         })
     }
@@ -153,6 +170,7 @@ function Home() {
                 typeId: productTypeId,
             }).then(res => {
                 setProductGroupData(res)
+                setProductGroupDataFull(res)
             })
         }
         else if (manufacturerId && productTypeId) {
@@ -161,6 +179,7 @@ function Home() {
                 manufacturerId
             }).then(res => {
                 setProductGroupData(res)
+                setProductGroupDataFull(res)
             })
         }
     }
@@ -352,22 +371,30 @@ function Home() {
                                         <ul>
                                             <div className="Searchİnput d-flex position-relative">
                                                 <img src={glass} className="position-absolute pos_px" alt="" />
-                                                <input type="text" placeholder="Brend axtar..." />
+                                                <input onChange={(e)=>{
+                                                    setProductBrendData(productBrendDataFull.filter(s=>s.displayText.toLowerCase().includes(e.target.value.toLowerCase())))
+                                                }}  type="text" placeholder="Brend axtar..." />
                                             </div>
                                             {productBrendData.map((b) => {
                                                 return <button className='picup2'>
-                                                    <li onClick={
-                                                        () => {
-                                                            setManufacturerId(b.valueHash);
-                                                            let obj = {
-                                                                value: b.valueHash,
-                                                                fieldName: "manufacturerIdHash",
-                                                                equalityType: "Equal"
-                                                            }
-                                                            updateFilteration(obj)
-                                                        }
-                                                    } className='d-flex'>
-                                                        <p className="t-79 ms-2 mb-1">{b.displayText}</p>
+                                                    <li className='d-flex'>
+                                                        <div className="checkbox4">
+                                                            <input
+                                                                onChange={(e) => {
+                                                                    setManufacturerId(b.valueHash);
+                                                                    let obj = {
+                                                                        value: b.valueHash,
+                                                                        fieldName: "manufacturerIdHash",
+                                                                        equalityType: "Equal"
+                                                                    }
+                                                                    updateFilteration(obj)
+                                                                }}
+                                                                type="radio" name="productBrendData" value={b.valueHash}
+                                                                id={b.valueHash}
+                                                            />
+                                                            <label htmlFor={b.valueHash} className="checkmark4"/>
+                                                        </div>
+                                                        <p className="t-79 ms-2 mb-1">{b.displayText} </p>
                                                     </li>
                                                 </button>
 
@@ -379,35 +406,50 @@ function Home() {
 
 
                             {/* Line */}
-                            <img className='mt-3 w-100' src={Liner} alt="" />
+                            <img className='mt-3 w-100' src={Liner} alt=""/>
 
                             <div className="myRow4 mt-3 ">
-                                <button className={`drop2 w-90 align-items-center d-flex justify-content-between ${open2 ? 'clicked' : 'down'}`} onClick={handleButtonClick5}>
+                                <button
+                                    className={`drop2 w-90 align-items-center d-flex justify-content-between ${open2 ? 'clicked' : 'down'}`}
+                                    onClick={handleButtonClick5}>
                                     <div className="d-flex">
-                                        <img src={BiCar} alt="" />
+                                        <img src={BiCar} alt=""/>
                                         <p className='ms-2 text-black t-79'>
                                             Avtomobil Markasi
                                         </p>
                                     </div>
                                     <div className="DownImg">
-                                        <img src={down} alt="" />
+                                        <img src={down} alt=""/>
                                     </div>
                                 </button>
                                 {open5 && (
                                     <div className="dropdown4 mt-2 ms-2">
                                         <ul>
                                             <div className="Searchİnput d-flex position-relative">
-                                                <img src={glass} className="position-absolute pos_px" alt="" />
-                                                <input  type="text" placeholder="Avtomobil Markasi axdar..." />
-
+                                                <img src={glass} className="position-absolute pos_px" alt=""/>
+                                                <input onChange={(e) => {
+                                                    setVehicleBrands(vehicleBrandsFull.filter(s => s.displayText.toLowerCase().includes(e.target.value.toLowerCase())))
+                                                }} type="text" placeholder="Marka axtar..."/>
                                             </div>
-                                            {vehicleBrands.map((vehicle) => {
+                                            {vehicleBrands.map((b) => {
                                                 return <button className='picup2'>
                                                     <li className='d-flex align-items-center'>
-                                                        <div style={{ width: "27px", height: "27px" }}>
-                                                            <img className="w-100" src={vehicle.content} alt="" />
+                                                        <div className="checkbox4">
+                                                            <input
+                                                                onChange={(e) => {
+                                                                    let obj = {
+                                                                        value: b.valueHash,
+                                                                        fieldName: "vehicleBrands.vehicleBrandIdHash",
+                                                                        equalityType: "Equal"
+                                                                    }
+                                                                    updateFilteration(obj)
+                                                                }}
+                                                                type="radio" name="productVehicleData" value={b.valueHash}
+                                                                id={b.valueHash}
+                                                            />
+                                                            <label htmlFor={b.valueHash} className="checkmark4"/>
                                                         </div>
-                                                        <p className="t-79 ms-2 mt-2 mb-1">{vehicle.displayText}</p>
+                                                        <p className="t-79 ms-2 mb-1">{b.displayText} </p>
                                                     </li>
                                                 </button>
                                             })}
@@ -420,36 +462,53 @@ function Home() {
 
 
                             {/* Line */}
-                            <img className='mt-3 w-100' src={Liner} alt="" />
+                            <img className='mt-3 w-100' src={Liner} alt=""/>
 
                             <div className="myRow4 mt-3 mb-2">
                                 <button
                                     className={`drop2 w-90 align-items-center d-flex justify-content-between ${open2 ? 'clicked' : 'down'}`}
                                     onClick={handleButtonClick6}>
                                     <div className="d-flex">
-                                        <img src={List24} alt="" />
+                                        <img src={List24} alt=""/>
                                         <p className='ms-2 text-black t-79'>
                                             Mahsul Grup
                                         </p>
                                     </div>
                                     <div className="DownImg">
-                                        <img src={down} alt="" />
+                                        <img src={down} alt=""/>
                                     </div>
                                 </button>
                                 {open6 && (
                                     <div className="dropdown4 mt-2 ms-2">
                                         <ul>
                                             <div className="Searchİnput d-flex position-relative">
-                                                <img src={glass} className="position-absolute pos_px" alt="" />
-                                                <input type="text" placeholder="Brend axdar..." />
+                                                <img src={glass} className="position-absolute pos_px" alt=""/>
+                                                <input onChange={(e) => {
+                                                    setProductGroupData(productGroupDataFull.filter(s => s.displayText.toLowerCase().includes(e.target.value.toLowerCase())))
+                                                }} type="text" placeholder="Marka axtar..."/>
                                             </div>
-                                            {productGroupData.map((data) => {
+                                            {productGroupData.map((b) => {
                                                 return <button className='picup2'>
-                                                    <li className='d-flex align-items-center'>
-                                                        <div style={{ width: "27px", height: "27px" }}>
-                                                            <img className="w-100" src={data.content} alt="" />
+                                                    <li className='d-flex list-item align-items-center'>
+                                                        <div className="checkbox4">
+                                                            <input
+                                                                onChange={(e) => {
+                                                                    let obj = {
+                                                                        value: b.valueHash,
+                                                                        fieldName: "name",
+                                                                        equalityType: "Contains"
+                                                                    }
+                                                                    updateFilteration(obj)
+                                                                }}
+                                                                type="radio" name="productGroupData"
+                                                                value={b.valueHash}
+                                                                id={b.valueHash}
+                                                            />
+                                                            <label htmlFor={b.valueHash} className="checkmark4"/>
                                                         </div>
-                                                        <p className="t-79 ms-2 mt-2 mb-1">{data.displayText}</p>
+                                                        <Tooltip title={b.displayText}>
+                                                            <p className="t-79 ms-2 clamped-text mb-1">{b.displayText} </p>
+                                                        </Tooltip>
                                                     </li>
                                                 </button>
                                             })}
@@ -464,16 +523,16 @@ function Home() {
 
                     <div className="myContainer1 rounded">
                         <div className="">
-                            <ShoppingCards loading={loading} data={data} reset={reset} setReset={setReset} />
+                            <ShoppingCards loading={loading} data={data} reset={reset} setReset={setReset}/>
                         </div>
                         <div className="d-flex  w-100 justify-content-center mt-4">
                             <Pagination current={page}
-                                total={count}
-                                pageSize={pageSize}
-                                onShowSizeChange={handlePageSizeChange}
-                                onChange={handlePageChange}
-                                showSizeChanger={true}
-                                pageSizeOptions={['20', '40', '50', '100']} // Options for page size
+                                        total={count}
+                                        pageSize={pageSize}
+                                        onShowSizeChange={handlePageSizeChange}
+                                        onChange={handlePageChange}
+                                        showSizeChanger={true}
+                                        pageSizeOptions={['20', '40', '50', '100']} // Options for page size
                             />
                         </div>
                     </div>

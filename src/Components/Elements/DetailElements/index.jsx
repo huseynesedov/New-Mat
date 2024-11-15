@@ -39,7 +39,7 @@ const DetailElements = () => {
         setLoading(true)
         if (id) {
             try {
-                const response = await ProductApi.GetProductById({ id: encodeQueryParam(idHash) });
+                const response = await ProductApi.GetProductById({ id: idHash });
                 console.log("API response:", response);
                 setProductData(response);
                 setSelectedImage(response?.defaultContent);

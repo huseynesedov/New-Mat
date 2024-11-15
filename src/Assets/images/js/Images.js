@@ -10,7 +10,7 @@ import TagTwo from '../HiTag.svg'
 import Heart from '../favorite.svg'
 
 // Header
-import User from '../User.svg'
+import User from '../User.jpg'
 import Glass from '../magnifying-glass.svg'
 import FiUser from '../FiUser.svg'
 import Voice from '../keyboard_voice_24px.svg'

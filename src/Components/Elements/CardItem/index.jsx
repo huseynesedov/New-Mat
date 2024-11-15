@@ -320,7 +320,7 @@ const CardItem = ({ d, classes }) => {
             <Modal
                 width="95vw" // Extra-large width
                 style={{ top: 20 }}
-                title="Return Product Details"
+                title="Geri qaytarılma"
                 visible={isReturnModalVisible}
                 onCancel={() => setIsReturnModalVisible(false)}
                 footer={[
