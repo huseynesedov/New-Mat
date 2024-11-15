@@ -17,7 +17,7 @@ const Profile = () => {
     const { t } = useTranslation();
     const [loading, setLoading] = useState(false);
 
-    let { user, mail, location, tel, pen, NewAddress, Add_Bin, SearchBar } = images;
+    let { User, mail, location, tel, pen, NewAddress, Add_Bin, SearchBar } = images;
 
     const [ShowNewAddres, setShowNewAddres] = useState(false);
     const [isFlex, setIsFlex] = useState(false);
@@ -158,7 +158,7 @@ const Profile = () => {
                                 <div className="mat-ProfilCenter">
 
                                     <div className="mat-Profil">
-                                        <img src={user} alt="" />
+                                        <img height={'100%'} src={User} alt="" />
                                     </div>
                                     <div className="mat-UserInformationCenter">
                                         <div className="mat-UserName">
