@@ -31,13 +31,15 @@ const DetailElements = () => {
     const [isFavorite, setIsFavorite] = useState(false); // Favorite state
     const [productData, setProductData] = useState({}); // Ürün bilgilerini saklayacak state
     const [selectedImage, setSelectedImage] = useState(''); // Ürün bilgilerini saklayacak state
-
+    function encodeQueryParam(param) {
+        return encodeURIComponent(param);
+    }
 
     const fetchProductData = async () => {
         setLoading(true)
         if (id) {
             try {
-                const response = await ProductApi.GetProductById({ id: idHash });
+                const response = await ProductApi.GetProductById({ id: encodeQueryParam(idHash) });
                 console.log("API response:", response);
                 setProductData(response);
                 setSelectedImage(response?.defaultContent);

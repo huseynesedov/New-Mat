@@ -52,7 +52,13 @@ const CardItem = ({ d, classes }) => {
 
         BasketApi.ReturnProduct({ productIdHash:  'j9tq8UB_+bM=' })
             .then((response) => {
-                setResponseData(response);
+                setResponseData(response.map((r , index)=>{
+                    return {
+                        ...r,
+                        index: index+1,
+                        returnQuantity: r.quantity
+                    }
+                }));
             })
             .catch((error) => {
                 openNotification('Xəta baş verdi', error.response?.data?.message || 'Server xətası', true);
@@ -100,9 +106,11 @@ const CardItem = ({ d, classes }) => {
     // Handle inline quantity change in the table
     const handleTableQuantityChange = (value, record) => {
         const updatedData = responseData.map(item => {
-            if (item.productIdHash === record.productIdHash) {
+            if (item.invoiceNumber === record.invoiceNumber) {
+                console.log(value);
+                console.log(item.price);
                 const newTotalPrice = value * item.price;
-                return { ...item, quantity: value, totalPrice: newTotalPrice };
+                return { ...item, returnQuantity: value, totalPrice: newTotalPrice };
             }
             return item;
         });
@@ -111,29 +119,37 @@ const CardItem = ({ d, classes }) => {
 
     // Columns for the Return Product Table
     const columns = [
-        { title: 'Product ID', dataIndex: 'productIdHash', key: 'productIdHash' },
+        { title: '', dataIndex: 'index', key: 'index' },
         { title: 'Product Name', dataIndex: 'productName', key: 'productName' },
         { title: 'Product Code', dataIndex: 'productCode', key: 'productCode' },
+        { title: 'Invoice Number', dataIndex: 'invoiceNumber', key: 'invoiceNumber' },
         { title: 'Invoice Date', dataIndex: 'invoiceDate', key: 'invoiceDate',
             render: (text, record) => (
               <>{ moment(text).format('DD.MM.YYYY HH:MM') }</>
             ),
         },
-        { title: 'Customer ID', dataIndex: 'customerIdIdHash', key: 'customerIdHash' },
-        { title: 'Customer Name', dataIndex: 'customerName', key: 'customerName' },
         {
             title: 'Quantity',
             dataIndex: 'quantity',
             key: 'quantity',
+        },
+        {
+            title: 'Return Quantity',
+            dataIndex: 'returnQuantity',
+            key: 'returnQuantity',
             render: (text, record) => (
                 <InputNumber
                     min={1}
-                    value={text}
+                    value={record.returnQuantity}
                     onChange={(value) => handleTableQuantityChange(value, record)}
                 />
             ),
         },
-        { title: 'Price', dataIndex: 'price', key: 'price' },
+        { title: 'Price', dataIndex: 'price', key: 'price' ,
+            render: (text, record) => (
+               <>{text} azn</>
+            ),
+        },
         { title: 'Total Price', dataIndex: 'totalPrice', key: 'totalPrice' },
         { title: '', dataIndex: 'productIdHash', key: 'productIdHash' ,
             render: (text, record) => (
@@ -173,9 +189,11 @@ const CardItem = ({ d, classes }) => {
                             <div className="d-flex">
                                 {d.vehicleBrands.map((s, index) => (
                                     <span className="TagTwo" key={index}>
-                                        <div className="ImgCenters">
-                                            <img src={`${s.vehicleBrandContent}`} alt="Brand" />
-                                        </div>
+                                        <Tooltip title={s.vehicleBrandIdName}>
+                                          <div className="ImgCenters">
+                                            <img src={`${s.vehicleBrandContent}`} alt="Brand"/>
+                                          </div>
+                                        </Tooltip>
                                     </span>
                                 ))}
                                 <Tooltip
