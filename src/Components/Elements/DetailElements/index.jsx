@@ -26,6 +26,7 @@ const DetailElements = () => {
     ], )
     let [quantity, setQuantity] = useState(1); // Default şəkil
     let [loading, setLoading] = useState(true); // Default şəkil
+    let [loadingBasket, setLoadingBasket] = useState(true); // Default şəkil
     let [error, setError] = useState(false); // Default şəkil
     const [hoverRating, setHoverRating] = useState(0); // hover edildikdə tutulan rating
     const [isFavorite, setIsFavorite] = useState(false); // Favorite state
@@ -115,6 +116,7 @@ const DetailElements = () => {
     };
 
     const addToBasket  = async () => {
+        setLoadingBasket(true)
         await  BasketApi.AddToBasket( {
             productId: idHash,
             quantity
@@ -122,6 +124,10 @@ const DetailElements = () => {
             openNotification('Əlavə edildi' , `${productData.name} səbətə əlavə edildi` , false )
         }).catch((err)=>{
             openNotification('Xəta baş verdi' , err.response.data.message , true )
+        }).finally(()=>{
+           setTimeout(() =>{
+               setLoadingBasket(false)
+           } , 4000)
         })
     }
 
@@ -232,7 +238,9 @@ const DetailElements = () => {
                                         <th className="row-header f-14">Mövcudluğu</th>
                                         <td className="ms-1 d-flex align-items-center">
                                             <img src={Location_gray} alt=""/>
-                                            <p className="ms-1"> Baku</p>
+                                            {productData.storages.map((s, i)=> {
+                                                return <p className="ms-1">{i !== 0 ? ',' : ''} {s.storageCode}</p>
+                                            })}
                                         </td>
                                     </tr>
                                     </tbody>
@@ -244,7 +252,9 @@ const DetailElements = () => {
                             <div className="col d-flex justify-content-between">
                                 <div className="counterCenter2">
                                     <button onClick={() => {
-                                        setQuantity(quantity -= 1)
+                                      if(quantity > productData.minOrderAmount){
+                                          setQuantity(quantity -= 1)
+                                      }
                                     }} className="del2">-
                                     </button>
                                     <input value={quantity} onChange={(e) => {
@@ -262,7 +272,8 @@ const DetailElements = () => {
                                     }}
                                          className="d-flex buttonSebet  cursor-pointer align-items-center justify-content-center"
                                          style={{width: "426px", height: "46px"}}>
-                                        <button className="none">{t("Global.basket")}</button>
+                                        {loadingBasket ? <Spin className="custom-spin" size="small" /> : ''}
+                                        <button disabled={loadingBasket} className="none">{t("Global.basket")}</button>
                                     </div>
                                     <Link to="">
                                     <div className="d-flex">
