@@ -62,6 +62,7 @@ function Home() {
             if (err.response.status === 401) {
                 logout()
             }
+            setData([])
             openNotification('Xəta baş verdi', err.response.data.message, true)
         })
             .finally(() => {

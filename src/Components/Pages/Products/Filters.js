@@ -29,12 +29,16 @@ const Filters = ({
         setFilteredProductBrendData(productBrendData);
         setFilteredVehicleBrands(vehicleBrands);
         setFilteredProductGroupData(productGroupData);
-
-        if (productTypeData && productTypeData.length > 0) {
-            form.setFieldsValue({ productType: productTypeData[0].valueHash });
-            handleFormChange({}, { productType: productTypeData[0].valueHash });
-        }
     }, [productBrendData, vehicleBrands, productGroupData, productTypeData]);
+
+    useEffect(()=>{
+      setTimeout(()=>{
+          if (productTypeData && productTypeData.length > 0) {
+              form.setFieldsValue({ productType: productTypeData[0].valueHash });
+              handleFormChange({}, { productType: productTypeData[0].valueHash });
+          }
+      })
+    },[productTypeData])
 
     const handleFormChange = (_, allValues) => {
         // Process checkboxes for campaignType
