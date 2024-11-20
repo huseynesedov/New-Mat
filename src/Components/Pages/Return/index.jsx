@@ -21,7 +21,7 @@ const Return = () => {
 
     const handleAPIError = (error) => {
         openNotification('Xəta baş verdi', error?.response?.data?.message, true);
-        if (error?.response?.status === 401) {
+        if (error?.response?.data.status === 2017) {
             logout();
         }
     };

@@ -34,7 +34,7 @@ function App() {
   const updateToken = () => {
     let t = localStorage.getItem('token')
     let dec = decodeJwt(t)
-    let timeout = (dec.exp - dec.iat - 120) * 1000
+    let timeout = (dec?.exp - dec?.iat - 120) * 100
 
     setInterval(()=>{
       if(loggedIn) {

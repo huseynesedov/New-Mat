@@ -82,9 +82,8 @@ const Profile = () => {
                 console.log("API response:", response); // API cevabını konsola yazdırıyoruz
                 setData({ ...response, idHash }); // response ile birlikte idHash'i de kaydediyoruz
             } catch (error) {
-                if (error.response && error.response.status === 401) {
-                    console.warn("Unauthorized access, logging out..."); // 401 hatasında çıkış yapılıyor
-                    logout();
+                if (error.response.data.status === 2017) {
+                    logout()
                 } else {
                     console.error("Error fetching user data:", error); // Diğer hatalar
                 }

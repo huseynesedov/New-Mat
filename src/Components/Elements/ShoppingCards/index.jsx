@@ -26,7 +26,7 @@ const ShoppingCards = () => {
             setData(res.data)
             setCount(res.count)
         }).catch((error)=>{
-            if(error.response.status === 401){
+            if (error.response.data.status === 2017) {
                 logout()
             }
             openNotification('Xəta baş verdi'  ,  error.response.data.message , true)

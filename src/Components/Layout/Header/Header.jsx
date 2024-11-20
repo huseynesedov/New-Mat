@@ -121,7 +121,7 @@ function Header() {
         console.log("API response:", response); // API cevabını konsola yazdırıyoruz
         setData({ ...response, idHash }); // response ile birlikte idHash'i de kaydediyoruz
       } catch (error) {
-        if (error.response && error.response.status === 401) {
+        if (error.response && error.response.data.message === 2017) {
           console.warn("Unauthorized access, logging out..."); // 401 hatasında çıkış yapılıyor
           logout();
         } else {

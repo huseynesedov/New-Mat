@@ -59,7 +59,7 @@ function Home() {
             console.log(res.data)
             setCount(res.count)
         }).catch((err) => {
-            if (err.response.status === 401) {
+            if (err.response.data.status === 2017) {
                 logout()
             }
             setData([])
