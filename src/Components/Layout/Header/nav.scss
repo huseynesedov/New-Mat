@@ -315,3 +315,16 @@ a {
     text-decoration: none;
     display: block;
 }
+
+
+.Voice.active {
+    animation: pulse 1s infinite;
+    color: red;
+  }
+  
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(3); }
+    100% { transform: scale(1); }
+  }
+  

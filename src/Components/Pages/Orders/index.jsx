@@ -203,12 +203,12 @@ const Orders = () => {
         <div className="myRow ps-5 mt-2 ms-1 align-items-start flex-column">
           <Row gutter={16}>
             <Col>
-              <DatePicker  disabledDate={disableFromDate}  value={fromDate} onChange={(e)=>{
+              <DatePicker disabledDate={disableFromDate}  value={fromDate} onChange={(e)=>{
                 setFromDate(e)
               }} placeholder="From Date" style={{ width: 150 }} />
             </Col>
             <Col>
-              <DatePicker   disabledDate={disableToDate}  value={toDate} onChange={(e)=>{
+              <DatePicker disabledDate={disableToDate}  value={toDate} onChange={(e)=>{
                 setToDate(e)
               }} placeholder="To Date" style={{ width: 150 }} />
             </Col>

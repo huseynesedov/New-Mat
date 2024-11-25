@@ -69,7 +69,7 @@ function Header() {
   const dilChange = (dil, e) => {
     e.stopPropagation();
     setLanguageDropdownOpen(false);
-    setDropdownOpen(false);  // Close the main dropdown as well
+    setDropdownOpen(false);
     setCurrentLanguage(dil);
     i18n.changeLanguage(dil.code);
     toast.success(dil.name);
@@ -97,6 +97,7 @@ function Header() {
         }
       }
     };
+
   }, [recognition]);
 
   const startListening = () => {
@@ -149,7 +150,7 @@ function Header() {
   };
 
   const handleButtonClick = () => {
-    setDropdownVisible(false); // Butona tıklandığında dropdown kapanır
+    setDropdownVisible(false);
   };
   const dropdownMenu = (
     <div className="d-flex flex-column basket-dropdown">
@@ -190,22 +191,21 @@ function Header() {
                     onChange={handleInputChange}
                     className='searchTextBar'
                   />
-                  <div className='VoiceGlas'>
+                  <div className="VoiceGlas">
                     <img
                       src={Voice}
                       onClick={listening ? stopListening : startListening}
                       alt=""
-                      className='Voice'
+                      className={`Voice ${listening ? "active" : ""}`}
                     />
-                    <div onClick={() => {
-                      handleSearch()
-                    }} className="text-decoration-none">
+                    <div onClick={() => handleSearch()} className="text-decoration-none">
                       <div className="glasBar">
-                        <img src={Glass} alt="" className='' />
+                        <img src={Glass} alt="" />
                         {t("Nav.search")}
                       </div>
                     </div>
                   </div>
+
                 </div>
               </label>
             </div>
@@ -217,13 +217,7 @@ function Header() {
                 <h3>{t("Nav.favorites")}</h3>
               </div>
             </Link>
-            {/* <Link className={'nav-link'} to="/Basket"> */}
 
-
-            {/* <div className="ClipBoard">
-              <img src={Basket} alt="" onClick={handleToggleDropdown} />
-              <h3>{t("Nav.basket")}</h3>
-            </div> */}
 
             <Dropdown
               visible={dropdownVisible}
