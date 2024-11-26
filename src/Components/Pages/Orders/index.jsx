@@ -141,9 +141,9 @@ const Orders = () => {
       clearFilter()
       getOrdersByStatus(s[0].valueHash, 0)
     }).catch((error)=>{
-      if(error.response.status === 401){
-        logout()
-      }
+      // if(error.response.status === 400){
+      //   logout()
+      // }
     }).finally(() => {
       setLoading(false)
     })
@@ -225,7 +225,7 @@ const Orders = () => {
                 () =>{
                   getOrdersByStatus(currentPage, 0 , true)
                 }
-              } type="primary">Ara</Button>
+              } style={{background:'#182390'}} type="primary">Axtar</Button>
             </Col>
           </Row>
         </div>

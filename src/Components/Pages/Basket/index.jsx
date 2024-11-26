@@ -36,8 +36,8 @@ const Basket = () => {
         BasketApi.GetListByCurrent().then((items) => {
             setBasketItems(items.basketDetailList || []);
         }).catch((error) => {
-            if (error?.response?.status === 401) {
-                logout();
+            if (error.response.data.status === 2017) {
+                logout()
             }
         }).finally(() => {
             setLoading(false);
@@ -49,8 +49,8 @@ const Basket = () => {
         CatalogApi.GetBasketDetailStatusList().then((items) => {
             setBasketItemStatus(items);
         }).catch((error) => {
-            if (error?.response?.status === 401) {
-                logout();
+            if (error.response.data.status === 2017) {
+                logout()
             }
         }).finally(() => {
             setLoading(false);
@@ -62,8 +62,8 @@ const Basket = () => {
         BasketApi.GetTotalPrice().then((items) => {
             setTotalPrice(items[0]);
         }).catch((error) => {
-            if (error?.response?.status === 401) {
-                logout();
+            if (error.response.data.status === 2017) {
+                logout()
             }
         }).finally(() => {
             setLoading(false);
@@ -119,8 +119,8 @@ const Basket = () => {
             }, 1000);
         }).catch((err) => {
             openNotification('Xəta baş verdi', err.response.data.message, true);
-            if (err?.response?.status === 401) {
-                logout();
+            if (err.response.data.status === 2017) {
+                logout()
             }
         }).finally(() => {
             setLoading(false);

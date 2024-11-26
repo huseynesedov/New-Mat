@@ -1,399 +1,240 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import Images from "../../../Assets/images/js/Images";
-import {Button, Select} from 'antd';
-import { BasketApi } from "../../../api/basket.api";
+import {Button, Select, Typography, Input, Spin, Table, Space, Tooltip} from 'antd';
+import {DeleteOutlined, PlusOutlined, MinusOutlined, CheckCircleOutlined, EditFilled} from "@ant-design/icons";
 import { useAuth } from "../../../AuthContext";
-import { Spin } from 'antd'
-import { useTranslation } from 'react-i18next';
-import {CheckCircleOutlined, CheckSquareFilled, EditFilled} from "@ant-design/icons";
+import { BasketApi } from "../../../api/basket.api";
 
+const { Text } = Typography;
 const { Option } = Select;
+const { TextArea } = Input;
 
-const BasketItems = ({ basketItems, getBasketItems, getTotalPrice, setBasketItems, basketItemStatus }) => {
-    let { FiTag, Down, Location, TagTwo, TabloDelete, Add_Bin } = Images;
-    const dispatch = useDispatch();
-    const { openNotification } = useAuth()
-    const [selectedItems, setSelectedItems] = useState([]);
+const ReturnItems = ({ totalPrice ,returnItems, getReturnItems, getTotalPrice, setReturnItems, returnItemStatus }) => {
+    const { openNotification } = useAuth();
     const [loading, setLoading] = useState(false);
-    const { t } = useTranslation();
+    const [returnNote, setReturnNote] = useState('');
+    const [error, setError] = useState(false);
 
+    const handleChange = (e) => {
+        setReturnNote(e.target.value);
+        if (e.target.value.trim() === '') {
+            setError(true);
+        } else {
+            setError(false);
+        }
+    };
+
+
+    const renderStatusName = (id) =>{
+        console.log()
+        return returnItemStatus.find(s => s.valueHash === id)?.displayText
+    }
+
+
+    const sendReturn = () => {
+        if (returnNote.trim() === ''){
+            setError(true);
+            return;
+        }
+        setLoading(true);
+        BasketApi.AddReturnProduct(returnNote).then(()=>{
+            openNotification('Uğurlu əməliyyat', `Məhsul göndərildi`, false);
+            getReturnItems();
+            getTotalPrice();
+        }).catch((err) => openNotification('Xəta baş verdi', err.response.data.message, true))
+            .finally(() => setLoading(false));
+    }
 
     const handleDelete = (id) => {
-        setLoading(true)
-        BasketApi.DeleteReturnProductById({ id }).then(() => {
-            openNotification('Uğurlu əməliyyat..', `Məhsul silindi`, false)
-            setTimeout(() => {
-                getBasketItems()
-                getTotalPrice()
-                setBasketItems([])
-                setLoading(false)
-            }, 1000)
-        })
-            .catch((err) => {
-                openNotification('Xəta baş verdi', err.response.data.message, true)
-                setLoading(false)
+        setLoading(true);
+        BasketApi.DeleteReturnProductById(encodeURIComponent(id))
+            .then(() => {
+                openNotification('Uğurlu əməliyyat', `Məhsul silindi`, false);
+                getReturnItems();
+                getTotalPrice();
             })
-    };
-
-    const handleDeleteAll = (category) => {
-        setLoading(true)
-        BasketApi.DeleteAll().then(() => {
-            openNotification('Uğurlu əməliyyat..', `Bütün məhsullar silindi`, false)
-            setTimeout(() => {
-                getBasketItems()
-                getTotalPrice()
-                setBasketItems([])
-                setLoading(false)
-            }, 1000)
-        })
-            .catch((err) => {
-                openNotification('Xəta baş verdi', err.response.data.message, true)
-                setLoading(false)
-            })
-    };
-
-    const handleDeleteSelected = (category) => {
-        setLoading(true)
-        BasketApi.DeleteByIds(selectedItems).then(() => {
-            openNotification('Uğurlu əməliyyat..', `Bütün məhsullar silindi`, false)
-            getBasketItems()
-            getTotalPrice()
-        })
-            .catch((err) => {
-                openNotification('Xəta baş verdi', err.response.data.message, true)
-            })
-            .finally(() => {
-                setLoading(false)
-            })
+            .catch((err) => openNotification('Xəta baş verdi', err.response.data.message, true))
+            .finally(() => setLoading(false));
     };
 
     function encodeQueryParam(param) {
         return encodeURIComponent(param);
     }
 
-    const handleCheckboxChange = (id) => {
-        console.log(basketItemStatus , id)
-          console.log(encodeQueryParam(id))
-        if (selectedItems.includes(id)) {
-            setLoading(true)
-            BasketApi.UpdateStatus({
-                id:encodeQueryParam(id),
-                statusId: basketItemStatus[1].valueHash
-            }).then(() => {
-                setSelectedItems(selectedItems.filter(selectedItem => selectedItem !== id))
-                getBasketItems()
-                getTotalPrice()
-            }).catch((err) => {
-                openNotification('Xəta baş verdi', err.response.data.message, true)
-            }).finally(() => {
-                setLoading(false)
-            })
-        }
-        else {
-            setLoading(true)
-            BasketApi.UpdateStatus({
-                id:encodeQueryParam(id),
-                statusId: basketItemStatus[0].valueHash
-            }).then(() => {
-                setSelectedItems([
-                    ...selectedItems,
-                    id
-                ])
-                getBasketItems()
-                getTotalPrice()
-            }).catch((err) => {
-                openNotification('Xəta baş verdi', err.response.data.message, true)
-            }).finally(() => {
-                setLoading(false)
-            })
-        }
-    };
-
-
-    const handleCategoryChange = (checked, id) => {
-        debugger;
-        console.log(checked, id)
-        if (checked) {
-            setLoading(true)
-            BasketApi.UpdateStatusByProductTypeId({
-                productTypeId: id,
-                statusId: basketItemStatus[1].valueHash
-            }).then(() => {
-                getBasketItems()
-                getTotalPrice()
-            }).catch((err) => {
-                openNotification('Xəta baş verdi', err.response.data.message, true)
-            }).finally(() => {
-                setLoading(false)
-            })
-        }
-        else {
-            setLoading(true)
-            BasketApi.UpdateStatusByProductTypeId({
-                productTypeId: id,
-                statusId: basketItemStatus[0].valueHash
-            }).then(() => {
-                getBasketItems()
-                getTotalPrice()
-            }).catch((err) => {
-                openNotification('Xəta baş verdi', err.response.data.message, true)
-            }).finally(() => {
-                setLoading(false)
-            })
-        }
-    };
-
-    const handleQuantityUpdate = (productId, PQuantity, increment) => {
-        console.log(`Product ID: ${productId}`);
-
-        let quantity = increment ? PQuantity + 1 : Math.max(PQuantity - 1, 0);
-
-        if (quantity === PQuantity) return; // No change in quantity, so exit early
-
+    const handleQuantityUpdate = (productId, quantity, increment) => {
+        const newQuantity = increment ? quantity + 1 : Math.max(quantity - 1, 0);
+        if (newQuantity === quantity) return;
         setLoading(true);
-
-        // Do not encode the productId if it's already a Base-64 string
-        BasketApi.UpdateQuantity({ quantity: `${quantity}`, productId })
+        BasketApi.UpdateReturnProductQuantity(encodeQueryParam(productId), newQuantity)
             .then(() => {
-                getBasketItems();
+                getReturnItems();
                 getTotalPrice();
             })
-            .catch(err => {
-                openNotification('Xəta baş verdi', err.response.data.message, true);
-            })
-            .finally(() => {
-                setLoading(false);
-            });
+            .catch((err) => openNotification('Xəta baş verdi', err?.response?.data?.message, true))
+            .finally(() => setLoading(false));
     };
 
-    useEffect(() => {
-        if (basketItems.length > 0) {
-            let arr = basketItems.map((item) => {
-                if (item.basketDetailStatus === 1) {
-                    return item.idHash;
-                }
-                return null; 
-            }).filter(Boolean); 
 
-            setSelectedItems(arr);
-        }
-    }, [basketItems]);
-    
-    // useEffect(() => {
-    //     if (basketItems.length > 0) {
-    //         let arr = basketItems.map((item) => {
-    //             if (item.basketDetailStatus === 1) {
-    //                 return item.idHash
-    //             }
-    //         })
+    const saveDataInputData = (d , record) =>{
+        setLoading(true)
+        BasketApi.UpdateReturnProductNote(record.idHash , d).then(() =>  {
+            openNotification('Uğurla yeniləndi')
+            getTotalPrice()
+            getReturnItems()
+        }).catch((err) => openNotification('Xəta baş verdi', err?.response?.data?.Message, true))
+            .finally(() => setLoading(false));
+    }
 
-    //         console.log(arr)
-    //         setSelectedItems(
-    //             arr
-    //         )
-    //     }
-    // }, [basketItems.length])
+
+
+    const columns = [
+        {
+            title: 'Qaimə nömrəsi',
+            dataIndex: 'invoiceNumber',
+            key: 'invoiceNumber',
+        },
+        {
+            title: 'Kod',
+            dataIndex: 'productCode',
+            key: 'productCode',
+        },
+        {
+            title: 'Ad',
+            dataIndex: 'productName',
+            key: 'productName',
+        },
+        {
+            title: 'Brend',
+            dataIndex: 'manufacturerName',
+            key: 'manufacturerName',
+        },
+        {
+            title: 'İstehsalçı kodu',
+            dataIndex: 'manufacturerCode',
+            key: 'manufacturerCode',
+        },
+        {
+            title: 'Say',
+            dataIndex: 'quantity',
+            key: 'quantity',
+            render: (text, record) => (
+                <Space>
+                    <Button icon={<MinusOutlined />} onClick={() => handleQuantityUpdate(record.idHash, record.quantity, false)} />
+                    <Input value={record.quantity} readOnly style={{ width: '40px', textAlign: 'center' }} />
+                    <Button icon={<PlusOutlined />} onClick={() => handleQuantityUpdate(record.idHash, record.quantity, true)} />
+                </Space>
+            ),
+        },
+        {
+            title: 'Qeyd',
+            dataIndex: 'note',
+            key: 'note',
+            render: (text, record) => {
+                let data;
+                return <div className={'d-flex'}>
+                    <Input onChange={(e)=>{
+                        data = e.target.value;
+                    }} placeholder="Enter Note..." defaultValue={record.note}/>
+                    <Tooltip placement={'top'} title={'Yenilə'}>
+                        <Button onClick={() => {
+                            saveDataInputData(data , record);
+                        }} className={'d-flex ms-1 justify-content-center align-items-center'}>
+                            <EditFilled/>
+                        </Button>
+                    </Tooltip>
+                </div>
+
+            }
+        },
+        {
+            title: 'Qaytarış növü',
+            dataIndex: 'returnProductDetailStatusIdHash',
+            key: 'returnProductDetailStatusIdHash',
+            render: (text, record) => (
+                <>
+                    {renderStatusName(text)}
+                </>
+            ),
+        },
+        {
+            title: 'Dəyər',
+            dataIndex: 'formattedPrice',
+            key: 'formattedPrice',
+        },
+        {
+            title: 'Ümumi Dəyər',
+            dataIndex: 'formattedTotalPrice',
+            key: 'formattedTotalPrice',
+        },
+        {
+            title: 'Net Price With VAT',
+            dataIndex: 'formattedTotalVAT',
+            key: 'formattedTotalVAT',
+        },
+        {
+            title: 'Əməliyyat',
+            key: 'action',
+            render: (_, record) => (
+                <Button icon={<DeleteOutlined />} onClick={() => handleDelete(record.idHash)} />
+            ),
+        },
+    ];
 
     return (
-        <>
-            <Spin spinning={loading}>
-                {basketItems.map((Data, index) => (
-                    <div className="w-100 position-relative gy-4 rounded" style={{ padding: "0rem 0rem 0.8rem 0rem" }} key={index}>
-                        <div className="d-flex pe-3 justify-content-between ms-4 mt-3">
-                            {/*<div className={'d-flex align-items-center'}>*/}
-                            {/*    <div className="checkbox me-2">*/}
-                            {/*        <div key={index}>*/}
-                            {/*            <input*/}
-                            {/*                type="checkbox"*/}
-                            {/*                id={`checkbox-${category}`}*/}
-                            {/*                checked={groupedData[category].every((s) => s.basketDetailStatus === 1)}*/}
-                            {/*                onChange={() => {*/}
-                            {/*                    const isChecked = groupedData[category].every((s) => s.basketDetailStatus === 1);*/}
-                            {/*                    handleCategoryChange(isChecked, groupedData[category][0].productType.idHash);*/}
-                            {/*                }}*/}
-                            {/*            />*/}
-                            {/*            <label htmlFor={`checkbox-${category}`} className="checkmark" />*/}
-                            {/*        </div>*/}
-
-                            {/*    </div>*/}
-                            {/*    <div className="text-44 fb-600">*/}
-                            {/*        {category}*/}
-                            {/*    </div>*/}
-                            {/*</div>*/}
-                            {index === 0 && (
-                                <div className="d-flex">
-                                    {/*<button className="AllDel me-3" onClick={() => handleDeleteAll(category)}>*/}
-                                    {/*    <img src={Add_Bin} alt="" />*/}
-                                    {/*    <p className='ms-2'>{t("Basket.table.delete")}</p>*/}
-                                    {/*</button>*/}
-                                    {/*<button className="AllDel" onClick={() => handleDeleteSelected(category)}>*/}
-                                    {/*    <img src={Add_Bin} alt="" />*/}
-                                    {/*    <p className='ms-2'>{t("Basket.table.remove")}</p>*/}
-                                    {/*</button>*/}
-                                </div>
-                            )}
-                        </div>
-
-                        <div className="myContainer">
-                            <div className="row align-items-center rounded bg-white ms-3 mt-4 me-3" key={index}
-                                 style={{height: "120px"}}>
-                                <div className="col-2 d-flex justify-content-between align-items-center">
-                                    <div className="ms-2 checkbox">
-                                        <input
-                                            type="checkbox"
-                                            id={Data.idHash}
-                                            checked={selectedItems.includes(Data.idHash)}
-                                            onChange={() => handleCheckboxChange(Data.idHash)}
-                                        />
-                                        <label htmlFor={Data.idHash} className="checkmark"/>
-                                    </div>
-                                    <img className={'me-4'} src={Data?.defaultContent} width="47px" height="43px"
-                                         alt=""/>
-                                </div>
-                                <div className="col-3 mt-3">
-                                    <div className="w-100 d-flex justify-content-between">
-                                        <div className='d-flex w-75 pe-2'>
-                                            <img style={{height: '20px'}} src={FiTag} alt=""/>
-                                            <p className="OemNo text-44 ms-2">
-                                                {Data?.productCode}
-                                            </p>
-                                        </div>
-                                        {/*<div className="d-flex">*/}
-                                        {/*    <p className="Oem">*/}
-                                        {/*        OEM № :*/}
-                                        {/*        <span className="OemNo">*/}
-                                        {/*                {Data?.oemCode}*/}
-                                        {/*        </span>*/}
-                                        {/*    </p>*/}
-                                        {/*</div>*/}
-                                    </div>
-                                    <div className="d-flex align-items-center justify-content-between w-100 mt-2">
-                                        {/*<div className='d-flex mb-2 align-items-center'>*/}
-                                        {/*    {*/}
-                                        {/*        Data.productStorages?.length > 0 ?*/}
-                                        {/*            <div*/}
-                                        {/*                className="Location2 d-flex mx-4 align-items-center">*/}
-                                        {/*                <Select*/}
-                                        {/*                    size={'small'}*/}
-                                        {/*                    defaultValue="location"*/}
-                                        {/*                    style={{width: 120}}*/}
-                                        {/*                    bordered={false} s*/}
-                                        {/*                    dropdownStyle={{borderRadius: '8px'}}*/}
-                                        {/*                    className="custom-select"*/}
-                                        {/*                    suffixIcon={<img src={Down} alt=""/>}*/}
-                                        {/*                >*/}
-                                        {/*                    {*/}
-                                        {/*                        Data.productStorages.map(function (productStorages) {*/}
-                                        {/*                            return <Option value="location">*/}
-                                        {/*                                <img src={Location} alt=""/>*/}
-                                        {/*                                <span*/}
-                                        {/*                                    style={{marginLeft: '8px'}}>{productStorages.code}</span>*/}
-                                        {/*                            </Option>*/}
-                                        {/*                        })*/}
-                                        {/*                    }*/}
-                                        {/*                </Select>*/}
-                                        {/*            </div>*/}
-
-                                        {/*            : ''*/}
-                                        {/*    }*/}
-
-                                        {/*    <div className="Brend ms-3 d-flex align-items-center">*/}
-                                        {/*        <img src={TagTwo} alt=""/>*/}
-                                        {/*        <p className="BrendTitle ms-1">*/}
-                                        {/*            {Data.product.manufacturerName}*/}
-                                        {/*        </p>*/}
-                                        {/*    </div>*/}
-                                        {/*</div>*/}
-                                        {/*<div className="d-flex align-items-center me-5">*/}
-                                        {/*    {Data.product.vehicleBrands.map((d) => {*/}
-                                        {/*        return <React.Fragment key={d.vehicleBrandIdHash}>*/}
-                                        {/*            <div className="ImgCenters">*/}
-                                        {/*                <img*/}
-                                        {/*                    src={d.vehicleBrandContent}*/}
-                                        {/*                    alt=""/>*/}
-                                        {/*            </div>*/}
-                                        {/*            <p className="brendNo ms-2">*/}
-                                        {/*                {d.vehicleBrandIdName}*/}
-                                        {/*            </p>*/}
-                                        {/*        </React.Fragment>*/}
-                                        {/*    })}*/}
-                                        {/*</div>*/}
-                                    </div>
-                                    <div className="mt-2">
-                                        <h3 className="BrandingName">
-                                            {Data.manufacturerName}
-                                            <span className="BrandingNameTwo">
-                                                    {'   '} {Data.productName}
-                                                </span>
-                                        </h3>
-                                    </div>
-                                </div>
-                                <div className="col-6  d-flex align-items-center">
-                                    <div className="counterCenter">
-                                        <button className="del"
-                                                onClick={() => handleQuantityUpdate(Data.productIdHash, Data.quantity, false)}>
-                                            -
-                                        </button>
-                                        <input type="text" name="" id="" className="counter mx-3"
-                                               value={Data.quantity} readOnly/>
-                                        <button className="plus"
-                                                onClick={() => handleQuantityUpdate(Data.productIdHash, Data.quantity, true)}>
-                                            +
-                                        </button>
-                                    </div>
-
-                                    <div className="counterCenter">
-                                        <input type="text" name="" id="" className="form-control mx-3"
-                                             value={Data.note}/>
-                                        <Button type={'primary'} loading={loading} className="d-flex justify-content-center align-items-center py-2" onClick={() => {
-
-                                        }}>
-                                           <CheckCircleOutlined/>
-                                        </Button>
-                                    </div>
-                                    <div className='d-flex flex-column align-items-end'>
-                                        <button className="none" onClick={() => handleDelete(Data.idHash)}>
-                                        <img width="24px" className='' src={TabloDelete} alt=""/>
-                                        </button>
-                                        <div className="prices2 mt-2">
-                                            {Data.formattedPrice ? (
-                                                <>
-                                                    <p className="Price fb-800">
-                                                        {Data.formattedPrice} {Data?.currencyName}
-                                                    </p>
-                                                    {/*{Data?.price !== Data.formattedDiscountedPrice && (*/}
-                                                    {/*    <del>*/}
-                                                    {/*        <p className="DelPrice">*/}
-                                                    {/*            <del>*/}
-                                                    {/*                {Data.formattedDiscountedPrice}*/}
-                                                    {/*            </del>*/}
-                                                    {/*        </p>*/}
-                                                    {/*    </del>*/}
-                                                    {/*)}*/}
-                                                </>
-                                            ) : (
-                                                <p className="OriginalPrice">
-                                                    {Data.formattedPrice} {Data.currencyName}
-                                                </p>
-                                            )}
-                                            {Data?.formattedDiscountPrice > 0 ? (
-                                                <p className="DelPrice">
-                                                    <del>
-                                                        {Data.del_price}
-                                                    </del>
-                                                </p>
-                                            ) : ''}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+        <Spin spinning={loading}>
+            <div className="return-items-container">
+                <Table
+                    dataSource={returnItems}
+                    columns={columns}
+                    rowKey="idHash"
+                    pagination={false}
+                />
+                <div className="summary-section">
+                    <div className="return-reason">
+                        <h3>Qaytarış səbəbi</h3>
+                        <TextArea
+                            rows={4}
+                            placeholder="Qaytarma Qeydini daxil edin..."
+                            value={returnNote}
+                            onChange={handleChange}
+                            status={error ? 'error' : ''}
+                        />
+                        {error && (
+                            <Text type="danger">
+                                Qeyd tələb olunur.
+                            </Text>
+                        )}
                     </div>
-                ))}
-            </Spin>
-        </>
+                    <div className="total-section border px-4 py-3">
+                        <p>Ümumi Say:{totalPrice.productTotalQuantity} </p>
+                        <p className={'mt-2'}>Ümumi Dəyər:{totalPrice.formattedTotalPrice} </p>
+                        <Button onClick={()=>{
+                            sendReturn()
+                        }} style={{background:"#182390"}} className={'mt-4'} type="primary" icon={<CheckCircleOutlined />}>Göndər</Button>
+                    </div>
+                </div>
+            </div>
+            <style jsx>{`
+                .return-items-container {
+                    background-color: #fff;
+                    border-radius: 8px;
+                    width: 100%;
+                }
+                .summary-section {
+                    display: flex;
+                    justify-content: space-between;
+                    padding-top: 20px;
+                    border-top: 1px solid #ddd;
+                    margin-top: 20px;
+                }
+                .total-section {
+                    text-align: right;
+                }
+                .return-reason {
+                    width: 50%;
+                }
+            `}</style>
+        </Spin>
     );
 };
 
-export default BasketItems;
+export default ReturnItems;

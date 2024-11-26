@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Link , useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Images from '../../../Assets/images/js/Images';
 import { useAuth } from "../../../AuthContext";
-import { Tooltip, Spin, List, Modal, Select, Table, Button , InputNumber } from "antd";
+import { Tooltip, Spin, List, Modal, Select, Table, Button, InputNumber } from "antd";
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { BasketApi } from "../../../api/basket.api";
 import { useTranslation } from 'react-i18next';
@@ -19,7 +19,7 @@ const CardItem = ({ d, classes }) => {
     const [loading, setLoading] = useState(false);
     const [responseData, setResponseData] = useState([]);
     const { FiTag, Location, Return, Vector2, Heart, Endirim } = Images;
-    const { openNotification  ,  updateReturnData , returnData} = useAuth();
+    const { openNotification, updateReturnData, returnData } = useAuth();
 
     useEffect(() => {
         setQuantity(d.minOrderAmount);
@@ -39,7 +39,9 @@ const CardItem = ({ d, classes }) => {
                 openNotification('Xəta baş verdi', err.response?.data?.message || 'Server xətası', true);
             })
             .finally(() => {
-                setLoading(false);
+                setTimeout(() => {
+                    setLoading(false);
+                }, 5000);
             });
     };
 
@@ -48,9 +50,15 @@ const CardItem = ({ d, classes }) => {
         setIsReturnModalVisible(true);
         setLoading(true);
 
-        BasketApi.ReturnProduct({ productIdHash:  'j9tq8UB_+bM=' })
+        BasketApi.ReturnProduct({ productIdHash: 'j9tq8UB_+bM=' })
             .then((response) => {
-                setResponseData(response);
+                setResponseData(response.map((r, index) => {
+                    return {
+                        ...r,
+                        index: index + 1,
+                        returnQuantity: r.quantity
+                    }
+                }));
             })
             .catch((error) => {
                 openNotification('Xəta baş verdi', error.response?.data?.message || 'Server xətası', true);
@@ -63,17 +71,17 @@ const CardItem = ({ d, classes }) => {
     // Handle Add Return Product Card
     const handleAddReturnProductCard = (text, record) => {
         setLoading(true);
-        BasketApi.AddReturnProductCard({...record})
+        BasketApi.AddReturnProductCard({ ...record })
             .then((res) => {
                 openNotification('Əlavə edildi', 'Məhsul kartı geri bildirməyə əlavə edildi', false);
                 setIsReturnModalVisible(false);
                 updateReturnData(res)
-                setTimeout(()=>{
+                setTimeout(() => {
                     navigate('/return')
                 })
             })
             .catch((error) => {
-                console.error('error' , error)
+                console.error('error', error)
                 openNotification('Xəta baş verdi', error.response?.data?.message, true);
             })
             .finally(() => {
@@ -98,9 +106,11 @@ const CardItem = ({ d, classes }) => {
     // Handle inline quantity change in the table
     const handleTableQuantityChange = (value, record) => {
         const updatedData = responseData.map(item => {
-            if (item.productIdHash === record.productIdHash) {
+            if (item.invoiceNumber === record.invoiceNumber) {
+                console.log(value);
+                console.log(item.price);
                 const newTotalPrice = value * item.price;
-                return { ...item, quantity: value, totalPrice: newTotalPrice };
+                return { ...item, returnQuantity: value, totalPrice: newTotalPrice };
             }
             return item;
         });
@@ -109,33 +119,44 @@ const CardItem = ({ d, classes }) => {
 
     // Columns for the Return Product Table
     const columns = [
-        { title: 'Product ID', dataIndex: 'productIdHash', key: 'productIdHash' },
+        { title: '', dataIndex: 'index', key: 'index' },
         { title: 'Product Name', dataIndex: 'productName', key: 'productName' },
         { title: 'Product Code', dataIndex: 'productCode', key: 'productCode' },
-        { title: 'Invoice Date', dataIndex: 'invoiceDate', key: 'invoiceDate',
+        { title: 'Invoice Number', dataIndex: 'invoiceNumber', key: 'invoiceNumber' },
+        {
+            title: 'Invoice Date', dataIndex: 'invoiceDate', key: 'invoiceDate',
             render: (text, record) => (
-              <>{ moment(text).format('DD.MM.YYYY HH:MM') }</>
+                <>{moment(text).format('DD.MM.YYYY HH:MM')}</>
             ),
         },
-        { title: 'Customer ID', dataIndex: 'customerIdIdHash', key: 'customerIdHash' },
-        { title: 'Customer Name', dataIndex: 'customerName', key: 'customerName' },
         {
             title: 'Quantity',
             dataIndex: 'quantity',
             key: 'quantity',
+        },
+        {
+            title: 'Return Quantity',
+            dataIndex: 'returnQuantity',
+            key: 'returnQuantity',
             render: (text, record) => (
                 <InputNumber
                     min={1}
-                    value={text}
+                    value={record.returnQuantity}
                     onChange={(value) => handleTableQuantityChange(value, record)}
                 />
             ),
         },
-        { title: 'Price', dataIndex: 'price', key: 'price' },
-        { title: 'Total Price', dataIndex: 'totalPrice', key: 'totalPrice' },
-        { title: '', dataIndex: 'productIdHash', key: 'productIdHash' ,
+        {
+            title: 'Price', dataIndex: 'price', key: 'price',
             render: (text, record) => (
-                <Button key="submit" type="primary" loading={loading} onClick={()=>{
+                <>{text} azn</>
+            ),
+        },
+        { title: 'Total Price', dataIndex: 'totalPrice', key: 'totalPrice' },
+        {
+            title: '', dataIndex: 'productIdHash', key: 'productIdHash',
+            render: (text, record) => (
+                <Button key="submit" type="primary" loading={loading} onClick={() => {
                     handleAddReturnProductCard(text, record)
                 }}>
                     Səbətə At
@@ -147,12 +168,13 @@ const CardItem = ({ d, classes }) => {
     return (
         <div className={`d-block text-decoration-none position-relative ${classes}`} key={d.idHash}>
             <div className="CartCenterMain">
-                {d.discount > 0 && (
+                {d.price?.formattedDiscountPrice > 0 && (
                     <div className="position-absolute" style={{ left: "-21px", top: "-17px" }}>
                         <img src={Endirim} alt="Discount" />
-                        <p className="text-white position-absolute discount">{d.discountTitle}% endirim</p>
+                        <p className="text-white position-absolute discount">{d.price?.discountRate} endirim</p>
                     </div>
                 )}
+
 
                 <div className="ImgTitleMain">
                     <div className="ImgBrendingTitle">
@@ -171,9 +193,11 @@ const CardItem = ({ d, classes }) => {
                             <div className="d-flex">
                                 {d.vehicleBrands.map((s, index) => (
                                     <span className="TagTwo" key={index}>
-                                        <div className="ImgCenters">
-                                            <img src={`${s.vehicleBrandContent}`} alt="Brand" />
-                                        </div>
+                                        <Tooltip title={s.vehicleBrandIdName}>
+                                            <div className="ImgCenters">
+                                                <img src={`${s.vehicleBrandContent}`} alt="Brand" />
+                                            </div>
+                                        </Tooltip>
                                     </span>
                                 ))}
                                 <Tooltip
@@ -184,53 +208,65 @@ const CardItem = ({ d, classes }) => {
                                     <InfoCircleOutlined className="text-dark ms-2" />
                                 </Tooltip>
                             </div>
+
                         </div>
+                    </div>
+                    <div className="OemTextCenter">
+                        <p className="Oem">
+                            OEM № :
+                            <p className="OemNo">
+                                {d.oemCode}
+                            </p>
+                        </p>
                     </div>
                 </div>
 
-                <div className="LocationBrendNameCenter">
-                    <div className="d-flex LocationBrend">
-                        {d?.storages?.length > 0 && (
-                            <div className="Location">
-                                <p className="LocationName d-flex">
-                                    <Select
-                                        size="small"
-                                        style={{
-                                            backgroundColor: '#f0f0f0',
-                                            border: 'none',
-                                            borderRadius: '30px',
-                                            padding: '5px 0px',
-                                        }}
-                                        dropdownStyle={{ backgroundColor: '#f0f0f0' }}
-                                        className="custom-select2"
-                                        defaultValue={d?.storages[0]?.storageIdHash}
-                                        optionFilterProp="children"
-                                    >
-                                        {d?.storages?.map((s) => (
-                                            <Option  key={s.valueHash} 
-                                            value={s.storageIdHash}
-                                            >
-                                                <img src={Location} alt="Location" />
-                                                <span style={{ marginLeft: '8px' }}>{s.storageCode}</span>
-                                            </Option>
-                                        ))}
-                                    </Select>
-                                </p>
-                            </div>
-                        )}
-                        <div className="Brend">
-                            <img height="18px" src={d.manufacturerContent} alt="Manufacturer" />
-                            <p className="BrendTitle">{d.manufacturerName}</p>
-                        </div>
-                    </div>
 
-                    <div className="Returun">
-                        <a  onClick={()=>{
-                            showReturnModal()
-                        }} className="text-decoration-none" >
-                            <img src={Return} alt="Return" />
-                            <p className="ReturunTitle">{t("Global.return")}</p>
-                        </a>
+                <div className="LocationBrendNameCenter">
+                    <div className="d-flex w-100 flex-wrap justify-content-between my-2" style={{padding:"0 10px",marginLeft:"9px",gap:"10px"}}>
+                        <div className="d-flex LocationBrend">
+                            {d?.storages?.length > 0 && (
+                                <div className="Location">
+                                    <p className="LocationName d-flex">
+                                        <Select
+                                            size="small"
+                                            style={{
+                                                backgroundColor: '#f0f0f0',
+                                                border: 'none',
+                                                borderRadius: '30px',
+                                                padding: '5px 0px',
+                                            }}
+                                            dropdownStyle={{ backgroundColor: '#f0f0f0' }}
+                                            className="custom-select2"
+                                            defaultValue={d?.storages[0]?.storageIdHash}
+                                            optionFilterProp="children"
+                                        >
+                                            {d?.storages?.map((s) => (
+                                                <Option key={s.valueHash}
+                                                    value={s.storageIdHash}
+                                                >
+                                                    <img src={Location} alt="Location" />
+                                                    <span style={{ marginLeft: '8px' }}>{s.storageCode}</span>
+                                                </Option>
+                                            ))}
+                                        </Select>
+                                    </p>
+                                </div>
+                            )}
+                            <div className="Brend">
+                                <img height="18px" src={d.manufacturerContent} alt="Manufacturer" />
+                                <p className="BrendTitle">{d.manufacturerName}</p>
+                            </div>
+                        </div>
+
+                        <div className="Returun">
+                            <a onClick={() => {
+                                showReturnModal()
+                            }} className="text-decoration-none" >
+                                <img src={Return} alt="Return" />
+                                <p className="ReturunTitle">{t("Global.return")}</p>
+                            </a>
+                        </div>
                     </div>
                 </div>
 
@@ -244,37 +280,45 @@ const CardItem = ({ d, classes }) => {
                         </h3>
                     </div>
                 </Link>
+                <div className="d-flex w-100 mt-2">
+                    <div className="PriceCounter">
+                        <div className="prices">
+                            {d.price?.formattedDiscountPrice > 0 ? (
+                                <>
+                                    <p className="DelPrice">
+                                        <del>{d.price?.value} {d.price?.currencyName}</del>
+                                    </p>
+                                    <p className="Price fb-800">
+                                        {d.price?.formattedDiscountPrice} {d.price?.currencyName}
+                                    </p>
+                                </>
+                            ) : (
+                                <p className="Price fb-800">
+                                    {d.price?.value} {d.price?.currencyName}
+                                </p>
+                            )}
+                        </div>
 
-                <div className="PriceCounter">
-                    <div className="prices">
-                        {d.price.formattedDiscountPrice > 0 && (
-                            <p className="DelPrice">
-                                <del>{d.price?.formattedDiscountedPrice} {d.price?.currencyName}</del>
-                            </p>
-                        )}
-                        <p className="Price fb-800">
-                            {d.price.value} {d.price?.currencyName}
-                        </p>
-                    </div>
 
-                    <div className="counterCenter">
-                        <button className="del" onClick={decrementQuantity}>-</button>
-                        <input
-                            value={quantity}
-                            pattern="[0-9]*"
-                            onChange={(e) => {
-                                const newQuantity = e.target.value.replace(/[^0-9]/g, '');
-                                setQuantity(Number(newQuantity) >= d.minOrderAmount ? Number(newQuantity) : d.minOrderAmount);
-                            }}
-                            className="counter mx-3"
-                            style={{ width: `${Math.max(3, quantity.toString().length)}ch` }}
-                        />
-                        <button className="plus" onClick={incrementQuantity}>+</button>
+                        <div className="counterCenter">
+                            <button className="del" onClick={decrementQuantity}>-</button>
+                            <input
+                                value={quantity}
+                                pattern="[0-9]*"
+                                onChange={(e) => {
+                                    const newQuantity = e.target.value.replace(/[^0-9]/g, '');
+                                    setQuantity(Number(newQuantity) >= d.minOrderAmount ? Number(newQuantity) : d.minOrderAmount);
+                                }}
+                                className="counter mx-3"
+                                style={{ width: `${Math.max(3, quantity.toString().length)}ch` }}
+                            />
+                            <button className="plus" onClick={incrementQuantity}>+</button>
+                        </div>
                     </div>
                 </div>
 
                 <div className="BasketLikeCenter my-2">
-                    <button className="Basket" onClick={() => handleAddToCart(d)}>
+                    <button disabled={loading} className="Basket" onClick={() => handleAddToCart(d)}>
                         {loading ? <Spin className="custom-spin" size="small" /> : ''}
                         <img src={Vector2} alt="Add to Basket" />
                         <p className="BasketTitle">{t("Global.basket")}</p>
@@ -296,11 +340,10 @@ const CardItem = ({ d, classes }) => {
                 </List>
             </Modal>
 
-            {/* Return Product Modal */}
             <Modal
-                width="95vw" // Extra-large width
+                width="95vw"
                 style={{ top: 20 }}
-                title="Return Product Details"
+                title="Geri qaytarılma"
                 visible={isReturnModalVisible}
                 onCancel={() => setIsReturnModalVisible(false)}
                 footer={[

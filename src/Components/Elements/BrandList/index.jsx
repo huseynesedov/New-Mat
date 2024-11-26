@@ -2,6 +2,7 @@ import Slider from "react-slick";
 import React, {useEffect, useState} from "react";
 import {CatalogApi} from "../../../api/catalog.api";
 import { useTranslation } from "react-i18next";
+import {Tooltip} from "antd";
 const BrandList = () => {
     const settings = {
         className: "center",
@@ -41,14 +42,16 @@ const BrandList = () => {
                 <Slider {...settings}>
                         {list.map((s,i)=>{
                             return (
-                                <div key={i} className="BrandCircle">
-                                    <img className="BrandImg"
-                                         src={s.url}
-                                         alt=""/>
-                                </div>
+                                <Tooltip placement={'top'} title={s.displayText}>
+                                    <div key={i} className="BrandCircle">
+                                        <img className="BrandImg"
+                                             src={s.url}
+                                             alt=""/>
+                                    </div>
+                                </Tooltip>
                             )
                         })}
-                    </Slider>
+                </Slider>
                 </div>
             </div>
         </div>

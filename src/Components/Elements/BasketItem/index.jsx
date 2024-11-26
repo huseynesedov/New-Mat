@@ -158,7 +158,7 @@ const ReturnItems = ({ basketItems, getBasketItems, getTotalPrice, setBasketItem
 
         setLoading(true);
 
-        BasketApi.UpdateQuantity({ quantity: `${quantity}`, productId })
+        BasketApi.UpdateQuantity({ quantity: `${quantity}`, productId: encodeQueryParam(productId) })
             .then(() => {
                 getBasketItems();
                 getTotalPrice();

@@ -17,7 +17,7 @@ const Profile = () => {
     const { t } = useTranslation();
     const [loading, setLoading] = useState(false);
 
-    let { user, mail, location, tel, pen, NewAddress, Add_Bin, SearchBar } = images;
+    let { User, mail, location, tel, pen, NewAddress, Add_Bin, SearchBar } = images;
 
     const [ShowNewAddres, setShowNewAddres] = useState(false);
     const [isFlex, setIsFlex] = useState(false);
@@ -82,9 +82,8 @@ const Profile = () => {
                 console.log("API response:", response); // API cevabını konsola yazdırıyoruz
                 setData({ ...response, idHash }); // response ile birlikte idHash'i de kaydediyoruz
             } catch (error) {
-                if (error.response && error.response.status === 401) {
-                    console.warn("Unauthorized access, logging out..."); // 401 hatasında çıkış yapılıyor
-                    logout();
+                if (error.response.data.status === 2017) {
+                    logout()
                 } else {
                     console.error("Error fetching user data:", error); // Diğer hatalar
                 }
@@ -158,7 +157,7 @@ const Profile = () => {
                                 <div className="mat-ProfilCenter">
 
                                     <div className="mat-Profil">
-                                        <img src={user} alt="" />
+                                        <img height={'100%'} src={User} alt="" />
                                     </div>
                                     <div className="mat-UserInformationCenter">
                                         <div className="mat-UserName">

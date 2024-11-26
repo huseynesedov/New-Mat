@@ -69,6 +69,7 @@ export const apiRoutes = {
         updateStatusByProductTypeId: '/basket/v1/BasketDetail/UpdateStatusByProductTypeId',
         returnProduct: '/basket/v1/ReturnProductCardDetail/ReturnProduct',
         addReturnProductCard: '/basket/v1/ReturnProductCardDetail/Add',
+        addReturnProduct: '/basket/v1/ReturnProductCard/Add',
         returnProductCardDetail: {
             deleteById: '/basket/v1/ReturnProductCardDetail/DeleteById',
             encrypt: '/basket/v1/ReturnProductCardDetail/Encrypt',
@@ -115,5 +116,22 @@ export const apiRoutes = {
     },
     storage:{
         storageGetList: '/catalog/v1/Storage/GetList',
+    },
+    // ProductHealthStatus
+    productHealthStatus: {
+        getProductHealthStatusList: '/catalog/v1/ProductHealthStatus/GetProductHealthStatusList',
+        test: '/catalog/v1/ProductHealthStatus/Test',
+    },
+
+    // ReturnProductDetailStatus
+    returnProductDetailStatus: {
+        getReturnProductDetailStatusList: '/catalog/v1/ReturnProductDetailStatus/GetReturnProductDetailStatusList',
+        test: '/catalog/v1/ReturnProductDetailStatus/Test',
+    },
+
+    // ReturnProductStatus
+    returnProductStatus: {
+        getReturnProductStatusList: '/catalog/v1/ReturnProductStatus/GetReturnProductStatusList',
+        test: '/catalog/v1/ReturnProductStatus/Test',
     },
 };

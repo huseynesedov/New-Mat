@@ -112,7 +112,7 @@
 
 .ImgBrendingTitle {
     width: 95%;
-    height: 81px;
+    /* height: 81px; */
     display: flex;
     align-items: center;
     margin-top: 15.118110236px;
@@ -134,19 +134,29 @@
     width: 200px;
 }
 
+
+.Tag {
+    display: flex;
+    align-items: center;
+    /* word-wrap: break-word; */
+    /* veya */
+    /* overflow-wrap: break-word; */
+    /* white-space: normal; */
+}
+
 .OemNo {
     font-weight: 600;
     margin-left: 10px;
-    display: box;
-    white-space: nowrap;
+    /* display: box; */
+    /* white-space: nowrap; */
     /* Metnin tek satırda kalmasını sağlar */
-    overflow: hidden;
+    /* overflow: hidden; */
     /* Taşan metni gizler */
-    text-overflow: ellipsis;
+    /* text-overflow: ellipsis; */
     /* Metnin sonunda üç nokta ekler */
     display: -webkit-box;
-    -webkit-box-orient: vertical;
-    overflow: hidden !important;
+    /* -webkit-box-orient: vertical; */
+    /* overflow: hidden !important; */
     text-overflow: ellipsis;
     -webkit-line-clamp: 1;
     line-clamp: 1;
@@ -159,35 +169,27 @@
 
 
 .ImgFocus {
-    width: 42%;
-    height: 100%;
-    /* border: 1px solid black; */
+    width: 87px;
+    height: 84px;
+    img{
+        width: 100%;
+        height: 100%;
+    }
 }
 
-.ImgFocus img {
-    /* border-radius: 10px; */
-    width: 100%;
-    height: 100%;
-
-}
 
 .TitleCenter {
-    width: 53%;
-    height: 75.5%;
+    width: 66%;
     display: flex;
     justify-content: space-between;
     flex-direction: column;
     /* border: 1px solid blue; */
+    div:nth-child(2){
+        margin-top:13px;
+    }
 }
 
-.Tag {
-    display: flex;
-    align-items: center;
-    word-wrap: break-word;
-    /* veya */
-    overflow-wrap: break-word;
-    white-space: normal;
-}
+
 
 .Tag img {
     margin-right: 7px;
@@ -218,7 +220,6 @@
 
 
 .LocationBrendNameCenter {
-    padding: 10px 2px;
     border-bottom: 2px solid #E2E8F0;
     display: flex;
     align-items: center;
@@ -232,11 +233,8 @@
 }
 
 .LocationBrend {
-    height: 23px;
     display: flex;
     align-items: center;
-    margin-left: 10px;
-    /* border: 1px solid black; */
 }
 
 .Location {
@@ -253,13 +251,12 @@
 
 .Returun {
     padding: 1px 6px;
-    height: 70%;
     display: flex;
     border: 1px solid #E53E3E;
     border-radius: 5px;
     align-items: center;
     justify-content: center;
-    margin-right: 10px;
+    margin-right: 7px;
 }
 
 .ReturunTitle {
@@ -269,10 +266,11 @@
 }
 
 .Brend {
-    height: 15.62px;
     display: flex;
-    align-items: center;
-    /* border: 1px solid black; */
+    align-items: end;
+    p{
+        margin-left: 4px;
+    }
 }
 
 
@@ -452,8 +450,8 @@ a {
 
 .discount {
     left: 20px;
-    top: 26px;
-    transform: rotate(321deg);
+    top: 28px;
+    transform: rotate(322deg);
     font-size: 9px;
     font-weight: bold;
 }
