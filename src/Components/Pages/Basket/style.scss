@@ -86,7 +86,7 @@
 .myContainer {
     display: flex;
     flex-direction: column;
-    background-color: #F2F2F2 !important;
+    background-color: #F2F2F2 ;
 }
 
 .myContainer2 {
@@ -94,7 +94,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #F2F2F2 !important;
+    background-color: #F2F2F2 ;
     .col{
         width: 90% !important;
         display: flex;

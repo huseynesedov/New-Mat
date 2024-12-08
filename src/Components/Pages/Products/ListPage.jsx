@@ -140,8 +140,8 @@ function Home() {
             </Helmet>
 
 
-            <div className="container-fluid d-flex justify-content-center mt-5">
-                <div className="myRow flex-nowrap align-items-start mt-5 d-flex justify-content-between">
+            <div className="container-fluid mt-5">
+                <div className="myRow w-100 flex-nowrap align-items-start mt-5 d-flex justify-content-between">
                     <div className="myContainer2 rounded">
 
                         <Filters

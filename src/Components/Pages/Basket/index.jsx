@@ -155,8 +155,8 @@ const Basket = () => {
 
     return (
         <>
-            <div className="container-fluid d-flex justify-content-center">
-                <div className="myRow mt-5">
+            <div className="container-fluid ">
+                <div className="myRow w-100 mt-5">
                     <p className="text-44 f-24 fb-600">
                         {t("Basket.order")}
                     </p>
@@ -168,16 +168,16 @@ const Basket = () => {
                     {
                         basketItems.length === 0 ?
                             <div style={{ height: '60vh' }} className="d-flex justify-content-center align-items-center empty-basket">Səbət boşdur</div>
-                            : <div className="container-fluid d-flex justify-content-center mt-5">
-                                <div className="myRow d-flex align-items-start justify-content-between">
+                            : <div className="container-fluid  mt-5">
+                                <div className="myRow w-100 d-flex align-items-start justify-content-between">
                                     <div className="myContainer background-transparent w-75 position-relative rounded"
-                                        style={{ padding: "0rem 0rem 0.8rem 0rem" }}>
+                                        style={{ padding: "0rem 0rem 0.8rem 0rem", background:'transparent !important' }}>
                                         <BasketItems basketItemStatus={basketItemStatus} setBasketItems={setBasketItems} getBasketItems={getBasketItems} getTotalPrice={getTotalPrice} basketItems={basketItems} />
                                     </div>
 
                                     <div className="myContainer2 background-transparent rounded">
                                         <div className="col ">
-                                            <div className="row mt-5">
+                                            <div className="row">
                                                 <div className="myRow2">
                                                     <Select
                                                         size={'large'}
