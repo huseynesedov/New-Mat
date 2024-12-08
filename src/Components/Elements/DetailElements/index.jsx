@@ -4,12 +4,25 @@ import { useParams, Link } from 'react-router-dom';
 import Images from '../../../Assets/images/js/Images';
 import { FaHeart } from "react-icons/fa";
 import { ProductApi } from "../../../api/product.api";
+import Slider from "react-slick";
 import { BasketApi } from "../../../api/basket.api";
 import { useAuth } from "../../../AuthContext";
 import { useTranslation } from "react-i18next";
 
-const DetailElements = () => {
+const DetailElements = ({setDetailData}) => {
     const { t } = useTranslation();
+    const settings = {
+        className: "center",
+        infinite: true,
+        centerPadding: "60px",
+        slidesToShow: 6,
+        autoplay: true,
+        autoplaySpeed: 2000,
+        swipeToSlide: true,
+        slidesToScroll: 1,
+        vertical: true, // Enable vertical scrolling
+        verticalSwiping: true, // Enable swiping for vertical mode
+    };
     const { openNotification, logout } = useAuth()
     const { id } = useParams(); // URL'den ID'yi alırıq
     let idHash = id
@@ -26,7 +39,7 @@ const DetailElements = () => {
     ],)
     let [quantity, setQuantity] = useState(1); // Default şəkil
     let [loading, setLoading] = useState(true); // Default şəkil
-    let [loadingBasket, setLoadingBasket] = useState(true); // Default şəkil
+    let [loadingBasket, setLoadingBasket] = useState(false); // Default şəkil
     let [error, setError] = useState(false); // Default şəkil
     const [hoverRating, setHoverRating] = useState(0); // hover edildikdə tutulan rating
     const [isFavorite, setIsFavorite] = useState(false); // Favorite state
@@ -46,22 +59,37 @@ const DetailElements = () => {
                 setSelectedImage(response?.defaultContent);
                 setFeatures([
                     {
-                        name: t("Product-Detail.table.car"), value: response?.vehicleBrands.map((s) => {
-                            return <span> {s?.vehicleBrandIdName} </span>
+                        name: t("Product-Detail.table.car"), value: response?.vehicleBrands.map((s , i) => {
+                            return <p> {s?.vehicleBrandIdName}</p>
                         })
                     },
-                    { name: t("Product-Detail.table.manufacturer"), value: response?.manufacturerCode },
+                    {
+                        name: t("Product-Detail.table.carbrand"), value: response?.vehicleModels.map((s) => {
+                            return <p> {s.vehicleModelIdName}</p>
+                        })
+                    },
+                    { name: t("Product-Detail.table.manufacturer"), value: response?.manufacturerName },
                     { name: t("Product-Detail.table.qem"), value: response?.oemCode },
                     { name: t("Product-Detail.table.code"), value: response?.code },
                     { name: t("Product-Detail.table.name"), value: response?.name },
-                    { name: t("Product-Detail.table.brand"), value: response?.manufacturerName },
+                    { name: t("Product-Detail.table.brand"), value: response?.description },
                     {
-                        name: t("Product-Detail.table.carbrand"), value: response?.vehicleModels.map((s) => {
-                            return <span> {s.vehicleModelIdName}, </span>
+                        name: t("Product-Detail.table.availability"), value: response?.vehicleModels.map((s) => {
+                            return <>
+                                <img src={Location_gray} alt=""/>
+                                <div className={'d-flex flex-wrap'}>
+                                    {response.storages.map((s, i) => {
+                                        return <p className="ms-1">{i !== 0 ? ',' : ''} {s.storageCode}</p>
+                                    })}
+                                </div>
+                            </>
                         })
                     },
-                    { name: t("Product-Detail.table.availability"), value: response?.status ? 'Var' : 'Yoxdur' }
+                    { name: 'Endirim', value: response?.discountRate },
+                    { name: 'Dəyər', value: response?.formattedPrice + ' ' + response.currencyName},
+                    { name: 'Endirimli dəyər', value: response?.formattedDiscountedPrice + ' ' + response.currencyName},
                 ])
+                setDetailData(response)
                 setLoading(false)
                 setError(false)
             } catch (error) {
@@ -90,7 +118,7 @@ const DetailElements = () => {
         // if (productData && productData.carouselImages && productData.carouselImages.length > 0) {
         //     setSelectedImage(productData.carouselImages[0].img);
         // }
-        setSelectedImage(productData?.picture);
+        setSelectedImage(productData?.defaultContent);
 
     }, [productData]);
 
@@ -161,25 +189,31 @@ const DetailElements = () => {
                         style={{ width: "39.3%", height: "655px" }}>
                         {/* imgs carousel */}
                         <div className="col-1 d-flex flex-column justify-content-between ms-3 p-0"
-                            style={{ width: "97px", height: "420px" }}>
-                            {productData?.contents?.length > 0 ? productData.contents.map((imageObj, index) => (
-                                <button key={index} className="none" onClick={() => handleImageClick(imageObj)}>
+                            style={{ width: "97px" }}>
+                            <Slider {...settings}>
+                                {productData?.contents?.length > 0 ? productData.contents.map((imageObj, index) => (
+                                    <button key={index} className="none" onClick={() => handleImageClick(imageObj)}>
+                                        <div className="d-flex border rounded w-100"
+                                             style={{height: "97px", padding: "6px"}}>
+                                            <img className="w-100" src={imageObj} alt={`carousel-img-${index}`}/>
+                                        </div>
+                                    </button>
+                                )) : ''
+                                }
+                                <button className="none" onClick={() => handleImageClick(productData.defaultContent)}>
                                     <div className="d-flex border rounded w-100"
-                                        style={{ height: "97px", padding: "6px" }}>
-                                        <img className="w-100" src={imageObj} alt={`carousel-img-${index}`} />
+                                         style={{height: "97px", padding: "6px"}}>
+                                        <img className="w-100" src={productData.defaultContent} alt={`carousel-img-123}`}/>
                                     </div>
                                 </button>
-                            )) : ''
-                            }
-                            <div className="d-flex border rounded w-100" style={{ height: "97px", padding: "6px" }}>
-                                <img className="w-100 h-100" src={productData?.defaultContent}
-                                    alt={`carousel-img-0`} />
-                            </div>
+                            </Slider>
+
+
                         </div>
 
                         {/* img container start */}
-                        <div className="col-1 me-5" style={{ width: "325px", height: "300px" }}>
-                            <img className="w-100" src={productData?.defaultContent} alt="selected-carousel" />
+                        <div className="col-1 me-5" style={{width: "325px", height: "300px" }}>
+                            <img className="w-100" src={selectedImage} alt="selected-carousel" />
                         </div>
                         {/* img container end */}
                     </div>
@@ -188,7 +222,7 @@ const DetailElements = () => {
                             <div className="col-1 d-flex flex-column" style={{ width: "490px" }}>
                                 <span className="d-flex">
                                     <img src={FiTag} alt="" />
-                                    <p className="OemNo text-44 ms-2">{productData.oemCode}</p>
+                                    <p className="OemNo text-44 ms-2">{productData.manufacturerCode}</p>
                                 </span>
                                 <span className="mt-1 text-44">
                                     <p className="Oem Oem2 d-flex align-items-baseline">
@@ -235,18 +269,10 @@ const DetailElements = () => {
                                         {features.map((feature, index) => (
                                             <tr key={index} className="border-E9">
                                                 <th className="row-header f-14">{feature.name}</th>
-                                                <td className="ms-1">{feature.value} </td>
+                                                <td className="ms-1 d-flex align-items-center">{feature.value} </td>
                                             </tr>
                                         ))}
-                                        <tr className="border-E9">
-                                            <th className="row-header f-14">Mövcudluğu</th>
-                                            <td className="ms-1 d-flex align-items-center">
-                                                <img src={Location_gray} alt="" />
-                                                {productData.storages.map((s, i) => {
-                                                    return <p className="ms-1">{i !== 0 ? ',' : ''} {s.storageCode}</p>
-                                                })}
-                                            </td>
-                                        </tr>
+
                                     </tbody>
                                 </table>
                             </div>
@@ -270,7 +296,7 @@ const DetailElements = () => {
                                     </button>
                                 </div>
 
-                                <div className="col-8 d-flex justify-content-between align-items-center">
+                                <div className="col-8 d-flex justify-content-end align-items-center">
                                     <div onClick={() => {
                                         addToBasket()
                                     }}
@@ -279,18 +305,18 @@ const DetailElements = () => {
                                         {loadingBasket ? <Spin className="custom-spin" size="small" /> : ''}
                                         <button disabled={loadingBasket} className="none">{t("Global.basket")}</button>
                                     </div>
-                                    <Link to="">
-                                        <div className="d-flex">
-                                            <div className="Heart2" onClick={toggleFavorite}>
-                                                {/* Heart border gray */}
-                                                {isFavorite ? (
-                                                    <FaHeart className='text-danger f_28' />
-                                                ) : (
-                                                    <img src={Heart2} alt="Heart" />
-                                                )}
-                                            </div>
-                                        </div>
-                                    </Link>
+                                    {/*<Link to="">*/}
+                                    {/*    <div className="d-flex">*/}
+                                    {/*        <div className="Heart2" onClick={toggleFavorite}>*/}
+                                    {/*            /!* Heart border gray *!/*/}
+                                    {/*            {isFavorite ? (*/}
+                                    {/*                <FaHeart className='text-danger f_28' />*/}
+                                    {/*            ) : (*/}
+                                    {/*                <img src={Heart2} alt="Heart" />*/}
+                                    {/*            )}*/}
+                                    {/*        </div>*/}
+                                    {/*    </div>*/}
+                                    {/*</Link>*/}
                                 </div>
                             </div>
                         </div>

@@ -30,8 +30,9 @@ const ProductStatus = ({ status, orderStatusName, orderStatusIdHash }) => {
     borderRadius: '6px',
     color: 'white',
     backgroundColor: bgColor,
-    display: 'flex',
-    alignItems: 'center',
+    width:'171px',
+    textAlign: 'center',
+    fontSize: '15px',
   };
 
   return (
@@ -242,12 +243,12 @@ const Orders = () => {
                     <th>{t("Orders.table.number")}</th>
                     <th>{t("Orders.table.date")}</th>
                     <th>{t("Orders.table.date2")}</th>
-                    <th>{t("Orders.table.status")}</th>
+                    <th style={{ textAlign: "center" }}>{t("Orders.table.status")}</th>
                     <th>{t("Orders.table.record")}</th>
                     <th>{t("Orders.table.deliveriy")}</th>
-                    <th>{t("Orders.table.explanation")}</th>
-                    <th>{t("Orders.table.warehouse")}</th>
-                    <th>{t("Orders.table.total")}</th>
+                    <th style={{ textAlign: "center" }}>{t("Orders.table.explanation")}</th>
+                    <th style={{ textAlign: "center" }}>{t("Orders.table.warehouse")}</th>
+                    <th style={{ textAlign: "center" }}>{t("Orders.table.total")}</th>
                     <th></th>
                   </tr>
                 </thead>
@@ -257,14 +258,14 @@ const Orders = () => {
                       <td>{product.orderNumber}</td>
                       <td>{moment(product.createdDate).format('DD-MM-YYYY HH:MM')}</td>
                       <td>{product.confirmDate}</td>
-                      <td className="d-flex">
+                      <td style={{ textAlign: "center" }}>
                         <ProductStatus orderStatusName={product.orderStatusName} orderStatusIdHash={product.orderStatusIdHash} />
                       </td>
                       <td style={{ textAlign: "center" }}>{product.note}</td>
-                      <td style={{ textAlign: "center" }}>{product.shipmentNote}</td>
-                      <td>{product.causeOfDeletion}</td>
-                      <td>{product.storageCode}</td>
-                      <td>{product.total} {product.currencyName}</td>
+                      <td style={{ textAlign: "center" , width:'150px'}}>{product.shipmentNote}</td>
+                      <td style={{ textAlign: "center" }}>{product.causeOfDeletion}</td>
+                      <td style={{ textAlign: "center" }}>{product.storageCode}</td>
+                      <td style={{ textAlign: "center" }}>{product.total} {product.currencyName}</td>
                       <td className="d-flex align-items-center">
                         <Link className="text-decoration-none mb-5" to={`/Orders/OrderDetail/${product.idHash}`}>
                           <div className="view mb-5">

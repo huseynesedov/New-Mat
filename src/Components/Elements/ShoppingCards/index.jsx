@@ -3,7 +3,7 @@ import { ProductApi } from "../../../api/product.api";
 import { useAuth } from "../../../AuthContext"
 import { Space, Spin } from "antd";
 import CardItem from "../CardItem";
-const ShoppingCards = () => {
+const ShoppingCards = ({detailedId}) => {
     const [data, setData] = useState([]);
     const [count, setCount] = useState(0);
     const [page, setPage] = useState(1);
@@ -14,22 +14,40 @@ const ShoppingCards = () => {
 
     useEffect(() => {
         setLoading(true)
-        ProductApi.GetBestSeller(
-            {
-                page: page - 1,
-                pageSize: 20
-            }
-        ).then((res) => {
-            setData(res.data)
-            setCount(res.count)
-        }).catch((error)=>{
-            if (error.response.data.status === 2017) {
-                logout()
-            }
-            openNotification('Xəta baş verdi', error.response.data.message, true)
-        }).finally(() => {
-            setLoading(false)
-        })
+        if(detailedId){
+            ProductApi.GetProductGroupsById({
+                id:detailedId
+            }).then((res) => {
+                setData(res)
+                setCount(res.length)
+            }).catch((error)=>{
+                if (error.response.data.status === 2017) {
+                    logout()
+                }
+                openNotification('Xəta baş verdi', error.response.data.message, true)
+            }).finally(() => {
+                setLoading(false)
+            })
+        }
+        else{
+            ProductApi.GetBestSeller(
+                {
+                    page: page - 1,
+                    pageSize: 20
+                }
+            ).then((res) => {
+                setData(res.data)
+                setCount(res.count)
+            }).catch((error)=>{
+                if (error.response.data.status === 2017) {
+                    logout()
+                }
+                openNotification('Xəta baş verdi', error.response.data.message, true)
+            }).finally(() => {
+                setLoading(false)
+            })
+        }
+
 
     }, [page]);
 

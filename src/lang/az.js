@@ -25,9 +25,9 @@ export const az = {
         "features": "Vurğulanan Xüsusiyyətlər:",
 
         "table": {
-            "car": "Maşın Markası",
+            "car": "Avtomobil Markası",
             "manufacturer": "İstehsalçı adı",
-            "qem": "Qem No",
+            "qem": "Oem No",
             "code": "Kod",
             "name": "Ad",
             "brand": "Brend",
@@ -38,9 +38,9 @@ export const az = {
             "name": "Bənzər Məhsular"
         },
         "qem": {
-            "name": "Qem Ref",
-            "brand": "Maşın Markası",
-            "qem": "Qem No",
+            "name": "Oem Ref",
+            "brand": "Avtomobil Markası",
+            "qem": "Oem No",
         },
         "cross": {
             "name": "Cross Ref",
@@ -49,9 +49,9 @@ export const az = {
         },
         "nv": {
             "name": "Istifədə Olunan NV-Lər",
-            "car": "Maşın Modelləri",
-            "model": "Maşın Modelləri",
-            "type": "Maşın Tipləri",
+            "car": "Avtomobil Modelləri",
+            "model": "Avtomobil Modelləri",
+            "type": "Avtomobil Tipləri",
             "year": "İl",
             "engine": "Mühərrik kodu",
             "hp": "HP",

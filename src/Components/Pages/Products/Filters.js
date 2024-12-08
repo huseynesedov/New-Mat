@@ -79,14 +79,6 @@ const Filters = ({
 
         const filters = [...campaignTypeFilters, ...otherFilters];
 
-        if(searchParams.get('search')){
-            let obj = {
-                value: searchParams.get('search'),
-                fieldName: "name",
-                equalityType: "Contains"
-            }
-            filters.push(obj);
-        }
         onFilterChange(filters);
     };
 

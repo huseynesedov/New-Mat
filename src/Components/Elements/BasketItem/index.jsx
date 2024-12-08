@@ -156,7 +156,6 @@ const ReturnItems = ({ basketItems, getBasketItems, getTotalPrice, setBasketItem
 
         if (quantity === PQuantity) return;
 
-        setLoading(true);
 
         BasketApi.UpdateQuantity({ quantity: `${quantity}`, productId: encodeQueryParam(productId) })
             .then(() => {
@@ -166,9 +165,6 @@ const ReturnItems = ({ basketItems, getBasketItems, getTotalPrice, setBasketItem
             .catch(err => {
                 openNotification('Xəta baş verdi', err.response.data.message, true);
             })
-            .finally(() => {
-                setLoading(false);
-            });
     };
 
     useEffect(() => {
@@ -177,13 +173,13 @@ const ReturnItems = ({ basketItems, getBasketItems, getTotalPrice, setBasketItem
                 if (item.basketDetailStatus === 1) {
                     return item.idHash;
                 }
-                return null; 
-            }).filter(Boolean); 
+                return null;
+            }).filter(Boolean);
 
             setSelectedItems(arr);
         }
     }, [basketItems]);
-    
+
     // useEffect(() => {
     //     if (basketItems.length > 0) {
     //         let arr = basketItems.map((item) => {
@@ -204,7 +200,7 @@ const ReturnItems = ({ basketItems, getBasketItems, getTotalPrice, setBasketItem
             <Spin spinning={loading}>
                 {Object.keys(groupedData).map((category, categoryIndex) => (
                     <div className="w-100 position-relative gy-4 rounded" style={{ padding: "0rem 0rem 0.8rem 0rem" }} key={categoryIndex}>
-                        <div className="d-flex pe-3 justify-content-between ms-4 mt-3">
+                        <div className="d-flex pe-3 my-3 justify-content-between ms-4">
                             <div className={'d-flex align-items-center'}>
                                 <div className="checkbox me-2">
                                     <div key={categoryIndex}>
@@ -241,8 +237,8 @@ const ReturnItems = ({ basketItems, getBasketItems, getTotalPrice, setBasketItem
 
                         <div className="myContainer">
                             {groupedData[category].map((Data, index) => (
-                                <div className="row align-items-center rounded bg-white ms-3 mt-4 me-3" key={index}
-                                    style={{ height: "120px" }}>
+                                <div className="row align-items-center border border-1 rounded bg-white ms-3  me-3" key={index}
+                                  >
                                     <div className="col-2 d-flex justify-content-between align-items-center">
                                         <div className="ms-2 checkbox">
                                             <input

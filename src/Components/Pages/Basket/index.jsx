@@ -170,12 +170,12 @@ const Basket = () => {
                             <div style={{ height: '60vh' }} className="d-flex justify-content-center align-items-center empty-basket">Səbət boşdur</div>
                             : <div className="container-fluid d-flex justify-content-center mt-5">
                                 <div className="myRow d-flex align-items-start justify-content-between">
-                                    <div className="myContainer w-75 position-relative rounded"
+                                    <div className="myContainer background-transparent w-75 position-relative rounded"
                                         style={{ padding: "0rem 0rem 0.8rem 0rem" }}>
                                         <BasketItems basketItemStatus={basketItemStatus} setBasketItems={setBasketItems} getBasketItems={getBasketItems} getTotalPrice={getTotalPrice} basketItems={basketItems} />
                                     </div>
 
-                                    <div className="myContainer2 rounded">
+                                    <div className="myContainer2 background-transparent rounded">
                                         <div className="col ">
                                             <div className="row mt-5">
                                                 <div className="myRow2">

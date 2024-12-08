@@ -18,14 +18,14 @@ export const AuthProvider = ({ children }) => {
       notification.error({
         message,
         description,
-        placement:'topRight'
+        placement:'bottomRight'
       });
     }
     else{
       notification.info({
         message,
         description,
-        placement:'topRight'
+        placement:'bottomRight'
       });
     }
   };

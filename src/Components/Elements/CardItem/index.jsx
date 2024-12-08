@@ -50,7 +50,7 @@ const CardItem = ({ d, classes }) => {
         setIsReturnModalVisible(true);
         setLoading(true);
 
-        BasketApi.ReturnProduct({ productIdHash: 'j9tq8UB_+bM=' })
+        BasketApi.ReturnProduct({ productIdHash: d.idHash })
             .then((response) => {
                 setResponseData(response.map((r, index) => {
                     return {
@@ -259,7 +259,7 @@ const CardItem = ({ d, classes }) => {
                             </div>
                         </div>
 
-                        <div className="Returun">
+                        <div className="cursor-pointer Returun">
                             <a onClick={() => {
                                 showReturnModal()
                             }} className="text-decoration-none" >

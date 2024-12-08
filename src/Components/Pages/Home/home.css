@@ -100,6 +100,10 @@
     box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;
     position: relative;
     color: black !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    min-height:350px;
 }
 
 .ImgTitleMain {
@@ -459,4 +463,38 @@ a {
 a {
     text-decoration: none !important;
     list-style: none !important;
+}
+
+
+.basket-container {
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+
+.basket-icon svg {
+    width: 24px;
+    height: 24px;
+    transition: fill 0.3s ease;
+}
+
+.basket-container:hover .basket-icon svg path {
+    fill: #182390; /* Change icon color to black on hover */
+}
+
+.basket-text {
+    font-size: 16px;
+    color: #808080;
+    margin-top: 8px;
+    transition: color 0.3s ease;
+}
+
+.basket-container:hover .basket-text {
+    color: #182390; /* Change text color to black on hover */
+}
+
+.background-transparent{
+    background:transparent !important;
+    background-color:transparent !important;
 }

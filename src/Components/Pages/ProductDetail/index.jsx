@@ -4,7 +4,7 @@ import './detail.scss';
 import DetailElements from '../../Elements/DetailElements';
 import ShoppingCards from '../../Elements/ShoppingCards';
 import { ProductApi } from "../../../api/product.api";
-import { useParams } from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import { useAuth } from "../../../AuthContext";
 import { useTranslation } from 'react-i18next';
 import moment from "moment";
@@ -16,10 +16,18 @@ const Index = () => {
     const { t } = useTranslation()
     const { logout } = useAuth()
     const [currentPage, setCurrentPage] = useState(1);
+    const [detailData, setDetailData] = useState({});
 
     const handlePageClick = (page) => {
         setCurrentPage(page);
     };
+
+
+   const detailDataUpdate = (data) => {
+       setDetailData(data);
+   }
+
+
 
     let [loading, setLoading] = useState(true); // Default şəkil
     let [error, setError] = useState(false); // Default şəkil
@@ -126,19 +134,27 @@ const Index = () => {
 
 
 
+    useEffect(() => {
+     setTimeout(()=>{
+         console.log(detailData , 'detail')
+     } , 4000)
+    }, [detailData]);
+
+
+
 
     return (
         <>
             <div className="container-fluid d-flex justify-content-center">
                 <div className="myRow mt-4 align-items-start flex-column">
                     <p className="text-44 f-14 d-flex fb-600">
-                        {t("Product-Detail.home")}
+                        <Link className={'text-dark'} to={'/'}>{t("Product-Detail.home")}</Link>
                         <img src={chrevron_right} alt="" />
-                        Yag
+                        {detailData.name}
                         <img src={chrevron_right} alt="" />
-                        Delphi Oil
+                        {detailData.manufacturerName}
                         <img src={chrevron_right} alt="" />
-                        <span className="t-01">Shel oil 675347834</span>
+                        <span className="t-01">{detailData.description}</span>
                     </p>
                     <div className="border-bottom-line" style={{ width: '100%' }}></div>
                 </div>
@@ -155,8 +171,8 @@ const Index = () => {
                 </div>
             </div> */}
 
-            <div className="container-fluid mt-5 d-flex justify-content-center">
-                <DetailElements />
+            <div className="container-fluid my-5 d-flex justify-content-center">
+                <DetailElements  setDetailData={detailDataUpdate} />
             </div>
 
             <div className="container-fluid d-flex justify-content-center mt-5">
@@ -190,22 +206,22 @@ const Index = () => {
                 <div className="container-fluid  d-flex justify-content-center ">
                     <div className="myRow">
                         <div className="ShopingCartsCenterMain">
-                            <ShoppingCards />
+                            <ShoppingCards detailedId={idHash} />
                         </div>
                     </div>
                 </div>
             )}
 
             {currentPage === 2 && (
-                <div className="container-fluid mt-5 d-flex justify-content-center">
+                <div className="container-fluid my-5 d-flex justify-content-center">
                     <div className="myRow">
                         <table className="table MyTable  table-bordered mt-3">
                             <tbody>
                                 <tr>
                                     <th style={{ padding: "12px 27px 5px 19px" }} className='text-44'
                                         scope="col">{t("Product-Detail.qem.brand")}</th>
-                                    <th style={{ padding: "12px 27px 5px 19px" }} colSpan={2}
-                                        scope="col">{t("Product-Detail.qem.qem")}</th>
+                                    <th style={{ padding: "12px 27px 5px 19px" }}
+                                        scope="col">{t("Product-Detail.cross.oem")}</th>
                                 </tr>
                                 {oemData.map((d, i) => {
                                     return <tr key={i}>
@@ -219,7 +235,7 @@ const Index = () => {
                 </div>
             )}
             {currentPage === 3 && (
-                <div className="container-fluid mt-5 d-flex justify-content-center">
+                <div className="container-fluid my-5 d-flex justify-content-center">
                     <div className="myRow">
                         <table className="table MyTable  table-bordered mt-3">
                             <tbody>
@@ -241,7 +257,7 @@ const Index = () => {
                 </div>
             )}
             {currentPage === 4 && (
-                <div className="container-fluid mt-5 d-flex justify-content-center">
+                <div className="container-fluid my-5 d-flex justify-content-center">
                     <div className="myRow">
                         <table className="table MyTable  table-bordered mt-3">
                             <tbody>
@@ -280,7 +296,7 @@ const Index = () => {
                 </div>
             )}
             {currentPage === 5 && (
-                <div className="container-fluid mt-5 d-flex justify-content-center">
+                <div className="container-fluid my-5 d-flex justify-content-center">
                     <div className="myRow">
                         <table className="table MyTable  table-bordered mt-3">
                             <tbody>

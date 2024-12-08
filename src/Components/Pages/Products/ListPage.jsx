@@ -17,13 +17,7 @@ function Home() {
     const [data, setData] = useState([]);
     const [count, setCount] = useState(0);
     const [pageSize, setPageSize] = useState(20);
-    const [filters, setFilters] = useState([
-        {
-            value: searchParams.get('search'),
-            fieldName: "name",
-            equalityType: "Contains"
-        },
-    ]);
+    const [filters, setFilters] = useState();
     const [vehicleBrands, setVehicleBrands] = useState([]);
     const [filterData, setFilterData] = useState([]);
     const [storageData, setStorageData] = useState([]);
@@ -50,9 +44,12 @@ function Home() {
         setLoading(true)
         ProductApi.GetSearchTable(
             {
-                page: page > 0 ? page - 1 : 0,
-                pageSize,
-                filters
+                searchText:searchParams.get('search'),
+                pagingRequest:  {
+                    page: page > 0 ? page - 1 : 0,
+                        pageSize,
+                        filters,
+                }
             }
         ).then((res) => {
             setData(res.data)
@@ -166,7 +163,7 @@ function Home() {
                         <div className="">
                             <ShoppingCards loading={loading} data={data} reset={reset} setReset={setReset}/>
                         </div>
-                        <div className="d-flex  w-100 justify-content-center mt-4">
+                        <div className="d-flex w-100 justify-content-center my-4">
                             <Pagination current={page}
                                         total={count}
                                         pageSize={pageSize}

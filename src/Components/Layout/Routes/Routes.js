@@ -17,7 +17,7 @@ import Return from "../../Pages/Return";
 
 
 const RouteList = () => {
-    return <>
+    return <div style={{minHeight:'100vh'}}>
         <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/products" element={<ListPage />} />
@@ -29,7 +29,7 @@ const RouteList = () => {
             <Route path="/detail/:id" element={<Detail />} />
             <Route path="/Orders/OrderDetail/:id" element={<OrderDetail />} />
         </Routes>
-    </>
+    </div>
 }
 
 export  default  RouteList

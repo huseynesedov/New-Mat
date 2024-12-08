@@ -43,7 +43,7 @@ const BrandList = () => {
                         {list.map((s,i)=>{
                             return (
                                 <Tooltip placement={'top'} title={s.displayText}>
-                                    <div key={i} className="BrandCircle">
+                                    <div key={i} className="BrandCircle cursor-pointer">
                                         <img className="BrandImg"
                                              src={s.url}
                                              alt=""/>
