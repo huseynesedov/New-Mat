@@ -245,7 +245,7 @@ const Orders = () => {
                     <th>{t("Orders.table.date2")}</th>
                     <th style={{ textAlign: "center" }}>{t("Orders.table.status")}</th>
                     <th>{t("Orders.table.record")}</th>
-                    <th>{t("Orders.table.deliveriy")}</th>
+                    <th  style={{ textAlign: "center" , width:'150px'}}>{t("Orders.table.deliveriy")}</th>
                     <th style={{ textAlign: "center" }}>{t("Orders.table.explanation")}</th>
                     <th style={{ textAlign: "center" }}>{t("Orders.table.warehouse")}</th>
                     <th style={{ textAlign: "center" }}>{t("Orders.table.total")}</th>
