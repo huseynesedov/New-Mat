@@ -93,7 +93,7 @@ const DetailElements = ({setDetailData}) => {
                 setLoading(false)
                 setError(false)
             } catch (error) {
-                if (error.response.data.status === 2017) {
+                if (error?.response?.data?.status === 2017) {
                     logout()
                 }
                 setError(true)
