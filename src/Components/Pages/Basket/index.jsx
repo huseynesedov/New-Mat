@@ -156,7 +156,7 @@ const Basket = () => {
     return (
         <>
             <div className="container-fluid ">
-                <div className="myRow mt-5">
+                <div className="myRow w-100 mt-5">
                     <p className="text-44 f-24 fb-600">
                         {t("Basket.order")}
                     </p>
