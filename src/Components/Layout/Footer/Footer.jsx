@@ -14,7 +14,7 @@ export const Footer = () => {
 
     return (
         <>
-                <div className="footer c143 text-white">
+                <div className="footer mt-4 c143 text-white">
                     <div className="container">
                         <div className="myRow">
                             <div className="row">
