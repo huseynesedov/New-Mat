@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import './home.css'
 import { Helmet } from "react-helmet";
 import images from "../../../Assets/images/js/Images";
+import PermissionWrapper from "../../Elements/PermissionWrapper/PermissionWrapper";
 
 function Home() {
   let { foodg, elba } = images
@@ -35,7 +36,14 @@ function Home() {
             </div>
 
             <div className="">
-              <ShoppingCards />
+              <PermissionWrapper
+                  topModuleCode="$USER"
+                  subModuleCode="$PRODUCT_SUB_MODULE"
+                  pageCode="$PRODUCT"
+                  rightCode="$GET"
+              >
+                <ShoppingCards />
+              </PermissionWrapper>
             </div>
           </div>
         </div>

@@ -10,6 +10,7 @@ import moment from "moment";
 import { useTranslation } from "react-i18next";
 import { DatePicker, Button, Row, Col ,  Pagination, Spin, Input} from 'antd';
 import {useAuth} from "../../../AuthContext";
+import PermissionWrapper from "../../Elements/PermissionWrapper/PermissionWrapper";
 
 
 
@@ -169,131 +170,144 @@ const Orders = () => {
 
   return (
     <>
-      <div className="container-fluid d-flex justify-content-center mt-4">
-        <div className="myRow align-items-start flex-column">
-          <p className="text-44 f-14 d-flex fb-600">
-            <Link to={"/"}>
-              <span className="text-44">
-                {t("Global.home")}
-              </span>
-            </Link>
-            <img src={chrevron_right} alt="" />
-            <p className="t-01">
-              {t("Orders.view.order-name")}
+      <PermissionWrapper
+          topModuleCode="$USER"
+          subModuleCode="$ORDER_SUB_MODULE"
+          pageCode="$ORDER"
+          rightCode="$GET"
+      >
+        <div className="container-fluid d-flex justify-content-center mt-4">
+          <div className="myRow align-items-start flex-column">
+            <p className="text-44 f-14 d-flex fb-600">
+              <Link to={"/"}>
+                <span className="text-44">
+                  {t("Global.home")}
+                </span>
+              </Link>
+              <img src={chrevron_right} alt="" />
+              <p className="t-01">
+                {t("Orders.view.order-name")}
+              </p>
             </p>
-          </p>
-          <div className="border-bottom-line mt-4" style={{ width: '100%' }}></div>
-        </div>
-      </div>
-
-      <div className="container-fluid d-flex justify-content-center mt-4">
-        <div className="myRow mt-3">
-          <div className="mat-TwoPage">
-            {orderStatusList?.map((d, index) => {
-              return <button key={d.valueHash}
-                className={`mat-ButtonInfo me-4 fb-500 ${currentPage === d.valueHash ? 'Active' : ''}`}
-                onClick={() => handlePageClick(d.valueHash)}>
-                {d.displayText}
-              </button>
-            })}
+            <div className="border-bottom-line mt-4" style={{ width: '100%' }}></div>
           </div>
         </div>
-      </div>
 
-      <div className="container-fluid  mt-5">
-        <div className="myRow ps-5 mt-2 ms-1 align-items-start flex-column">
-          <Row gutter={16}>
-            <Col>
-              <DatePicker disabledDate={disableFromDate}  value={fromDate} onChange={(e)=>{
-                setFromDate(e)
-              }} placeholder="From Date" style={{ width: 150 }} />
-            </Col>
-            <Col>
-              <DatePicker disabledDate={disableToDate}  value={toDate} onChange={(e)=>{
-                setToDate(e)
-              }} placeholder="To Date" style={{ width: 150 }} />
-            </Col>
-            <Col>
-                <Input value={orderNumber} onChange={(e)=>{
-                  setOrderNumber(e.target.value)
-                } } placeholder="Search by order number" style={{ width: 200 }} />
-            </Col>
-            <Col>
-              <Button onClick={()=>{
-                clearFilter()
-              }} style={{ marginRight: 8 }}>Sil</Button>
-              <Button onClick={
-                () =>{
-                  getOrdersByStatus(currentPage, 0 , true)
-                }
-              } style={{background:'#182390'}} type="primary">Axtar</Button>
-            </Col>
-          </Row>
-        </div>
-      </div>
-
-
-      <div className={'w-100'}>
-        <Spin className={'w-100'} spinning={loading}>
-          <div className="container-fluid flex-column align-items-center d-flex justify-content-center">
-            <div className="myRow mt-5">
-              <Table className="OrderTable">
-                <thead>
-                  <tr>
-                    <th>{t("Orders.table.number")}</th>
-                    <th>{t("Orders.table.date")}</th>
-                    <th>{t("Orders.table.date2")}</th>
-                    <th style={{ textAlign: "center" }}>{t("Orders.table.status")}</th>
-                    <th>{t("Orders.table.record")}</th>
-                    <th  style={{ textAlign: "center" , width:'150px'}}>{t("Orders.table.deliveriy")}</th>
-                    <th style={{ textAlign: "center" }}>{t("Orders.table.explanation")}</th>
-                    <th style={{ textAlign: "center" }}>{t("Orders.table.warehouse")}</th>
-                    <th style={{ textAlign: "center" }}>{t("Orders.table.total")}</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {products?.map((product, i) => (
-                    <tr key={product.id}>
-                      <td>{product.orderNumber}</td>
-                      <td>{moment(product.createdDate).format('DD-MM-YYYY HH:MM')}</td>
-                      <td>{product.confirmDate}</td>
-                      <td style={{ textAlign: "center" }}>
-                        <ProductStatus orderStatusName={product.orderStatusName} orderStatusIdHash={product.orderStatusIdHash} />
-                      </td>
-                      <td style={{ textAlign: "center" }}>{product.note}</td>
-                      <td style={{ textAlign: "center" , width:'150px'}}>{product.shipmentNote}</td>
-                      <td style={{ textAlign: "center" }}>{product.causeOfDeletion}</td>
-                      <td style={{ textAlign: "center" }}>{product.storageCode}</td>
-                      <td style={{ textAlign: "center" }}>{product.total} {product.currencyName}</td>
-                      <td className="d-flex align-items-center">
-                        <Link className="text-decoration-none mb-5" to={`/Orders/OrderDetail/${product.idHash}`}>
-                          <div className="view mb-5">
-                            <p>{t("Orders.view.view-name")}</p>
-                          </div>
-                        </Link>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </Table>
-
-
-              <div className="d-flex  w-100 justify-content-center mt-4">
-                <Pagination current={currentDataPage}
-                  total={count}
-                  onChange={handlePageChange}
-                  pageSize={pageSize}
-                  onShowSizeChange={handlePageSizeChange}
-                  showSizeChanger={true}
-                  pageSizeOptions={[ '5', '10','20', '40', '50', '100']} // Opt
-                />
-              </div>
+        <div className="container-fluid d-flex justify-content-center mt-4">
+          <div className="myRow mt-3">
+            <div className="mat-TwoPage">
+              {orderStatusList?.map((d, index) => {
+                return <button key={d.valueHash}
+                  className={`mat-ButtonInfo me-4 fb-500 ${currentPage === d.valueHash ? 'Active' : ''}`}
+                  onClick={() => handlePageClick(d.valueHash)}>
+                  {d.displayText}
+                </button>
+              })}
             </div>
           </div>
-        </Spin>
-      </div>
+        </div>
 
+        <div className="container-fluid  mt-5">
+          <div className="myRow ps-5 mt-2 ms-1 align-items-start flex-column">
+            <Row gutter={16}>
+              <Col>
+                <DatePicker disabledDate={disableFromDate}  value={fromDate} onChange={(e)=>{
+                  setFromDate(e)
+                }} placeholder="From Date" style={{ width: 150 }} />
+              </Col>
+              <Col>
+                <DatePicker disabledDate={disableToDate}  value={toDate} onChange={(e)=>{
+                  setToDate(e)
+                }} placeholder="To Date" style={{ width: 150 }} />
+              </Col>
+              <Col>
+                  <Input value={orderNumber} onChange={(e)=>{
+                    setOrderNumber(e.target.value)
+                  } } placeholder="Search by order number" style={{ width: 200 }} />
+              </Col>
+              <Col>
+                <Button onClick={()=>{
+                  clearFilter()
+                }} style={{ marginRight: 8 }}>Sil</Button>
+                <Button onClick={
+                  () =>{
+                    getOrdersByStatus(currentPage, 0 , true)
+                  }
+                } style={{background:'#182390'}} type="primary">Axtar</Button>
+              </Col>
+            </Row>
+          </div>
+        </div>
+
+        <div className={'w-100'}>
+          <Spin className={'w-100'} spinning={loading}>
+            <div className="container-fluid flex-column align-items-center d-flex justify-content-center">
+              <div className="myRow mt-5">
+                <Table className="OrderTable">
+                  <thead>
+                    <tr>
+                      <th>{t("Orders.table.number")}</th>
+                      <th>{t("Orders.table.date")}</th>
+                      <th>{t("Orders.table.date2")}</th>
+                      <th style={{ textAlign: "center" }}>{t("Orders.table.status")}</th>
+                      <th>{t("Orders.table.record")}</th>
+                      <th  style={{ textAlign: "center" , width:'150px'}}>{t("Orders.table.deliveriy")}</th>
+                      <th style={{ textAlign: "center" }}>{t("Orders.table.explanation")}</th>
+                      <th style={{ textAlign: "center" }}>{t("Orders.table.warehouse")}</th>
+                      <th style={{ textAlign: "center" }}>{t("Orders.table.total")}</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {products?.map((product, i) => (
+                      <tr key={product.id}>
+                        <td>{product.orderNumber}</td>
+                        <td>{moment(product.createdDate).format('DD-MM-YYYY HH:MM')}</td>
+                        <td>{product.confirmDate}</td>
+                        <td style={{ textAlign: "center" }}>
+                          <ProductStatus orderStatusName={product.orderStatusName} orderStatusIdHash={product.orderStatusIdHash} />
+                        </td>
+                        <td style={{ textAlign: "center" }}>{product.note}</td>
+                        <td style={{ textAlign: "center" , width:'150px'}}>{product.shipmentNote}</td>
+                        <td style={{ textAlign: "center" }}>{product.causeOfDeletion}</td>
+                        <td style={{ textAlign: "center" }}>{product.storageCode}</td>
+                        <td style={{ textAlign: "center" }}>{product.total} {product.currencyName}</td>
+                        <PermissionWrapper
+                            topModuleCode="$USER"
+                            subModuleCode="$ORDER_SUB_MODULE"
+                            pageCode="$ORDER_DETAIL"
+                            rightCode="$GET"
+                        >
+                          <td className="d-flex align-items-center">
+                            <Link className="text-decoration-none mb-5" to={`/Orders/OrderDetail/${product.idHash}`}>
+                              <div className="view mb-5">
+                                <p>{t("Orders.view.view-name")}</p>
+                              </div>
+                            </Link>
+                          </td>
+                        </PermissionWrapper>
+                      </tr>
+                    ))}
+                  </tbody>
+                </Table>
+
+
+                <div className="d-flex  w-100 justify-content-center mt-4">
+                  <Pagination current={currentDataPage}
+                    total={count}
+                    onChange={handlePageChange}
+                    pageSize={pageSize}
+                    onShowSizeChange={handlePageSizeChange}
+                    showSizeChanger={true}
+                    pageSizeOptions={[ '5', '10','20', '40', '50', '100']} // Opt
+                  />
+                </div>
+              </div>
+            </div>
+          </Spin>
+        </div>
+
+      </PermissionWrapper>
     </>
   )
     ;
